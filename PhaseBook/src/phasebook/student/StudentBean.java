@@ -25,7 +25,7 @@ public class StudentBean implements StudentRemote {
 		EntityTransaction tx = em.getTransaction();
 		
     	tx.begin();
-    	Student student = new Student(name, phone);
+    	Student student = new Student(name);
 		em.persist(student);
 		tx.commit();
 		System.out.println(name);

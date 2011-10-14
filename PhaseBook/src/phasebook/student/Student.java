@@ -24,6 +24,12 @@ private static final long serialVersionUID = 1L;
 		this.phone = phone;
 	}
 	
+	public Student(String name)
+	{
+		super();
+		this.name = name;
+	}
+	
 	public int getId()
 	{
 		return id;
