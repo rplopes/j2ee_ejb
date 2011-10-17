@@ -18,8 +18,6 @@ public class Friendship implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-	
-	@Column(name="FRIENDSHIP_ID")
 	private int id;
 	
 	@Column(name="HOST_PHASEBOOK_USER_ID")
@@ -28,9 +26,9 @@ public class Friendship implements Serializable {
 	private PhasebookUser invitedUser;
 	private boolean accepted_;
 	@Column(name="CREATED_AT")
-	private Date creationDate;
+	private Date createdAt;
 	@Column(name="DELETED_AT")
-	private Date deletionDate;
+	private Date deletedAt;
 	
 	
 	protected Friendship()
@@ -55,52 +53,53 @@ public class Friendship implements Serializable {
 		return id;
 	}
 
-	protected void setID(int id) {
+	protected void setId(int id) {
 		this.id = id;
 	}
 
-	protected boolean isAccepted() {
-		return accepted_;
-	}
-
-	protected void setAccepted(boolean accepted) {
-		this.accepted_ = accepted;
-	}
-
-	protected Date getCreationDate() {
-		return creationDate;
-	}
-
-	protected void setCreationDate(Date creationDate) {
-		this.creationDate = creationDate;
-	}
-
-	protected Date getDeletionDate() {
-		return deletionDate;
-	}
-
-	protected void setDeletionDate(Date deletionDate) {
-		this.deletionDate = deletionDate;
-	}
-	
-	protected void deleteFriendship() {
-		this.deletionDate=getCurrentTime();
-	}
-
-	protected PhasebookUser getInviterUser() {
+	protected PhasebookUser getHostUser() {
 		return hostUser;
 	}
 
-	protected void setInviterUser(PhasebookUser inviterUser) {
-		this.hostUser = inviterUser;
+	protected void setHostUser(PhasebookUser hostUser) {
+		this.hostUser = hostUser;
 	}
 
-	protected PhasebookUser getInveteeUser() {
+	protected PhasebookUser getInvitedUser() {
 		return invitedUser;
 	}
 
-	protected void setInveteeUser(PhasebookUser inveteeUser) {
-		this.invitedUser = inveteeUser;
+	protected void setInvitedUser(PhasebookUser invitedUser) {
+		this.invitedUser = invitedUser;
+	}
+
+	protected boolean isAccepted_() {
+		return accepted_;
+	}
+
+	protected void setAccepted_(boolean accepted_) {
+		this.accepted_ = accepted_;
+	}
+
+	protected Date getCreatedAt() {
+		return createdAt;
+	}
+
+	protected void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	protected Date getDeletedAt() {
+		return deletedAt;
+	}
+
+	protected void setDeletedAt(Date deletedAt) {
+		this.deletedAt = deletedAt;
+	}
+
+	protected void deleteFriendship()
+	{
+		this.deletedAt=getCurrentTime();
 	}
 	
 	
