@@ -4,14 +4,15 @@ import java.sql.Date;
 import javax.annotation.Generated;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
+import phasebook.user.PhasebookUser;
 
-@Generated(value="Dali", date="2011-10-17T17:30:30.119+0100")
+@Generated(value="Dali", date="2011-10-17T22:27:12.907+0100")
 @StaticMetamodel(Friendship.class)
 public class Friendship_ {
-	public static volatile SingularAttribute<Friendship, Integer> inviterUserID;
-	public static volatile SingularAttribute<Friendship, Integer> inveteeUserID;
 	public static volatile SingularAttribute<Friendship, Date> creationDate;
+	public static volatile SingularAttribute<Friendship, Integer> id;
+	public static volatile SingularAttribute<Friendship, PhasebookUser> hostUser;
+	public static volatile SingularAttribute<Friendship, Boolean> accepted_;
+	public static volatile SingularAttribute<Friendship, PhasebookUser> invitedUser;
 	public static volatile SingularAttribute<Friendship, Date> deletionDate;
-	public static volatile SingularAttribute<Friendship, Boolean> accepted;
-	public static volatile SingularAttribute<Friendship, Integer> ID;
 }

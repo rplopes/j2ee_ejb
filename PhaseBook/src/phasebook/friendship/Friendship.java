@@ -4,22 +4,33 @@ import java.io.Serializable;
 import java.sql.Date;
 import java.util.Calendar;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
+import phasebook.user.PhasebookUser;
 
 @Entity
 public class Friendship implements Serializable {	
 	
 	private static final long serialVersionUID = 1L;
 	
-	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)	
-			
+	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	
-	private int ID, inviterUserID, inveteeUserID;
-	private boolean accepted;
-	private Date creationDate, deletionDate;
+	@Column(name="FRIENDSHIP_ID")
+	private int id;
+	
+	@Column(name="HOST_PHASEBOOK_USER_ID")
+	private PhasebookUser hostUser;
+	@Column(name="INVITED_PHASEBOOK_USER_ID")
+	private PhasebookUser invitedUser;
+	private boolean accepted_;
+	@Column(name="CREATED_AT")
+	private Date creationDate;
+	@Column(name="DELETED_AT")
+	private Date deletionDate;
 	
 	
 	protected Friendship()
@@ -27,11 +38,11 @@ public class Friendship implements Serializable {
 		super();
 	}
 	
-	protected Friendship(int inviterUserID, int inveteeUserID) 
+	protected Friendship(PhasebookUser inviterUser, PhasebookUser inveteeUser) 
 	{
 		super();
-		this.inviterUserID = inviterUserID;
-		this.inveteeUserID = inveteeUserID;
+		this.hostUser = inviterUser;
+		this.invitedUser = inveteeUser;
 	}
 	
 	private Date getCurrentTime()
@@ -40,36 +51,20 @@ public class Friendship implements Serializable {
 		return new Date((currenttime.getTime()).getTime());
 	}
 
-	protected int getID() {
-		return ID;
+	protected int getId() {
+		return id;
 	}
 
-	protected void setID(int iD) {
-		ID = iD;
-	}
-
-	protected int getInviterUserID() {
-		return inviterUserID;
-	}
-
-	protected void setInviterUserID(int inviterUserID) {
-		this.inviterUserID = inviterUserID;
-	}
-
-	protected int getInveteeUserID() {
-		return inveteeUserID;
-	}
-
-	protected void setInveteeUserID(int inveteeUserID) {
-		this.inveteeUserID = inveteeUserID;
+	protected void setID(int id) {
+		this.id = id;
 	}
 
 	protected boolean isAccepted() {
-		return accepted;
+		return accepted_;
 	}
 
 	protected void setAccepted(boolean accepted) {
-		this.accepted = accepted;
+		this.accepted_ = accepted;
 	}
 
 	protected Date getCreationDate() {
@@ -91,5 +86,22 @@ public class Friendship implements Serializable {
 	protected void deleteFriendship() {
 		this.deletionDate=getCurrentTime();
 	}
+
+	protected PhasebookUser getInviterUser() {
+		return hostUser;
+	}
+
+	protected void setInviterUser(PhasebookUser inviterUser) {
+		this.hostUser = inviterUser;
+	}
+
+	protected PhasebookUser getInveteeUser() {
+		return invitedUser;
+	}
+
+	protected void setInveteeUser(PhasebookUser inveteeUser) {
+		this.invitedUser = inveteeUser;
+	}
+	
 	
 }

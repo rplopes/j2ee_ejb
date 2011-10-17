@@ -1,4 +1,4 @@
-package phasebook.student;
+package phasebook.user;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -8,28 +8,27 @@ import javax.persistence.Persistence;
 
 
 /**
- * Session Bean implementation class StudentBean
+ * Session Bean implementation class PhasebookUserBean
  */
 @Stateless
-public class StudentBean implements StudentRemote {
+public class PhasebookUserBean implements PhasebookUserRemote {
 
     /**
      * Default constructor. 
      */
-    public StudentBean() {
+    public PhasebookUserBean() {
     }
 
-	public String showName(String name, String phone) {
+	public String showName(String name, String email, String password) {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PhaseBook");
 		EntityManager em = emf.createEntityManager();
 		EntityTransaction tx = em.getTransaction();
 		
     	tx.begin();
-    	Student student = new Student(name);
-		em.persist(student);
+    	PhasebookUser user = new PhasebookUser(name, email, password);
+		em.persist(user);
 		tx.commit();
 		System.out.println(name);
 		return name;
 	}
-
 }
