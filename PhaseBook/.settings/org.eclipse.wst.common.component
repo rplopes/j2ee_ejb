@@ -3,6 +3,6 @@
     <wb-module deploy-name="PhaseBook">
         <wb-resource deploy-path="/" source-path="/ejbModule" tag="defaultRootSource"/>
         <wb-resource deploy-path="/" source-path="/src"/>
-        <property name="java-output-path" value="/PhaseBook/build/classes"/>
+        <property name="java-output-path" value="/PhaseBook/bin"/>
     </wb-module>
 </project-modules>
