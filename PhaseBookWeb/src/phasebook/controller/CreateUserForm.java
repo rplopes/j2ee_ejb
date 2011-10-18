@@ -20,23 +20,22 @@ public class CreateUserForm extends HttpServlet {
     /**
      * Default constructor. 
      */
-    public CreateUserForm() {
-        // TODO Auto-generated constructor stub
-    }
+    public CreateUserForm() {}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-	}
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException
+	{
 		InitialContext ctx = null;
+		HttpSession session = request.getSession();
 		try {
 			ctx = new InitialContext();
 			PhasebookUserRemote user;
@@ -45,12 +44,14 @@ public class CreateUserForm extends HttpServlet {
 			String name = request.getParameter("name");
 			String email = request.getParameter("email");
 			String password1 = request.getParameter("password1");
-			String password2 = request.getParameter("password1");
+			String password2 = request.getParameter("password2");
 			
 			String error = formValidation(name, email, password1, password2);
 			if (error != null)
 			{
-				System.out.println(error);
+				session.setAttribute("error", error);
+				session.setAttribute("name", name);
+				session.setAttribute("email", email);
 				response.sendRedirect(Utils.url("register"));
 			}
 			else
@@ -62,6 +63,7 @@ public class CreateUserForm extends HttpServlet {
 			}
 		} catch (NamingException e) {
 			e.printStackTrace();
+			session.setAttribute("error", "The submited data is incorrect");
 			response.sendRedirect(Utils.url("register"));
 		}
 		
