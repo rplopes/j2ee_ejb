@@ -1,0 +1,43 @@
+package phasebook.friendship;
+
+import java.io.Serializable;
+import java.sql.Date;
+import java.util.Calendar;
+
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+public class Friendship implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
+	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int ID, inviterUserID, inveteeUserID;
+	private boolean accepted;
+	private Date creationDate, deletionDate;
+	
+	
+	protected Friendship()
+	{
+		super();
+	}
+	
+	protected Friendship(int inviterUserID, int inveteeUserID) 
+	{
+		super();
+		this.inviterUserID = inviterUserID;
+		this.inveteeUserID = inveteeUserID;
+	}
+	
+	protected void setCurrentTime()
+	{
+		this.isAccepted=false;
+		
+		//Get current time
+		Calendar currenttime = Calendar.getInstance();
+		this.creationDate = new Date((currenttime.getTime()).getTime());
+	}
+	
+	
+	
+}
