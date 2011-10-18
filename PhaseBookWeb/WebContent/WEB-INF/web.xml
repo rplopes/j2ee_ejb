@@ -19,4 +19,14 @@
     <servlet-name>CreateUserForm</servlet-name>
     <url-pattern>/CreateUserForm</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>LoginUserForm</display-name>
+    <servlet-name>LoginUserForm</servlet-name>
+    <servlet-class>phasebook.controller.LoginUserForm</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LoginUserForm</servlet-name>
+    <url-pattern>/LoginUserForm</url-pattern>
+  </servlet-mapping>
 </web-app>

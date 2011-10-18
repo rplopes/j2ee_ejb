@@ -26,6 +26,12 @@
 		title = "Register page";
 		url   = "register.jsp";
 	}
+	
+	else if (p.compareTo("login") == 0)
+	{
+		title = "Login page";
+		url   = "login.jsp";
+	}
 	// Default returns the index page
 	else
 	{
