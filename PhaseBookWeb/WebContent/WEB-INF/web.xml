@@ -9,4 +9,14 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  <servlet>
+    <description></description>
+    <display-name>CreateUserForm</display-name>
+    <servlet-name>CreateUserForm</servlet-name>
+    <servlet-class>phasebook.controller.CreateUserForm</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CreateUserForm</servlet-name>
+    <url-pattern>/CreateUserForm</url-pattern>
+  </servlet-mapping>
 </web-app>

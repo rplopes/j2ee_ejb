@@ -10,21 +10,27 @@
 	*/
 	
 	String title = "PhaseBook";
-	String url = "teste.jsp";
-	String p = request.getParameter("p");
+	String url   = "teste.jsp";
+	String p     = request.getParameter("p");
 	if (p == null)
 		p = "";
 	
 	if (p.compareTo("ola") == 0)
 	{
 		title = "Olá";
-		url = "ola.jsp";
+		url   = "ola.jsp";
+	}
+	
+	else if (p.compareTo("register") == 0)
+	{
+		title = "Register page";
+		url   = "register.jsp";
 	}
 	// Default returns the index page
 	else
 	{
 		title = "Teste";
-		url = "teste.jsp";
+		url   = "teste.jsp";
 	}
 
 %>
