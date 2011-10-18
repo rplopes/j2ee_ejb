@@ -11,10 +11,18 @@ public class PhasebookUser implements Serializable {
 private static final long serialVersionUID = 1L;
 	
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int phasebook_user_id;
+	
+	@Column(name="PHASEBOOK_USER_ID")
+	private int id;
+	
 	private String name, email, password;
 	private float money;
-	private Date created_at, deleted_at;
+	
+	@Column(name="CREATED_AT")
+	private Date createdAt;
+	
+	@Column(name="DELETED_AT")
+	private Date deletedAt;
 	
 	public PhasebookUser()
 	{
@@ -41,15 +49,15 @@ private static final long serialVersionUID = 1L;
 	@Override
 	public String toString()
 	{
-		return "[" + this.phasebook_user_id + "] " + this.name + ": " + this.email + ", " + this.password;
-	}
-	
-	public int getPhasebook_user_id() {
-		return phasebook_user_id;
+		return "[" + this.id + "] " + this.name + ": " + this.email + ", " + this.password;
 	}
 
-	public void setPhasebook_user_id(int phasebook_user_id) {
-		this.phasebook_user_id = phasebook_user_id;
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getName() {
@@ -84,20 +92,23 @@ private static final long serialVersionUID = 1L;
 		this.money = money;
 	}
 
-	public Date getCreated_at() {
-		return created_at;
+	public Date getCreatedAt() {
+		return createdAt;
 	}
 
-	public void setCreated_at(Date created_at) {
-		this.created_at = created_at;
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
 	}
 
-	public Date getDeleted_at() {
-		return deleted_at;
+	public Date getDeletedAt() {
+		return deletedAt;
 	}
 
-	public void setDeleted_at(Date deleted_at) {
-		this.deleted_at = deleted_at;
+	public void setDeletedAt(Date deletedAt) {
+		this.deletedAt = deletedAt;
 	}
-	
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 }

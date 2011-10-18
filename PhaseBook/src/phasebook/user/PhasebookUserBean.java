@@ -31,4 +31,16 @@ public class PhasebookUserBean implements PhasebookUserRemote {
 		System.out.println(name);
 		return name;
 	}
+	
+	public boolean create(String name, String email, String password) {
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PhaseBook");
+		EntityManager em = emf.createEntityManager();
+		EntityTransaction tx = em.getTransaction();
+		
+		tx.begin();
+    	PhasebookUser user = new PhasebookUser(name, email, password);
+		em.persist(user);
+		tx.commit();
+		return true;
+	}
 }
