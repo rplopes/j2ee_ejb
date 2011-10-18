@@ -1,0 +1,9 @@
+package phasebook.oldlotterybet;
+
+import javax.annotation.Generated;
+import javax.persistence.metamodel.StaticMetamodel;
+
+@Generated(value="Dali", date="2011-10-18T00:24:46.184+0100")
+@StaticMetamodel(OldLotteryBet.class)
+public class OldLotteryBet_ {
+}

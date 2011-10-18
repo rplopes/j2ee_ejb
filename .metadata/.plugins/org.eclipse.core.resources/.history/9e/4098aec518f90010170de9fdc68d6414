@@ -1,0 +1,33 @@
+package phasebook.oldlotterybet;
+
+import java.io.Serializable;
+import java.sql.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+import phasebook.user.PhasebookUser;
+
+
+@Entity
+public class OldLotteryBet implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+	
+	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+	@Column(name="PHASEBOOK_USER_ID")
+	private PhasebookUser user;
+	@Column(name="LOTTERY_ID")
+	private int lotteryId;
+	@Column(name="VALUE_WON")
+	private float valueWon;
+	@Column(name="BET_NUMBER")
+	private int betNumber;
+	@Column(name="CREATED_AT")
+	private Date createdAT;
+	
+}

@@ -1,0 +1,14 @@
+package phasebook.message;
+
+import javax.annotation.Generated;
+import javax.persistence.metamodel.SingularAttribute;
+import javax.persistence.metamodel.StaticMetamodel;
+import phasebook.post.Post_;
+import phasebook.user.PhasebookUser;
+
+@Generated(value="Dali", date="2011-10-18T00:43:28.947+0100")
+@StaticMetamodel(Message.class)
+public class Message_ extends Post_ {
+	public static volatile SingularAttribute<Message, PhasebookUser> id;
+	public static volatile SingularAttribute<Message, PhasebookUser> text;
+}

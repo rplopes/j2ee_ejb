@@ -1,0 +1,10 @@
+package phasebook.post.photo;
+
+import javax.annotation.Generated;
+import javax.persistence.metamodel.StaticMetamodel;
+import phasebook.post.Post_;
+
+@Generated(value="Dali", date="2011-10-18T00:48:29.395+0100")
+@StaticMetamodel(Photo.class)
+public class Photo_ extends Post_ {
+}

@@ -1,0 +1,18 @@
+package phasebook.oldlotterybet;
+
+import java.sql.Date;
+import javax.annotation.Generated;
+import javax.persistence.metamodel.SingularAttribute;
+import javax.persistence.metamodel.StaticMetamodel;
+import phasebook.user.PhasebookUser;
+
+@Generated(value="Dali", date="2011-10-18T00:35:40.615+0100")
+@StaticMetamodel(OldLotteryBet.class)
+public class OldLotteryBet_ {
+	public static volatile SingularAttribute<OldLotteryBet, Integer> id;
+	public static volatile SingularAttribute<OldLotteryBet, Integer> betNumber;
+	public static volatile SingularAttribute<OldLotteryBet, Date> createdAT;
+	public static volatile SingularAttribute<OldLotteryBet, Integer> lotteryId;
+	public static volatile SingularAttribute<OldLotteryBet, PhasebookUser> user;
+	public static volatile SingularAttribute<OldLotteryBet, Float> valueWon;
+}

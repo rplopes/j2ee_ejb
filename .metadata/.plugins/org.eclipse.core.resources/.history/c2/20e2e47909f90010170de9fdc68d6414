@@ -1,0 +1,8 @@
+package phasebook.lottery;
+
+import javax.persistence.Entity;
+
+@Entity
+public class Lottery {
+
+}

@@ -1,0 +1,5 @@
+package phasebook.message;
+
+public class MessageBean {
+
+}

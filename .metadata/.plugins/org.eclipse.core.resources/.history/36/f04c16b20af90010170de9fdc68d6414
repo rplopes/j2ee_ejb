@@ -1,0 +1,12 @@
+package phasebook.lotterybet;
+
+import javax.annotation.Generated;
+import javax.persistence.metamodel.SingularAttribute;
+import javax.persistence.metamodel.StaticMetamodel;
+
+@Generated(value="Dali", date="2011-10-17T22:54:25.326+0100")
+@StaticMetamodel(LotteryBet.class)
+public class LotteryBet_ {
+	public static volatile SingularAttribute<LotteryBet, Integer> id;
+	public static volatile SingularAttribute<LotteryBet, Integer> lotteryId;
+}

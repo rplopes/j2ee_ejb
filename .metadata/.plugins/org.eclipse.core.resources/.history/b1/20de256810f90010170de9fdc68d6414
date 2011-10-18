@@ -1,0 +1,32 @@
+package phasebook.post;
+
+import java.io.Serializable;
+import java.sql.Date;
+
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+import phasebook.user.PhasebookUser;
+
+public class Post implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+	
+	
+	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+	@Column(name="FROM_USER")
+	private PhasebookUser fromUser;
+	@Column(name="TO_USER")
+	private PhasebookUser toUser;
+	@Column(name="PRIVATE_")
+	private Date private_;
+	@Column(name="READ_")
+	private Date read_;
+	@Column(name="CREATED_AT")
+	private Date createdAt;
+	@Column(name="DELETED_AT")
+	private Date deletedAt;
+}
