@@ -17,98 +17,95 @@ import phasebook.user.PhasebookUserRemote;
 public class CreateUserForm extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    /**
-     * Default constructor. 
-     */
-    public CreateUserForm() {
-        // TODO Auto-generated constructor stub
-    }
-
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * Default constructor.
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+	public CreateUserForm() {
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		InitialContext ctx = null;
+		HttpSession session = request.getSession();
 		try {
 			ctx = new InitialContext();
 			PhasebookUserRemote user;
 			user = (PhasebookUserRemote) ctx.lookup("PhasebookUserBean/remote");
-			
+
 			String name = request.getParameter("name");
 			String email = request.getParameter("email");
 			String password1 = request.getParameter("password1");
-			String password2 = request.getParameter("password1");
-			
+			String password2 = request.getParameter("password2");
+
 			String error = formValidation(name, email, password1, password2);
-			if (error != null)
-			{
-				System.out.println(error);
+			if (error != null) {
+				session.setAttribute("error", error);
+				session.setAttribute("name", name);
+				session.setAttribute("email", email);
 				response.sendRedirect(Utils.url("register"));
-			}
-			else
-			{
-				password1 = byteArrayToHexString(computeHash(password1 + "salt" + email));
-				
-				user.create(name, email, password1);
-				response.sendRedirect(Utils.url("ola"));
+			} else {
+				password1 = byteArrayToHexString(computeHash(password1 + "salt"
+						+ email));
+
+				int id = user.create(name, email, password1);
+				session.setAttribute("id", id);
+				response.sendRedirect(Utils.url(""));
 			}
 		} catch (NamingException e) {
 			e.printStackTrace();
+			session.setAttribute("error", "The submited data is incorrect");
 			response.sendRedirect(Utils.url("register"));
 		}
-		
+
 	}
-	
-	private String formValidation(String name, String email, String password1, String password2)
-	{
+
+	private String formValidation(String name, String email, String password1,
+			String password2) {
 		// Name can't be blank
-		if (name == null || name.length() == 0)
-		{
+		if (name == null || name.length() == 0) {
 			return "You must specify your name";
 		}
-		
+
 		// Email can't be blank
-		if (email == null || email.length() == 0)
-		{
+		if (email == null || email.length() == 0) {
 			return "You must specify your email";
 		}
-		
+
 		// Email must be valid
 		Pattern p = Pattern.compile(".+@.+\\.[a-z]+");
 		Matcher m = p.matcher(email);
-		if (!m.matches())
-		{
+		if (!m.matches()) {
 			return "You must specify a valid email";
 		}
-		
+
 		// Password can't be blank
-		if (password1 == null || password1.length() == 0)
-		{
+		if (password1 == null || password1.length() == 0) {
 			return "You must have a password";
 		}
-		
+
 		// Passwords must match
-		if (password2 == null || password1.compareTo(password2) != 0)
-		{
+		if (password2 == null || password1.compareTo(password2) != 0) {
 			return "The passwords do not match";
 		}
-		
+
 		return null;
 	}
-	
-	private String byteArrayToHexString(byte[] b)
-	{
+
+	private String byteArrayToHexString(byte[] b) {
 		StringBuffer sb = new StringBuffer(b.length * 2);
-		for (int i=0; i<b.length; i++)
-		{
+		for (int i = 0; i < b.length; i++) {
 			int v = b[i] & 0xff;
 			if (v < 16)
 				sb.append('0');
@@ -116,9 +113,8 @@ public class CreateUserForm extends HttpServlet {
 		}
 		return sb.toString().toUpperCase();
 	}
-	
-	private byte[] computeHash(String x)
-	{
+
+	private byte[] computeHash(String x) {
 		java.security.MessageDigest d = null;
 		try {
 			d = java.security.MessageDigest.getInstance("SHA-1");

@@ -1,0 +1,17 @@
+body {
+	margin: 0;
+	padding: 0;
+	background: #E7EBF2;
+	color: black;
+}
+
+/*
+	Header
+*/
+#header {
+	width: 100%;
+	height: 40px;
+	background: #133783;
+	color: white;
+	border-bottom: 1px solid #333;
+}

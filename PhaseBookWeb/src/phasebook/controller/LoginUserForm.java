@@ -37,6 +37,7 @@ public class LoginUserForm extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		InitialContext ctx = null;
+		HttpSession session = request.getSession();
 		try {
 			ctx = new InitialContext();
 			PhasebookUserRemote user;
@@ -56,8 +57,10 @@ public class LoginUserForm extends HttpServlet {
 				password = byteArrayToHexString(computeHash(password + "salt" + email));
 				
 				int id = user.login(email, password);
-				if(id!=-1)
-					response.sendRedirect(Utils.url("ola"));
+				if(id!=-1){
+					session.setAttribute("id", id);
+					response.sendRedirect(Utils.url(""));
+				}
 				else
 					response.sendRedirect(Utils.url("login"));
 			}

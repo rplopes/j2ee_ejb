@@ -33,7 +33,7 @@ public class PhasebookUserBean implements PhasebookUserRemote {
 		return name;
 	}
 	
-	public boolean create(String name, String email, String password) {
+	public int create(String name, String email, String password) {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PhaseBook");
 		EntityManager em = emf.createEntityManager();
 		EntityTransaction tx = em.getTransaction();
@@ -42,7 +42,7 @@ public class PhasebookUserBean implements PhasebookUserRemote {
     	PhasebookUser user = new PhasebookUser(name, email, password);
 		em.persist(user);
 		tx.commit();
-		return true;
+		return user.getId();
 	}
 	
 	public int login(String email, String password) {
@@ -59,6 +59,18 @@ public class PhasebookUserBean implements PhasebookUserRemote {
 		} catch(Exception ex){
 			return -1;
 		}
-
+	}
+	
+	public PhasebookUser getUserById(Object id){
+		int userId = Integer.parseInt(id.toString());
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PhaseBook");
+		EntityManager em = emf.createEntityManager();
+		
+		try {
+			PhasebookUser user = em.find(PhasebookUser.class, userId);
+			return user;
+		} catch(Exception ex){
+			return null;
+		}
 	}
 }
