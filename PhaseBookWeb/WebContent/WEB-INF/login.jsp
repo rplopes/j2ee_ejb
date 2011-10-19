@@ -16,9 +16,13 @@
 			<td><input type="password" name="password"></td>
 		</tr>
 		<tr>
+			<td></td>
 			<td><input type="submit" value="Login" name="B1"></td>
-			<td>Don't have an account yet? <%= Utils.a("register", "Register") %> for free</td>
 		</tr>
 	</table>
 	
 </form>
+
+<p class="tip">
+	Don't have an account yet? <%= Utils.a("register", "Register") %> for free
+</p>

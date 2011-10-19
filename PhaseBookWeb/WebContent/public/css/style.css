@@ -1,7 +1,7 @@
 body {
 	margin: 0;
 	padding: 0;
-	background: white;
+	background: #E7EBF2;
 	text-align: center;
 }
 
@@ -9,6 +9,11 @@ body, table, td, input {
 	color: black;
 	font-family: Arial;
 	font-size: 100%;
+}
+
+h1 {
+	font-size: 120%;
+	color: #333;
 }
 
 /*
@@ -41,9 +46,16 @@ body, table, td, input {
 */
 #container {
 	width: 800px;
-	margin: 0 auto 0 auto;
-	padding: 0;
+	margin: 20px auto 0 auto;
+	padding: 10px;
 	text-align: left;
+	background: white;
+	border: 1px solid #C4CDE0;
+	-moz-border-radius: 8px;
+	border-radius: 8px;
+	-moz-box-shadow: 2px 1px 5px #C4CDE0;
+	-webkit-box-shadow: 2px 1px 5px #C4CDE0;
+	box-shadow: 2px 1px 5px #C4CDE0;
 }
 
 /*
@@ -56,14 +68,18 @@ input[type="text"], input[type="password"] {
 }
 
 input[type="button"], input[type="submit"] {
-	padding: 4px 6px 4px 6px;
+	padding: 5px 7px 5px 7px;
 	border: 1px solid #001561;
 	background: #133783;
 	color: white;
-	font-size: 90%;
 	font-weight: bold;
 }
 
 td {
 	padding: 5px;
+}
+
+.tip {
+	font-size: 90%;
+	color: #333;
 }
