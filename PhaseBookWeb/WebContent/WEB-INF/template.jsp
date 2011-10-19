@@ -1,3 +1,5 @@
+<%@ page import="phasebook.controller.*" %>
+
 <%
 	String title = session.getAttribute("title").toString();
 	session.removeAttribute("title");
@@ -14,8 +16,12 @@
 </head>
 <body>
 	<div id="header">
-		PhaseBook
+		<div id="headercontainer">
+			<%= Utils.a("", "Phasebook") %>
+		</div>
 	</div>
-	<% pageContext.include("/WEB-INF/" + url); %>
+	<div id="container">
+		<% pageContext.include("/WEB-INF/" + url); %>
+	</div>
 </body>
 </html>

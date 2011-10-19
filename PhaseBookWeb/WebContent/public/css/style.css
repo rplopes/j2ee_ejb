@@ -1,8 +1,14 @@
 body {
 	margin: 0;
 	padding: 0;
-	background: #E7EBF2;
+	background: white;
+	text-align: center;
+}
+
+body, table, td, input {
 	color: black;
+	font-family: Arial;
+	font-size: 100%;
 }
 
 /*
@@ -14,4 +20,50 @@ body {
 	background: #133783;
 	color: white;
 	border-bottom: 1px solid #333;
+	font-size: 25px;
+}
+
+#headercontainer {
+	width: 800px;
+	margin: 0 auto 0 auto;
+	padding-top: 6px;
+	text-align: left;
+}
+
+#header a {
+	font-weight: bold;
+	color: white;
+	text-decoration: none;
+}
+
+/*
+	Container
+*/
+#container {
+	width: 800px;
+	margin: 0 auto 0 auto;
+	padding: 0;
+	text-align: left;
+}
+
+/*
+	Content
+*/
+input[type="text"], input[type="password"] {
+	padding: 5px;
+	border: 1px solid black;
+	color: #333;
+}
+
+input[type="button"], input[type="submit"] {
+	padding: 4px 6px 4px 6px;
+	border: 1px solid #001561;
+	background: #133783;
+	color: white;
+	font-size: 90%;
+	font-weight: bold;
+}
+
+td {
+	padding: 5px;
 }

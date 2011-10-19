@@ -10,6 +10,8 @@ public class Utils {
 	// Creates a link to a URL in HTML
 	public static String a(String url, String text)
 	{
+		if (url.length() == 0)
+			return "<a href='/PhaseBookWeb'>" + text + "</a>";
 		return "<a href='?p=" + url + "'>" + text + "</a>";
 	}
 	
