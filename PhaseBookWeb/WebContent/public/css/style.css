@@ -12,8 +12,8 @@ body, table, td, input {
 }
 
 h1 {
-	font-size: 120%;
-	color: #333;
+	font-size: 130%;
+	color: #444;
 }
 
 /*
@@ -62,9 +62,9 @@ h1 {
 	Content
 */
 input[type="text"], input[type="password"] {
-	padding: 5px;
+	padding: 6px;
 	border: 1px solid black;
-	color: #333;
+	color: #444;
 }
 
 input[type="button"], input[type="submit"] {
@@ -75,11 +75,22 @@ input[type="button"], input[type="submit"] {
 	font-weight: bold;
 }
 
+table {
+	text-align: center;
+	margin: 10px auto 10px auto;
+}
+
 td {
 	padding: 5px;
+	text-align: left;
+}
+
+td.label {
+	text-align: right;
+	color: #444;
 }
 
 .tip {
 	font-size: 90%;
-	color: #333;
+	color: #444;
 }

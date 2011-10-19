@@ -2,6 +2,8 @@
 <%@ page import="javax.naming.*" %>
 <%@ page import="phasebook.user.*" %>
 
+<h1>Register</h1>
+
 <%
 	String name = "";
 	String email = "";
@@ -26,17 +28,32 @@
 %>
 
 <form method="POST" action="CreateUserForm">
-<p><font color="#800000" size="5">
-Name:</font><input type="text" name="name" value="<%= name %>" size="20"></p>
 
-<p><font color="#800000" size="5">
-E-mail:</font><input type="text" name="email" value="<%= email %>" size="20"></p>
-
-<p><font color="#800000" size="5">
-Password:</font><input type="password" name="password1" size="20"></p>
-
-<p><font color="#800000" size="5">
-Repeat password:</font><input type="password" name="password2" size="20"></p>
-
-<p><input type="submit" value="Submit" name="B1"></p>
+	<table>
+		<tr>
+			<td class="label">Name</td>
+			<td class="label"><input type="text" name="name" value="<%= name %>"></td>
+		</tr>
+		<tr>
+			<td class="label">Email</td>
+			<td><input type="text" name="email" value="<%= email %>"></td>
+		</tr>
+		<tr>
+			<td class="label">Password</td>
+			<td><input type="password" name="password1"></td>
+		</tr>
+		<tr>
+			<td class="label">Repeat password</td>
+			<td><input type="password" name="password2"></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td><input type="submit" value="Register" name="B1"></td>
+		</tr>
+	</table>
+	
 </form>
+
+<p class="tip">
+	Already a user? <%= Utils.a("login", "Login") %> with your account
+</p>

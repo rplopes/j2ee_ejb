@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
+<%@page import="phasebook.controller.*"%>
+
 <%
 	
 	/*
@@ -9,39 +11,34 @@
 	*	e carrega os elementos da página de acordo.
 	*/
 	
-	String title = "PhaseBook";
-	String url   = "teste.jsp";
+	String title = "Login";
+	String url   = "login.jsp";
 	String p     = request.getParameter("p");
 	if (p == null)
 		p = "";
 	
-	if (p.compareTo("ola") == 0)
+	if (p.compareTo("register") == 0 && session.getAttribute("id") == null)
 	{
-		title = "Olá";
-		url   = "ola.jsp";
-	}
-	
-	else if (p.compareTo("register") == 0)
-	{
-		title = "Register page";
+		title = "Register";
 		url   = "register.jsp";
 	}
 	
-	else if (p.compareTo("login") == 0)
+	else if (p.compareTo("login") == 0 && session.getAttribute("id") == null)
 	{
-		title = "Login page";
+		title = "Login";
 		url   = "login.jsp";
 	}
 
+	// Default
 	else
 	{
 		if(session.getAttribute("id") != null){
-			title = "My profile";
+			title = Utils.getUserBean().getUserById(session.getAttribute("id")).getName();
 			url   = "myprofile/profile.jsp";
 		}
 		else
 		{
-			title = "Login page";
+			title = "Login";
 			url   = "login.jsp";
 		}
 	}

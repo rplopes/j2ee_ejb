@@ -8,11 +8,11 @@
 
 	<table>
 		<tr>
-			<td>Email</td>
+			<td class="label">Email</td>
 			<td><input type="text" name="email"></td>
 		</tr>
 		<tr>
-			<td>Password</td>
+			<td class="label">Password</td>
 			<td><input type="password" name="password"></td>
 		</tr>
 		<tr>

@@ -7,8 +7,6 @@
 	PhasebookUser user = userBean.getUserById(session.getAttribute("id"));
 %>
 
-<p><font color="#800000" size="5">
-Name:</font></p> <%= user.getName() %>
+<h1><%= user.getName() %></h1>
 
-<p><font color="#800000" size="5">
-E-mail:</font></p> <%= user.getEmail() %>
+<p class="tip"><%= user.getEmail() %></p>
