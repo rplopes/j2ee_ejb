@@ -37,6 +37,7 @@ public class CreateUserForm extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		
 		InitialContext ctx = null;
 		HttpSession session = request.getSession();
 		try {

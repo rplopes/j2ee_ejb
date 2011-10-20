@@ -1,5 +1,8 @@
 package phasebook.user;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -20,7 +23,7 @@ public class PhasebookUserBean implements PhasebookUserRemote {
     public PhasebookUserBean() {
     }
 
-	public String showName(String name, String email, String password) {
+	/*public String showName(String name, String email, String password) {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PhaseBook");
 		EntityManager em = emf.createEntityManager();
 		EntityTransaction tx = em.getTransaction();
@@ -31,7 +34,7 @@ public class PhasebookUserBean implements PhasebookUserRemote {
 		tx.commit();
 		System.out.println(name);
 		return name;
-	}
+	}*/
 	
 	public int create(String name, String email, String password) {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PhaseBook");
@@ -71,6 +74,21 @@ public class PhasebookUserBean implements PhasebookUserRemote {
 			return user;
 		} catch(Exception ex){
 			return null;
+		}
+	}
+	
+	public List getUsersFromSearch(Object search) {
+		List users = new ArrayList();
+		
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PhaseBook");
+		EntityManager em = emf.createEntityManager();
+		
+		try {
+			Query q = em.createQuery("SELECT u FROM PhasebookUser u ");
+			users = q.getResultList();
+			return users;
+		} catch (Exception e) {
+			return users;
 		}
 	}
 }

@@ -4,7 +4,18 @@
 
 <% 
 	PhasebookUserRemote userBean = Utils.getUserBean();
-	PhasebookUser user = userBean.getUserById(session.getAttribute("id"));
+	PhasebookUser user;
+	if (request.getParameter("id") == null)
+		user = userBean.getUserById(session.getAttribute("id"));
+	else
+	{
+		try {
+			Utils.getUserBean().getUserById(request.getParameter("id")).getName();
+			user = userBean.getUserById(request.getParameter("id"));
+		} catch (Exception e) {
+			user = userBean.getUserById(session.getAttribute("id"));
+		}
+	}
 %>
 
 <h1><%= user.getName() %></h1>

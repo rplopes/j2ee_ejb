@@ -18,6 +18,10 @@
 	<div id="header">
 		<div id="headercontainer">
 			<%= Utils.a("", "Phasebook") %>
+			<form action="<%= Utils.url("") %>" method="get" style="display:inline">
+				<input type="text" name="search">
+				<input type="submit" value="Search">
+			</form>
 		</div>
 	</div>
 	<div id="container">

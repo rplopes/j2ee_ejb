@@ -28,6 +28,22 @@
 		title = "Login";
 		url   = "login.jsp";
 	}
+	
+	else if (request.getParameter("search") != null && session.getAttribute("id") != null)
+	{
+		title = "Search";
+		url   = "search.jsp";
+	}
+	
+	else if (p.compareTo("user") == 0 && session.getAttribute("id") != null && request.getParameter("id") != null)
+	{
+		try {
+			title = Utils.getUserBean().getUserById(request.getParameter("id")).getName();
+		} catch (Exception e) {
+			title = Utils.getUserBean().getUserById(session.getAttribute("id")).getName();
+		}
+		url   = "myprofile/profile.jsp";
+	}
 
 	// Default
 	else
