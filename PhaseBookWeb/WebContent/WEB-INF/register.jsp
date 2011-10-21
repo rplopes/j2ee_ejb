@@ -32,11 +32,11 @@
 	<table>
 		<tr>
 			<td class="label">Name</td>
-			<td class="label"><input type="text" name="name" value="<%= name %>"></td>
+			<td class="label"><input type="text" name="name" value="<%= Utils.text(name) %>"></td>
 		</tr>
 		<tr>
 			<td class="label">Email</td>
-			<td><input type="text" name="email" value="<%= email %>"></td>
+			<td><input type="text" name="email" value="<%= Utils.text(email) %>"></td>
 		</tr>
 		<tr>
 			<td class="label">Password</td>

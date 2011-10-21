@@ -2,6 +2,8 @@ package phasebook.user;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -79,6 +81,8 @@ public class PhasebookUserBean implements PhasebookUserRemote {
 	
 	public List getUsersFromSearch(Object search) {
 		List users = new ArrayList();
+		List results = new ArrayList();
+		String s = search.toString();
 		
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PhaseBook");
 		EntityManager em = emf.createEntityManager();
@@ -86,7 +90,24 @@ public class PhasebookUserBean implements PhasebookUserRemote {
 		try {
 			Query q = em.createQuery("SELECT u FROM PhasebookUser u ");
 			users = q.getResultList();
-			return users;
+			if (s != null)
+			{
+				Pattern pattern = Pattern.compile(s);
+				for (int i=0; i<users.size(); i++)
+				{
+					PhasebookUser user = (PhasebookUser)users.get(i);
+					boolean found = false;
+					Matcher matcher = pattern.matcher(user.getName());
+					if (matcher.find())
+						found = true;
+					matcher = pattern.matcher(user.getEmail());
+					if (matcher.find())
+						found = true;
+					if (found)
+						results.add(user);
+				}
+			}
+			return results;
 		} catch (Exception e) {
 			return users;
 		}

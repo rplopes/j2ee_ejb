@@ -18,6 +18,6 @@
 	}
 %>
 
-<h1><%= user.getName() %></h1>
+<h1><%= Utils.text(user.getName()) %></h1>
 
-<p class="tip"><%= user.getEmail() %></p>
+<p class="tip"><%= Utils.text(user.getEmail()) %></p>

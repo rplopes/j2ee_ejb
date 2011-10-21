@@ -8,7 +8,7 @@
 	List users = userBean.getUsersFromSearch(request.getParameter("search"));
 %>
 
-<h1>Search users for "<%= request.getParameter("search") %>"</h1>
+<h1>Search users for "<%= Utils.text(request.getParameter("search")) %>"</h1>
 
 <%
 	if (users.size() == 0)
@@ -22,8 +22,8 @@
 		PhasebookUser user = (PhasebookUser) users.get(i);
 %>
 		<p>
-			<b><%= Utils.a("user&id="+user.getId(), user.getName()) %></b><br />
-			<i><%= user.getEmail() %></i>
+			<b><%= Utils.a("user&id="+user.getId(), Utils.text(user.getName())) %></b><br />
+			<i><%= Utils.text(user.getEmail()) %></i>
 		</p>
 <%
 	}

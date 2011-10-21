@@ -24,7 +24,8 @@ public class Utils {
 	}
 	
 	//Get user bean
-	public static PhasebookUserRemote getUserBean(){
+	public static PhasebookUserRemote getUserBean()
+	{
 		InitialContext ctx = null;
 		try {
 			ctx = new InitialContext();
@@ -34,6 +35,30 @@ public class Utils {
 		} catch (NamingException e) {
 			return null;
 		}
+	}
+	
+	//Get escaped text
+	public static String text(String text)
+	{
+		if (text == null)
+			return "";
+		
+		StringBuffer sb = new StringBuffer();
+		int n = text.length();
+		for (int i=0; i<n; i++)
+		{
+			char c = text.charAt(i);
+			switch (c)
+			{
+				case '<': sb.append("&lt;"); break;
+				case '>': sb.append("&gt;"); break;
+				case '&': sb.append("&amp;"); break;
+				case '"': sb.append("&quot;"); break;
+				default: sb.append(c); break;
+			}
+		}
+		
+		return sb.toString();
 	}
 
 }
