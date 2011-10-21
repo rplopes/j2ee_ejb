@@ -16,8 +16,15 @@
 	String p     = request.getParameter("p");
 	if (p == null)
 		p = "";
+
+	if (p.compareTo("logout") == 0 && session.getAttribute("id") != null)
+	{
+		session.removeAttribute("id");
+		title = "Login";
+		url   = "login.jsp";
+	}
 	
-	if (p.compareTo("register") == 0 && session.getAttribute("id") == null)
+	else if (p.compareTo("register") == 0 && session.getAttribute("id") == null)
 	{
 		title = "Register";
 		url   = "register.jsp";

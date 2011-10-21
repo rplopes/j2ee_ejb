@@ -22,6 +22,7 @@
 				<input type="text" name="search" value="<%= Utils.text(request.getParameter("search")) %>">
 				<input type="submit" value="Search">
 			</form>
+			<%= Utils.a("logout", "Logout") %>
 		</div>
 	</div>
 	<div id="container">
