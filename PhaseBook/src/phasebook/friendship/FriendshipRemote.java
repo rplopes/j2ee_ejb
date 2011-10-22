@@ -1,5 +1,8 @@
 package phasebook.friendship;
 
-public class FriendshipRemote {
+import javax.ejb.Remote;
+
+@Remote
+public interface FriendshipRemote {
 
 }

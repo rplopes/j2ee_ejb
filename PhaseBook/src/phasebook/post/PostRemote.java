@@ -1,5 +1,8 @@
 package phasebook.post;
 
-public class PostRemote {
+import javax.ejb.Remote;
+
+@Remote
+public interface PostRemote {
 
 }

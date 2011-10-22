@@ -1,5 +1,8 @@
 package phasebook.lotterybet;
 
-public class LotteryBetRemote {
+import javax.ejb.Remote;
+
+@Remote
+public interface LotteryBetRemote {
 
 }

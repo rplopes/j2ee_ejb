@@ -1,5 +1,8 @@
 package phasebook.lottery;
 
-public class LotteryBean {
+import javax.ejb.Stateless;
+
+@Stateless
+public class LotteryBean implements LotteryRemote {
 
 }

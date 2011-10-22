@@ -1,13 +1,9 @@
 package phasebook.post;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
+import javax.ejb.Stateless;
 
-import phasebook.user.PhasebookUser;
-
-public class PostBean {
+@Stateless
+public class PostBean implements PostRemote {
 //	public int create(PhasebookUser toUserId, PhasebookUser fromUserId, String text) {
 //		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PhaseBook");
 //		EntityManager em = emf.createEntityManager();
