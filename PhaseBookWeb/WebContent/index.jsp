@@ -51,6 +51,12 @@
 		}
 		url   = "myprofile/profile.jsp";
 	}
+	
+	else if (p.compareTo("lottery") == 0 && session.getAttribute("id") != null)
+	{
+		title = "Charity Lottery";
+		url   = "lottery/lottery.jsp";
+	}
 
 	// Default
 	else

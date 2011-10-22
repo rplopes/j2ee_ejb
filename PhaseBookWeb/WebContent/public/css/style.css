@@ -16,6 +16,12 @@ h1 {
 	color: #444;
 }
 
+h2 {
+	font-size: 115%;
+	margin-top: 35px;
+	color: #444;
+}
+
 /*
 	Header
 */
@@ -94,7 +100,7 @@ h1 {
 */
 #container {
 	width: 800px;
-	margin: 20px auto 0 auto;
+	margin: 20px auto 20px auto;
 	padding: 10px;
 	text-align: left;
 	background: white;
@@ -123,6 +129,10 @@ input[type="button"], input[type="submit"] {
 	font-weight: bold;
 }
 
+select {
+	padding: 5px;
+}
+
 table {
 	text-align: center;
 	margin: 10px auto 10px auto;
@@ -141,4 +151,16 @@ td.label {
 .tip {
 	font-size: 90%;
 	color: #444;
+}
+
+/*
+	Charity Lottery
+*/
+#imgcharity {
+	margin: -10px;
+	margin-bottom: 10px;
+	-moz-border-radius-toprleft: 8px;
+	border-top-left-radius: 8px;
+	-moz-border-radius-topright: 8px;
+	border-top-right-radius: 8px;
 }

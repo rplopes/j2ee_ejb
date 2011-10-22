@@ -36,6 +36,10 @@
 						<ul>
 							<li>
 								<%= Utils.a("", "My profile") %>
+							</li>
+							<li>
+								<%= Utils.a("lottery", "Lottery ("+Utils.getUserBean().getUserById(session.getAttribute("id")).getMoney()+" L&euro;)") %>
+							</li>
 							<li>
 								<%= Utils.a("logout", "Logout") %>
 							</li>
