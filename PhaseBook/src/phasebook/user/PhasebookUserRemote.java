@@ -13,5 +13,6 @@ public interface PhasebookUserRemote {
 	public int login(String email, String password);
 	public PhasebookUser getUserById(Object id);
 	public List getUsersFromSearch(Object search);
-	public List<Post> getUserReceivedPostMessages(Object userId);
+	public List<Post> getUserReceivedPosts(Object userId);
+	public void addPost(PhasebookUser from, PhasebookUser to, String text);
 }

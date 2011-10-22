@@ -1,10 +1,17 @@
-<%@page import="phasebook.controller.*"%>
+<%@ page import="phasebook.controller.*"%>
 <%@ page import="javax.naming.*" %>
 <%@ page import="phasebook.user.*" %>
+<%@ page import="phasebook.post.*" %>
+<%@ page import="java.util.*" %>
 
 <% 
 	PhasebookUserRemote userBean = Utils.getUserBean();
 	PhasebookUser user;
+	Object userId;
+	if(request.getParameter("id") == null)
+		userId =  session.getAttribute("id");
+	else
+		userId =  request.getParameter("id");
 	if (request.getParameter("id") == null)
 		user = userBean.getUserById(session.getAttribute("id"));
 	else
@@ -25,7 +32,8 @@
 <form method="POST" action="CreatePostForm">
 	<table>
 		<tr>
-			<td><textarea name="text" COLS=80 ROWS=6></TEXTAREA></td>
+			<td><textarea name="text" COLS=80 ROWS=6></textarea></td>
+			<td><input type="hidden" name="toUser" value="<%= userId.toString() %>"/></td>
 		</tr>
 		<tr>
 			<td></td>
@@ -33,3 +41,19 @@
 		</tr>
 	</table>
 </form>
+--------------------------------------------------------------------------------------------
+<%
+	List<Post> posts = userBean.getUserReceivedPosts(userId);
+	for(int i=posts.size()-1; i>=0; i--){
+%>
+	<br>
+    <%= posts.get(i).getText() %>
+    <br>
+    Posted by:
+    <br>
+    <%= posts.get(i).getFromUser().getName() %>
+    <br>
+--------------------------------------------------------------------------------------------
+<%
+	}
+%>

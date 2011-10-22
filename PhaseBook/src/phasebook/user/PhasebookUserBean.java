@@ -76,19 +76,13 @@ public class PhasebookUserBean implements PhasebookUserRemote {
 			em.merge(user);
 			em.refresh(user);
 			
-			tx.begin();
-	    	Post post = new Post(user, user, "olaaaaaaaaaaaaaaa");
-			em.persist(post);
-			em.refresh(post);
-			tx.commit();
-			
 			return user.getId();
 //		} catch(Exception ex){
 //			return -1;
 //		}
 	}
 	
-	public List<Post> getUserReceivedPostMessages(Object userId){
+	public List<Post> getUserReceivedPosts(Object userId){
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PhaseBook");
 		EntityManager em = emf.createEntityManager();
 		PhasebookUser user = em.find(PhasebookUser.class, userId);
@@ -149,5 +143,17 @@ public class PhasebookUserBean implements PhasebookUserRemote {
 		} catch (Exception e) {
 			return users;
 		}
+	}
+	
+	public void addPost(PhasebookUser from, PhasebookUser to, String text){
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PhaseBook");
+		EntityManager em = emf.createEntityManager();
+		EntityTransaction tx = em.getTransaction();
+		
+		tx.begin();
+    	Post post = new Post(from, to, text);
+		em.persist(post);
+		em.refresh(post);
+		tx.commit();
 	}
 }
