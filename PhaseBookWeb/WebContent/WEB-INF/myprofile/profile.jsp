@@ -8,18 +8,17 @@
 	PhasebookUserRemote userBean = Utils.getUserBean();
 	PhasebookUser user;
 	Object userId;
-	if(request.getParameter("id") == null)
+	if(request.getParameter("id") == null){
 		userId =  session.getAttribute("id");
-	else
+		user = userBean.getUserById(userId);
+	}
+	else{
 		userId =  request.getParameter("id");
-	if (request.getParameter("id") == null)
-		user = userBean.getUserById(session.getAttribute("id"));
-	else
-	{
 		try {
 			Utils.getUserBean().getUserById(request.getParameter("id")).getName();
-			user = userBean.getUserById(request.getParameter("id"));
+			user = userBean.getUserById(userId);
 		} catch (Exception e) {
+			userId =  session.getAttribute("id");
 			user = userBean.getUserById(session.getAttribute("id"));
 		}
 	}

@@ -47,11 +47,11 @@ private static final long serialVersionUID = 1L;
 	private List<OldLotteryBet> oldLotteryBets = new ArrayList<OldLotteryBet>();
 	
 	@ElementCollection  
-	@OneToMany(cascade=CascadeType.ALL, mappedBy = "toUser")
+	@OneToMany(cascade=CascadeType.ALL, mappedBy = "fromUser")
 	private List<Post> sentPosts = new ArrayList<Post>();
 	
 	@ElementCollection
-	@OneToMany(cascade=CascadeType.ALL, mappedBy = "fromUser")
+	@OneToMany(cascade=CascadeType.ALL, mappedBy = "toUser")
 	private List<Post> receivedPosts = new ArrayList<Post>();
 	
 	public PhasebookUser()

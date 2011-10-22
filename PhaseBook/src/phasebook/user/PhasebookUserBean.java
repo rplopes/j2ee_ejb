@@ -85,7 +85,7 @@ public class PhasebookUserBean implements PhasebookUserRemote {
 	public List<Post> getUserReceivedPosts(Object userId){
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PhaseBook");
 		EntityManager em = emf.createEntityManager();
-		PhasebookUser user = em.find(PhasebookUser.class, userId);
+		PhasebookUser user = em.find(PhasebookUser.class, Integer.parseInt(userId.toString()));
 		em.persist(user);
 		em.refresh(user);
 		List<Post> userReceivedPosts = ((PhasebookUser)user).getReceivedPosts();

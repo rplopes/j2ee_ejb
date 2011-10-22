@@ -59,7 +59,7 @@ public class CreatePostForm extends HttpServlet {
 				response.sendRedirect(Utils.url("register"));
 			} else {
 				userBean.addPost(fromUser, toUser, text);
-				response.sendRedirect(Utils.url(""));
+				response.sendRedirect("?p=user&id="+request.getParameter("toUser").toString());
 			}
 		} catch (NamingException e) {
 			e.printStackTrace();
