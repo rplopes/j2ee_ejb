@@ -16,14 +16,24 @@
 </head>
 <body>
 	<div id="header">
-		<div id="headercontainer">
-			<%= Utils.a("", "Phasebook") %>
-			<form action="<%= Utils.url("") %>" method="get" style="display:inline">
-				<input type="text" name="search" value="<%= Utils.text(request.getParameter("search")) %>">
-				<input type="submit" value="Search">
-			</form>
-			<%= Utils.a("logout", "Logout") %>
-		</div>
+		<table id="headercontainer">
+			<tr>
+				<td width="150">
+					<%= Utils.a("", "<h1>Phasebook</h1>") %>
+				</td>
+				<% if (session.getAttribute("id") != null) { %>
+				<td>
+					<form action="<%= Utils.url("") %>" method="get" style="display:inline">
+						<input type="text" name="search" value="<%= Utils.text(request.getParameter("search")) %>">
+						<input type="submit" value="Search">
+					</form>
+				</td>
+				<td style="text-align: right">
+					<%= Utils.a("logout", "Logout") %>
+				</td>
+				<% } %>
+			</tr>
+		</table>
 	</div>
 	<div id="container">
 		<% pageContext.include("/WEB-INF/" + url); %>
