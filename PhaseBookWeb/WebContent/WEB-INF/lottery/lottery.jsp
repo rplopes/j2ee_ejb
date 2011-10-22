@@ -13,7 +13,7 @@
 	If you guessed the right number you win 50 L&euro;.
 </p>
 
-<h2>Next Draw: 12h00 23/10/2011</h2>
+<h2>Next Draw: <%= Utils.getLotteryBean().nextDrawDate() %></h2>
 
 <form method="POST" action="BetForm">
 
