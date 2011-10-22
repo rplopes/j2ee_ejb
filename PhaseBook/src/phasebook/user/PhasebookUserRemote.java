@@ -14,4 +14,5 @@ public interface PhasebookUserRemote {
 	public PhasebookUser getUserById(Object id);
 	public List getUsersFromSearch(Object search);
 	public List<Post> getUserReceivedPostMessages(Object userId);
+	public void deposit(Object id, Float money);
 }
