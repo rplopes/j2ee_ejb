@@ -11,7 +11,7 @@ import phasebook.oldlotterybet.OldLotteryBet;
 import phasebook.photo.Photo;
 import phasebook.post.Post;
 
-@Generated(value="Dali", date="2011-10-26T16:51:23.807+0100")
+@Generated(value="Dali", date="2011-10-26T16:55:06.142+0100")
 @StaticMetamodel(PhasebookUser.class)
 public class PhasebookUser_ {
 	public static volatile SingularAttribute<PhasebookUser, Integer> id;
