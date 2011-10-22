@@ -59,4 +59,14 @@
     <servlet-name>AddPhotoForm</servlet-name>
     <url-pattern>/AddPhotoForm</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>GetMoneyForm</display-name>
+    <servlet-name>GetMoneyForm</servlet-name>
+    <servlet-class>phasebook.controller.GetMoneyForm</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetMoneyForm</servlet-name>
+    <url-pattern>/GetMoneyForm</url-pattern>
+  </servlet-mapping>
 </web-app>

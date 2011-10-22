@@ -260,4 +260,16 @@ public class PhasebookUserBean implements PhasebookUserRemote {
 		
 	}
 
+	public void deposit(Object id, Float money) {
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PhaseBook");
+		EntityManager em = emf.createEntityManager();
+		EntityTransaction tx = em.getTransaction();
+		
+		tx.begin();
+		PhasebookUser user = getUserById(id);
+		user.setMoney(user.getMoney() + money);
+		em.merge(user);
+		tx.commit();
+	}
+	
 }
