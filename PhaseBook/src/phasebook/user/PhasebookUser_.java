@@ -10,7 +10,7 @@ import phasebook.lotterybet.LotteryBet;
 import phasebook.oldlotterybet.OldLotteryBet;
 import phasebook.post.Post;
 
-@Generated(value="Dali", date="2011-10-22T11:35:04.994+0100")
+@Generated(value="Dali", date="2011-10-22T18:15:57.968+0100")
 @StaticMetamodel(PhasebookUser.class)
 public class PhasebookUser_ {
 	public static volatile SingularAttribute<PhasebookUser, Integer> id;
@@ -22,8 +22,8 @@ public class PhasebookUser_ {
 	public static volatile SingularAttribute<PhasebookUser, Date> deletedAt;
 	public static volatile ListAttribute<PhasebookUser, Friendship> sentInvites;
 	public static volatile ListAttribute<PhasebookUser, Friendship> receivedInvites;
-	public static volatile ListAttribute<PhasebookUser, Post> sentPosts;
-	public static volatile ListAttribute<PhasebookUser, Post> receivedPosts;
 	public static volatile ListAttribute<PhasebookUser, LotteryBet> lotteryBets;
 	public static volatile ListAttribute<PhasebookUser, OldLotteryBet> oldLotteryBets;
+	public static volatile ListAttribute<PhasebookUser, Post> sentPosts;
+	public static volatile ListAttribute<PhasebookUser, Post> receivedPosts;
 }

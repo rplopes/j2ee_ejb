@@ -8,12 +8,12 @@ import javax.persistence.metamodel.StaticMetamodel;
 import phasebook.lotterybet.LotteryBet;
 import phasebook.oldlotterybet.OldLotteryBet;
 
-@Generated(value="Dali", date="2011-10-22T11:36:19.323+0100")
+@Generated(value="Dali", date="2011-10-22T18:15:57.718+0100")
 @StaticMetamodel(Lottery.class)
 public class Lottery_ {
 	public static volatile SingularAttribute<Lottery, Integer> id;
 	public static volatile SingularAttribute<Lottery, Integer> lotteryNumber;
 	public static volatile SingularAttribute<Lottery, Date> lotteryDate;
-	public static volatile ListAttribute<Lottery, OldLotteryBet> oldLotteryBets;
 	public static volatile ListAttribute<Lottery, LotteryBet> lotteryBets;
+	public static volatile ListAttribute<Lottery, OldLotteryBet> oldLotteryBets;
 }
