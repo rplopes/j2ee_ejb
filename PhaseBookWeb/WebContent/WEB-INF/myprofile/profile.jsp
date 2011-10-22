@@ -21,3 +21,15 @@
 <h1><%= Utils.text(user.getName()) %></h1>
 
 <p class="tip"><%= Utils.text(user.getEmail()) %></p>
+
+<form method="POST" action="CreatePostForm">
+	<table>
+		<tr>
+			<td><textarea name="text" COLS=80 ROWS=6></TEXTAREA></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td><input type="submit" value="Send" name="B1"></td>
+		</tr>
+	</table>
+</form>
