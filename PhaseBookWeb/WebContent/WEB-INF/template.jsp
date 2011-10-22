@@ -1,4 +1,5 @@
 <%@ page import="phasebook.controller.*" %>
+<%@ page import="phasebook.user.*" %>
 
 <%
 	String title = session.getAttribute("title").toString();
@@ -12,6 +13,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<link href="public/css/style.css" rel="stylesheet" type="text/css">
+	<script src="public/js/action.js"></script>
 	<title>Phasebook - <%= title %></title>
 </head>
 <body>
@@ -28,8 +30,20 @@
 						<input type="submit" value="Search">
 					</form>
 				</td>
-				<td style="text-align: right">
-					<%= Utils.a("logout", "Logout") %>
+				<td id="menupopupheader" width="150" style="text-align:right; color:white" onmouseover="showPopup()" onmouseout="hidePopup()">
+					<%= Utils.text(Utils.getUserBean().getUserById(session.getAttribute("id")).getName()) %>
+					<div id="menupopup">
+						<ul>
+							<li>
+								<%= Utils.a("", "My profile") %>
+							<li>
+								<%= Utils.a("logout", "Logout") %>
+							</li>
+						</ul>
+					</div>
+					<script>
+						document.getElementById("menupopup").style.display = 'none';
+					</script>
 				</td>
 				<% } %>
 			</tr>
