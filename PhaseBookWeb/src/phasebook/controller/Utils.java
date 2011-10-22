@@ -3,6 +3,7 @@ package phasebook.controller;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
+import phasebook.lottery.LotteryRemote;
 import phasebook.user.PhasebookUserRemote;
 
 public class Utils {
@@ -29,9 +30,19 @@ public class Utils {
 		InitialContext ctx = null;
 		try {
 			ctx = new InitialContext();
-			PhasebookUserRemote user;
-			user = (PhasebookUserRemote) ctx.lookup("PhasebookUserBean/remote");
-			return user;
+			return (PhasebookUserRemote) ctx.lookup("PhasebookUserBean/remote");
+		} catch (NamingException e) {
+			return null;
+		}
+	}
+	
+	//Get lottery bean
+	public static LotteryRemote getLotteryBean()
+	{
+		InitialContext ctx = null;
+		try {
+			ctx = new InitialContext();
+			return (LotteryRemote) ctx.lookup("LotteryBean/remote");
 		} catch (NamingException e) {
 			return null;
 		}
