@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import phasebook.user.PhasebookUser;
 
@@ -16,89 +18,121 @@ import phasebook.user.PhasebookUser;
 public class Post implements Serializable{
 
 	private static final long serialVersionUID = 1L;
-	
-	
+
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="POST_ID")
 	private int id;
-	@Column(name="FROM_USER")
+	
+	@ManyToOne
+	@JoinColumn(name="FROM_USER", referencedColumnName = "PHASEBOOK_USER_ID")
 	private PhasebookUser fromUser;
-	@Column(name="TO_USER")
+	
+	@ManyToOne
+	@JoinColumn(name="TO_USER", referencedColumnName = "PHASEBOOK_USER_ID")
 	private PhasebookUser toUser;
+	
 	@Column(name="PRIVATE_")
 	private boolean private_;
+	
 	@Column(name="READ_")
 	private boolean read_;
+	
 	@Column(name="CREATED_AT")
 	private Date createdAt;
+	
 	@Column(name="DELETED_AT")
 	private Date deletedAt;
 	
-	protected Post()
+	@Column(name="PHOTO_LINK")
+	private String photoLink;
+	
+	@Column(name="TEXT")
+	private String text;
+	
+	public Post()
 	{
 		super();
 	}
 	
-	protected Post(PhasebookUser from, PhasebookUser to)
+	public Post(PhasebookUser from, PhasebookUser to, String text)
 	{
 		super();
 		this.fromUser = from;
 		this.toUser = to;
+		this.text = text;
 	}
 
-	protected int getId() {
+	public int getId() {
 		return id;
 	}
 
-	protected void setId(int id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
-	protected PhasebookUser getFromUser() {
+	@ManyToOne
+	public PhasebookUser getFromUser() {
 		return fromUser;
 	}
 
-	protected void setFromUser(PhasebookUser fromUser) {
+	public void setFromUser(PhasebookUser fromUser) {
 		this.fromUser = fromUser;
 	}
 
-	protected PhasebookUser getToUser() {
+	public PhasebookUser getToUser() {
 		return toUser;
 	}
 
-	protected void setToUser(PhasebookUser toUser) {
+	public void setToUser(PhasebookUser toUser) {
 		this.toUser = toUser;
 	}
 
-	protected boolean isPrivate_() {
+	public boolean isPrivate_() {
 		return private_;
 	}
 
-	protected void setPrivate_(boolean private_) {
+	public void setPrivate_(boolean private_) {
 		this.private_ = private_;
 	}
 
-	protected boolean isRead_() {
+	public boolean isRead_() {
 		return read_;
 	}
 
-	protected void setRead_(boolean read_) {
+	public void setRead_(boolean read_) {
 		this.read_ = read_;
 	}
 
-	protected Date getCreatedAt() {
+	public Date getCreatedAt() {
 		return createdAt;
 	}
 
-	protected void setCreatedAt(Date createdAt) {
+	public void setCreatedAt(Date createdAt) {
 		this.createdAt = createdAt;
 	}
 
-	protected Date getDeletedAt() {
+	public Date getDeletedAt() {
 		return deletedAt;
 	}
 
-	protected void setDeletedAt(Date deletedAt) {
+	public void setDeletedAt(Date deletedAt) {
 		this.deletedAt = deletedAt;
+	}
+
+	public String getPhotoLink() {
+		return photoLink;
+	}
+
+	public void setPhotoLink(String photoLink) {
+		this.photoLink = photoLink;
+	}
+
+	public String getText() {
+		return text;
+	}
+
+	public void setText(String text) {
+		this.text = text;
 	}
 	
 	

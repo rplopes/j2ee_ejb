@@ -5,7 +5,6 @@
 <h1>Login</h1>
 
 <form method="POST" action="LoginUserForm">
-
 	<table>
 		<tr>
 			<td class="label">Email</td>

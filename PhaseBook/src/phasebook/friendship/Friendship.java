@@ -9,6 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import phasebook.user.PhasebookUser;
 
@@ -18,15 +20,22 @@ public class Friendship implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="FRIENDSHIP_ID")
 	private int id;
 	
-	@Column(name="HOST_PHASEBOOK_USER_ID")
+	@ManyToOne
+	@JoinColumn(name="HOST_PHASEBOOK_USER_ID", referencedColumnName="PHASEBOOK_USER_ID")
 	private PhasebookUser hostUser;
-	@Column(name="INVITED_PHASEBOOK_USER_ID")
+		
+	@ManyToOne
+	@JoinColumn(name="invited_PHASEBOOK_USER_ID", referencedColumnName="PHASEBOOK_USER_ID")
 	private PhasebookUser invitedUser;
+	
 	private boolean accepted_;
+	
 	@Column(name="CREATED_AT")
 	private Date createdAt;
+	
 	@Column(name="DELETED_AT")
 	private Date deletedAt;
 	
