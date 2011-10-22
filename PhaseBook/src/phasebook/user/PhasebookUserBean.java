@@ -271,5 +271,4 @@ public class PhasebookUserBean implements PhasebookUserRemote {
 		em.merge(user);
 		tx.commit();
 	}
-	
 }
