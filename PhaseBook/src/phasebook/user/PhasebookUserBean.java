@@ -12,6 +12,9 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
+import phasebook.friendship.Friendship;
+import phasebook.post.Post;
+
 
 /**
  * Session Bean implementation class PhasebookUserBean
@@ -46,6 +49,7 @@ public class PhasebookUserBean implements PhasebookUserRemote {
 		tx.begin();
     	PhasebookUser user = new PhasebookUser(name, email, password);
 		em.persist(user);
+		em.refresh(user);
 		tx.commit();
 		return user.getId();
 	}
@@ -53,17 +57,49 @@ public class PhasebookUserBean implements PhasebookUserRemote {
 	public int login(String email, String password) {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PhaseBook");
 		EntityManager em = emf.createEntityManager();
+		EntityTransaction tx = em.getTransaction();
 		
-		try {
+//		try {
 			Query q = em.createQuery("SELECT u FROM PhasebookUser u " +
 						"WHERE u.email LIKE :email AND " +
 						"u.password LIKE :password");
 			q.setParameter("email",email);
 			q.setParameter("password",password);
-			return ((PhasebookUser)q.getSingleResult()).getId();
-		} catch(Exception ex){
-			return -1;
+			
+//	    	Post post = new Post(getUserById(2),getUserById(1),"cenas cenas cenas");
+//			em.persist(post);
+//			em.refresh(post);
+//			tx.commit();
+			
+			PhasebookUser user = ((PhasebookUser)q.getSingleResult());
+			
+			em.merge(user);
+			em.refresh(user);
+			
+			tx.begin();
+	    	Post post = new Post(user, user, "olaaaaaaaaaaaaaaa");
+			em.persist(post);
+			em.refresh(post);
+			tx.commit();
+			
+			return user.getId();
+//		} catch(Exception ex){
+//			return -1;
+//		}
+	}
+	
+	public List<Post> getUserReceivedPostMessages(Object userId){
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PhaseBook");
+		EntityManager em = emf.createEntityManager();
+		PhasebookUser user = em.find(PhasebookUser.class, userId);
+		em.persist(user);
+		em.refresh(user);
+		List<Post> userReceivedPosts = ((PhasebookUser)user).getReceivedPosts();
+		List<Post> returnList = new ArrayList<Post>();
+		for(int i = 0; i< userReceivedPosts.size(); i++){
+			returnList.add(userReceivedPosts.get(i));
 		}
+		return returnList;
 	}
 	
 	public PhasebookUser getUserById(Object id){
@@ -73,6 +109,8 @@ public class PhasebookUserBean implements PhasebookUserRemote {
 		
 		try {
 			PhasebookUser user = em.find(PhasebookUser.class, userId);
+			em.persist(user);
+			em.refresh(user);
 			return user;
 		} catch(Exception ex){
 			return null;

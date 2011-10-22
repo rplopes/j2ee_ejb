@@ -8,7 +8,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
+import phasebook.lottery.Lottery;
 import phasebook.user.PhasebookUser;
 
 
@@ -18,17 +21,25 @@ public class LotteryBet implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="BET_ID")
 	private int id;
-	@Column(name="LOTTERY_ID")
-	private int lotteryId;
-	@Column(name="PHASEBOOK_USER_ID")
+	
+	@ManyToOne
+	@JoinColumn(name="PHASEBOOK_USER_ID", referencedColumnName="PHASEBOOK_USER_ID")
 	private PhasebookUser user;
+	
 	@Column(name="BET_VALUE")
 	private float betValue;
+	
 	@Column(name="BET_NUMBER")
 	private int betNumber;
+	
 	@Column(name="CREATED_AT")
 	private Date createdAT;
+	
+	@ManyToOne
+	@JoinColumn(name="LOTTERY_ID", referencedColumnName="LOTTERY_ID")
+	private Lottery lottery;
 	
 	public LotteryBet()
 	{
@@ -47,14 +58,6 @@ public class LotteryBet implements Serializable {
 
 	protected void setId(int id) {
 		this.id = id;
-	}
-
-	protected int getLotteryId() {
-		return lotteryId;
-	}
-
-	protected void setLotteryId(int lotteryId) {
-		this.lotteryId = lotteryId;
 	}
 
 	protected PhasebookUser getUser() {
@@ -89,6 +92,13 @@ public class LotteryBet implements Serializable {
 		this.createdAT = createdAT;
 	}
 
+	public Lottery getLottery() {
+		return lottery;
+	}
+
+	public void setLottery(Lottery lottery) {
+		this.lottery = lottery;
+	}
 	
 	
 }
