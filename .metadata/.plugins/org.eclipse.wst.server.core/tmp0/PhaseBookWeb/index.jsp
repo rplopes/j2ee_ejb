@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
+<%@page import="phasebook.controller.*"%>
+
 <%
 	
 	/*
@@ -9,33 +11,63 @@
 	*	e carrega os elementos da página de acordo.
 	*/
 	
-	String title = "PhaseBook";
-	String url = "teste.jsp";
-	String p = request.getParameter("p");
+	String title = "Login";
+	String url   = "login.jsp";
+	String p     = request.getParameter("p");
 	if (p == null)
 		p = "";
-	
-	if (p.compareTo("ola") == 0)
+
+	if (p.compareTo("logout") == 0 && session.getAttribute("id") != null)
 	{
-		title = "Olá";
-		url = "ola.jsp";
+		session.removeAttribute("id");
+		title = "Login";
+		url   = "login.jsp";
 	}
-	// Default returns the index page
-	else
+	
+	else if (p.compareTo("register") == 0 && session.getAttribute("id") == null)
 	{
-		title = "Teste";
-		url = "teste.jsp";
+		title = "Register";
+		url   = "register.jsp";
+	}
+	
+	else if (p.compareTo("login") == 0 && session.getAttribute("id") == null)
+	{
+		title = "Login";
+		url   = "login.jsp";
+	}
+	
+	else if (request.getParameter("search") != null && session.getAttribute("id") != null)
+	{
+		title = "Search";
+		url   = "search.jsp";
+	}
+	
+	else if (p.compareTo("user") == 0 && session.getAttribute("id") != null && request.getParameter("id") != null)
+	{
+		try {
+			title = Utils.getUserBean().getUserById(request.getParameter("id")).getName();
+		} catch (Exception e) {
+			title = Utils.getUserBean().getUserById(session.getAttribute("id")).getName();
+		}
+		url   = "myprofile/profile.jsp";
 	}
 
+	// Default
+	else
+	{
+		if(session.getAttribute("id") != null){
+			title = Utils.getUserBean().getUserById(session.getAttribute("id")).getName();
+			url   = "myprofile/profile.jsp";
+		}
+		else
+		{
+			title = "Login";
+			url   = "login.jsp";
+		}
+	}
+
+	session.setAttribute("title", title);
+	session.setAttribute("url", url);
+	pageContext.include("/WEB-INF/template.jsp");
+
 %>
-    
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title><%= title %></title>
-</head>
-<body>
-	<% pageContext.include("/WEB-INF/" + url); %>
-</body>
-</html>

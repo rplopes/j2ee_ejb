@@ -10,6 +10,7 @@
 <mapAttribute key="org.eclipse.ui.externaltools.ATTR_ANT_PROPERTIES">
 <mapEntry key="contextRoot" value="PhaseBookWeb"/>
 <mapEntry key="jndiPort" value="1099"/>
+<mapEntry key="key" value="generic_server_instance_properties"/>
 <mapEntry key="module.archive.name" value="PhaseBookWeb.war"/>
 <mapEntry key="module.dir" value="C:/Users/Gustavo/Desktop/IS/Trabalho 2/Repository/j2ee_ejb/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/PhaseBookWeb"/>
 <mapEntry key="module.name" value="PhaseBookWeb"/>
