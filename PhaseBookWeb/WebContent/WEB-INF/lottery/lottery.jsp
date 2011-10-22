@@ -31,12 +31,21 @@
 
 <h2>Get more money</h2>
 
+<% if (session.getAttribute("error") != null) { %>
+	<p style="color:red"><%= session.getAttribute("error") %></p>
+<% session.removeAttribute("error");} %>
+
 <form method="POST" action="GetMoneyForm">
 
 	<input type="text" name="money">
 	<input type="submit" value="Deposit L&euro;">
 
 </form>
+
+<h2>Current bets</h2>
+<p>
+	You have no bets for the next draw.
+</p>
 
 <h2>Historic</h2>
 
