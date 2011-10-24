@@ -1,0 +1,60 @@
+<%@ page import="phasebook.controller.*"%>
+<%@ page import="javax.naming.*" %>
+<%@ page import="phasebook.user.*" %>
+<%@ page import="phasebook.post.*" %>
+<%@ page import="java.util.*" %>
+
+<% 
+	PhasebookUserRemote userBean = Utils.getUserBean();
+	PhasebookUser user;
+	Object userId;
+	if(request.getParameter("id") == null){
+		userId =  session.getAttribute("id");
+		user = userBean.getUserById(userId);
+	}
+	else{
+		userId =  request.getParameter("id");
+		try {
+			Utils.getUserBean().getUserById(request.getParameter("id")).getName();
+			user = userBean.getUserById(userId);
+		} catch (Exception e) {
+			userId =  session.getAttribute("id");
+			user = userBean.getUserById(session.getAttribute("id"));
+		}
+	}
+%>
+<form method="POST" action="CreateFriendshipForm">
+<td><input type="submit" value="Add as Friend" name="B1"></td>
+</form>
+
+<h1><%= Utils.text(user.getName()) %></h1> 
+<p class="tip"><%= Utils.text(user.getEmail()) %></p>
+
+<form method="POST" action="CreatePostForm">
+	<table>
+		<tr>
+			<td><textarea name="text" COLS=80 ROWS=6></textarea></td>
+			<td><input type="hidden" name="toUser" value="<%= userId.toString() %>"/></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td><input type="submit" value="Send" name="B1"></td>
+		</tr>
+	</table>
+</form>
+--------------------------------------------------------------------------------------------
+<%
+	List<Post> posts = userBean.getUserReceivedPosts(userId);
+	for(int i=posts.size()-1; i>=0; i--){
+%>
+	<br>
+    <%= posts.get(i).getText() %>
+    <br>
+    Posted by:
+    <br>
+    <%= posts.get(i).getFromUser().getName() %>
+    <br>
+--------------------------------------------------------------------------------------------
+<%
+	}
+%>

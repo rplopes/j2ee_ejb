@@ -39,4 +39,14 @@
     <servlet-name>CreatePostForm</servlet-name>
     <url-pattern>/CreatePostForm</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>CreateFriendshipForm</display-name>
+    <servlet-name>CreateFriendshipForm</servlet-name>
+    <servlet-class>phasebook.controller.CreateFriendshipForm</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CreateFriendshipForm</servlet-name>
+    <url-pattern>/CreateFriendshipForm</url-pattern>
+  </servlet-mapping>
 </web-app>

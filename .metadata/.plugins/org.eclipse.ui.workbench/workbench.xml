@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<workbench progressCount="64" version="2.0">
+<workbench progressCount="67" version="2.0">
 <workbenchAdvisor/>
 <window height="728" maximized="true" width="1024" x="150" y="0">
 <fastViewData fastViewLocation="1024"/>
@@ -37,36 +37,21 @@
 <part id="0"/>
 <part id="1"/>
 <part id="2"/>
-<part id="3"/>
-<part id="4"/>
-<part id="5"/>
 </presentation>
 </folder>
 </info>
 </editorArea>
-<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Utils.java" partName="Utils.java" path="C:/Users/Gustavo/Desktop/IS/Trabalho 2/Repository/j2ee_ejb/PhaseBookWeb/src/phasebook/controller/Utils.java" title="Utils.java" tooltip="PhaseBookWeb/src/phasebook/controller/Utils.java" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/PhaseBookWeb/src/phasebook/controller/Utils.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="1" selectionOffset="197" selectionTopPixel="0"/>
+<editor activePart="true" focus="true" id="org.eclipse.jst.jsp.core.jspsource.source" name="profile.jsp" partName="profile.jsp" path="C:/Users/Gustavo/Desktop/IS/Trabalho 2/Repository/j2ee_ejb/PhaseBookWeb/WebContent/WEB-INF/myprofile/profile.jsp" title="profile.jsp" tooltip="PhaseBookWeb/WebContent/WEB-INF/myprofile/profile.jsp" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/PhaseBookWeb/WebContent/WEB-INF/myprofile/profile.jsp"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="888" selectionTopPixel="315"/>
 </editor>
-<editor id="org.eclipse.jst.jsp.core.jspsource.source" name="teste.jsp" partName="teste.jsp" path="C:/Users/Gustavo/Desktop/IS/Trabalho 2/Repository/j2ee_ejb/PhaseBookWeb/WebContent/WEB-INF/teste.jsp" title="teste.jsp" tooltip="PhaseBookWeb/WebContent/WEB-INF/teste.jsp" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/PhaseBookWeb/WebContent/WEB-INF/teste.jsp"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="246" selectionTopPixel="0"/>
+<editor id="org.eclipse.jst.jsp.core.jspsource.source" name="template.jsp" partName="template.jsp" path="C:/Users/Gustavo/Desktop/IS/Trabalho 2/Repository/j2ee_ejb/PhaseBookWeb/WebContent/WEB-INF/template.jsp" title="template.jsp" tooltip="PhaseBookWeb/WebContent/WEB-INF/template.jsp" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/PhaseBookWeb/WebContent/WEB-INF/template.jsp"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1622" selectionTopPixel="450"/>
 </editor>
-<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Student.java" partName="Student.java" path="C:/Users/Gustavo/Desktop/IS/Trabalho 2/Repository/j2ee_ejb/PhaseBook/src/phasebook/student/Student.java" title="Student.java" tooltip="PhaseBook/src/phasebook/student/Student.java" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/PhaseBook/src/phasebook/student/Student.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="7" selectionOffset="113" selectionTopPixel="60"/>
-</editor>
-<editor activePart="true" focus="true" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="StudentBean.java" partName="StudentBean.java" path="C:/Users/Gustavo/Desktop/IS/Trabalho 2/Repository/j2ee_ejb/PhaseBook/src/phasebook/student/StudentBean.java" title="StudentBean.java" tooltip="PhaseBook/src/phasebook/student/StudentBean.java" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/PhaseBook/src/phasebook/student/StudentBean.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="700" selectionTopPixel="0"/>
-</editor>
-<editor id="org.eclipse.jst.jsp.core.jspsource.source" name="index.jsp" partName="index.jsp" path="C:/Users/Gustavo/Desktop/IS/Trabalho 2/Repository/j2ee_ejb/PhaseBookWeb/WebContent/index.jsp" title="index.jsp" tooltip="PhaseBookWeb/WebContent/index.jsp" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/PhaseBookWeb/WebContent/index.jsp"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="856" selectionTopPixel="224"/>
-</editor>
-<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="StudentRemote.java" partName="StudentRemote.java" path="C:/Users/Gustavo/Desktop/IS/Trabalho 2/Repository/j2ee_ejb/PhaseBook/src/phasebook/student/StudentRemote.java" title="StudentRemote.java" tooltip="PhaseBook/src/phasebook/student/StudentRemote.java" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/PhaseBook/src/phasebook/student/StudentRemote.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="0" selectionTopPixel="0"/>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="CreateFriendshipForm.java" partName="CreateFriendshipForm.java" path="C:/Users/Gustavo/Desktop/IS/Trabalho 2/Repository/j2ee_ejb/PhaseBookWeb/src/phasebook/controller/CreateFriendshipForm.java" title="CreateFriendshipForm.java" tooltip="PhaseBookWeb/src/phasebook/controller/CreateFriendshipForm.java" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/PhaseBookWeb/src/phasebook/controller/CreateFriendshipForm.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="2060" selectionTopPixel="675"/>
 </editor>
 </editors>
 <views>
@@ -97,7 +82,7 @@
 <viewState CommonNavigator.LINKING_ENABLED="0"/>
 </view>
 </views>
-<perspectives activePart="org.eclipse.ui.navigator.ProjectExplorer" activePerspective="org.eclipse.jst.j2ee.J2EEPerspective">
+<perspectives activePart="org.eclipse.wst.server.ui.ServersView" activePerspective="org.eclipse.jst.j2ee.J2EEPerspective">
 <perspective editorAreaTrimState="2" editorAreaVisible="1" fixed="0" version="0.016">
 <descriptor class="org.eclipse.jst.j2ee.internal.perspective.J2EEPerspective" id="org.eclipse.jst.j2ee.J2EEPerspective" label="Java EE"/>
 <alwaysOnActionSet id="org.eclipse.mylyn.context.ui.actionSet"/>
@@ -187,7 +172,7 @@
 </info>
 <info part="org.eclipse.ui.editorss" ratio="0.25" ratioLeft="250" ratioRight="750" relationship="2" relative="topLeft"/>
 <info folder="true" part="bottomRight" ratio="0.6985173" ratioLeft="424" ratioRight="183" relationship="4" relative="org.eclipse.ui.editorss">
-<folder activePageID="org.eclipse.ui.views.AllMarkersView" appearance="2" expanded="2">
+<folder activePageID="org.eclipse.wst.server.ui.ServersView" appearance="2" expanded="2">
 <page content="org.eclipse.ui.views.AllMarkersView" label="Markers"/>
 <page content="org.eclipse.ui.views.PropertySheet" label="Properties"/>
 <page content="org.eclipse.wst.server.ui.ServersView" label="Servers"/>
@@ -226,116 +211,176 @@
 <workingSets/>
 <navigationHistory>
 <editors>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/PhaseBook/src/phasebook/student/StudentRemote.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jst.jsp.core.jspsource.source" path="/PhaseBookWeb/WebContent/WEB-INF/myprofile/profile.jsp"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/PhaseBook/src/phasebook/friendship/FriendshipBean.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/PhaseBook/src/phasebook/post/PostBean.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jst.jsp.core.jspsource.source" path="/PhaseBookWeb/WebContent/WEB-INF/template.jsp"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/PhaseBook/src/phasebook/user/PhasebookUserRemote.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/PhaseBookWeb/src/phasebook/controller/CreatePostForm.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/PhaseBookWeb/src/phasebook/controller/LoginUserForm.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/PhaseBookWeb/src/phasebook/controller/CreateUserForm.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jst.jsp.core.jspsource.source" path="/PhaseBookWeb/WebContent/WEB-INF/template.jsp"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jst.jsp.core.jspsource.source" path="/PhaseBookWeb/WebContent/WEB-INF/myprofile/profile.jsp"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/PhaseBookWeb/src/phasebook/controller/CreateUserForm.java"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jpt.jpa.ui.internal.editors.PersistenceEditor" path="/PhaseBook/ejbModule/META-INF/persistence.xml"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.ui.DefaultTextEditor" path="/PhaseBook/ejbModule/META-INF/persistence.xml"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/PhaseBook/src/phasebook/student/Student.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/PhaseBook/ejbModule/src/phasebook/student/Student_.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/PhaseBook/src/phasebook/student/Student_.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/PhaseBookWeb/src/phasebook/controller/Utils.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jst.jsp.core.jspsource.source" path="/PhaseBookWeb/WebContent/WEB-INF/teste.jsp"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jpt.jpa.ui.internal.editors.PersistenceEditor" path="/PhaseBook/ejbModule/META-INF/persistence.xml"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/PhaseBookWeb/src/phasebook/controller/Utils.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/PhaseBook/src/phasebook/student/Student_.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/PhaseBook/src/phasebook/student/Student.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/PhaseBook/src/phasebook/student/StudentRemote.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/PhaseBook/src/phasebook/student/StudentBean.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jst.jsp.core.jspsource.source" path="/PhaseBookWeb/WebContent/index.jsp"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/PhaseBook/src/phasebook/student/StudentBean.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/PhaseBookWeb/src/phasebook/controller/CreateFriendshipForm.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/PhaseBook/src/phasebook/post/PostBean.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/PhaseBook/src/phasebook/friendship/Friendship.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/PhaseBook/src/phasebook/friendship/FriendshipBean.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/PhaseBook/src/phasebook/post/Post.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/PhaseBook/src/phasebook/user/PhasebookUserBean.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/PhaseBook/src/phasebook/friendship/Friendship.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jst.jsp.core.jspsource.source" path="/PhaseBookWeb/WebContent/WEB-INF/template.jsp"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/PhaseBook/src/phasebook/user/PhasebookUserRemote.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jst.jsp.core.jspsource.source" path="/PhaseBookWeb/WebContent/WEB-INF/myprofile/profile.jsp"/>
 </editors>
-<item historyLabel="StudentRemote.java" index="0">
+<item historyLabel="profile.jsp" index="0">
+<position info="not_deleted" x="274" y="0"/>
+</item>
+<item historyLabel="FriendshipBean.java" index="1">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="profile.jsp" index="0">
+<position info="not_deleted" x="274" y="0"/>
+</item>
+<item historyLabel="PostBean.java" index="2">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="profile.jsp" index="0">
+<position info="not_deleted" x="274" y="0"/>
+</item>
+<item historyLabel="template.jsp" index="3">
+<position info="not_deleted" x="317" y="0"/>
+</item>
+<item historyLabel="profile.jsp" index="0">
+<position info="not_deleted" x="418" y="0"/>
+</item>
+<item historyLabel="template.jsp" index="3">
+<position info="not_deleted" x="1622" y="0"/>
+</item>
+<item historyLabel="profile.jsp" index="0">
+<position info="not_deleted" x="418" y="0"/>
+</item>
+<item historyLabel="PhasebookUserRemote.java" index="4">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="CreatePostForm.java" index="5">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="PhasebookUserRemote.java" index="4">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="LoginUserForm.java" index="6">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="PhasebookUserRemote.java" index="4">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="CreateUserForm.java" index="7">
+<position info="not_deleted" x="1171" y="0"/>
+</item>
+<item historyLabel="PhasebookUserRemote.java" index="4">
+<position info="not_deleted" x="580" y="0"/>
+</item>
+<item historyLabel="template.jsp" index="8">
+<position info="not_deleted" x="1622" y="0"/>
+</item>
+<item historyLabel="profile.jsp" index="9">
+<position info="not_deleted" x="418" y="0"/>
+</item>
+<item historyLabel="CreateUserForm.java" index="10">
+<position info="not_deleted" x="1171" y="0"/>
+</item>
+<item historyLabel="persistence.xml" index="11"/>
+<item historyLabel="CreateUserForm.java" index="10">
+<position info="not_deleted" x="1171" y="0"/>
+</item>
+<item historyLabel="profile.jsp" index="9">
+<position info="not_deleted" x="888" y="0"/>
+</item>
+<item historyLabel="CreateFriendshipForm.java" index="12">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="PhasebookUserRemote.java" index="4">
+<position info="not_deleted" x="580" y="0"/>
+</item>
+<item historyLabel="CreateFriendshipForm.java" index="12">
+<position info="not_deleted" x="1644" y="0"/>
+</item>
+<item historyLabel="PostBean.java" index="13">
+<position info="not_deleted" x="314" y="0"/>
+</item>
+<item historyLabel="CreateFriendshipForm.java" index="12">
+<position info="not_deleted" x="1644" y="0"/>
+</item>
+<item historyLabel="Friendship.java" index="14">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="FriendshipBean.java" index="15">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="Post.java" index="16">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="CreateFriendshipForm.java" index="12">
+<position info="not_deleted" x="1644" y="2"/>
+</item>
+<item historyLabel="PhasebookUserBean.java" index="17">
+<position info="not_deleted" x="4754" y="0"/>
+</item>
+<item historyLabel="Friendship.java" index="18">
 <position/>
 </item>
-<item historyLabel="persistence.xml" index="1"/>
-<item historyLabel="StudentRemote.java" index="0">
-<position/>
+<item historyLabel="PhasebookUserBean.java" index="17">
+<position info="not_deleted" x="5081" y="0"/>
 </item>
-<item historyLabel="persistence.xml" index="2">
+<item historyLabel="Friendship.java" index="18">
+<position info="not_deleted" x="1125" y="6"/>
+</item>
+<item historyLabel="PhasebookUserBean.java" index="17">
+<position info="not_deleted" x="4704" y="0"/>
+</item>
+<item historyLabel="CreateFriendshipForm.java" index="12">
+<position info="not_deleted" x="1355" y="0"/>
+</item>
+<item historyLabel="PhasebookUserBean.java" index="17">
+<position info="not_deleted" x="4698" y="6"/>
+</item>
+<item historyLabel="CreateFriendshipForm.java" index="12">
+<position info="not_deleted" x="1355" y="0"/>
+</item>
+<item historyLabel="template.jsp" index="19">
+<position info="not_deleted" x="1622" y="0"/>
+</item>
+<item historyLabel="CreateFriendshipForm.java" index="12">
+<position info="not_deleted" x="1941" y="0"/>
+</item>
+<item historyLabel="PhasebookUserRemote.java" index="20">
 <position info="not_deleted" x="0" y="0"/>
 </item>
-<item historyLabel="StudentRemote.java" index="0">
-<position/>
+<item historyLabel="PhasebookUserBean.java" index="17">
+<position info="not_deleted" x="4685" y="70"/>
 </item>
-<item historyLabel="StudentRemote.java" index="0">
-<position info="not_deleted" x="160" y="0"/>
+<item historyLabel="PhasebookUserRemote.java" index="20">
+<position info="not_deleted" x="648" y="0"/>
 </item>
-<item historyLabel="Student.java" index="3">
-<position info="not_deleted" x="0" y="0"/>
+<item historyLabel="CreateFriendshipForm.java" index="12">
+<position info="not_deleted" x="2060" y="0"/>
 </item>
-<item historyLabel="persistence.xml" index="1"/>
-<item historyLabel="Student.java" index="3">
-<position info="not_deleted" x="0" y="0"/>
+<item historyLabel="PhasebookUserBean.java" index="17">
+<position info="not_deleted" x="4820" y="0"/>
 </item>
-<item historyLabel="Student_.java" index="4">
-<position info="not_deleted" x="0" y="0"/>
+<item historyLabel="CreateFriendshipForm.java" index="12">
+<position info="not_deleted" x="2060" y="0"/>
 </item>
-<item historyLabel="Student.java" index="3">
-<position info="not_deleted" x="0" y="0"/>
+<item historyLabel="PhasebookUserRemote.java" index="20">
+<position info="not_deleted" x="648" y="0"/>
 </item>
-<item historyLabel="Student_.java" index="5">
-<position info="not_deleted" x="0" y="0"/>
+<item historyLabel="CreateFriendshipForm.java" index="12">
+<position info="not_deleted" x="2060" y="0"/>
 </item>
-<item historyLabel="Student.java" index="3">
-<position info="not_deleted" x="0" y="0"/>
-</item>
-<item historyLabel="persistence.xml" index="1"/>
-<item historyLabel="Utils.java" index="6">
-<position info="not_deleted" x="0" y="0"/>
-</item>
-<item historyLabel="teste.jsp" index="7">
-<position info="not_deleted" x="0" y="0"/>
-</item>
-<item historyLabel="persistence.xml" index="8"/>
-<item historyLabel="teste.jsp" index="7">
-<position/>
-</item>
-<item historyLabel="Utils.java" index="9">
-<position info="not_deleted" x="0" y="0"/>
-</item>
-<item historyLabel="Student_.java" index="10">
-<position info="not_deleted" x="0" y="0"/>
-</item>
-<item historyLabel="Student.java" index="11">
-<position info="not_deleted" x="460" y="0"/>
-</item>
-<item historyLabel="StudentRemote.java" index="12">
-<position info="not_deleted" x="0" y="0"/>
-</item>
-<item historyLabel="Student.java" index="11">
-<position info="not_deleted" x="460" y="0"/>
-</item>
-<item historyLabel="Student.java" index="11">
-<position info="not_deleted" x="113" y="7"/>
-</item>
-<item historyLabel="StudentBean.java" index="13">
-<position info="not_deleted" x="700" y="0"/>
-</item>
-<item historyLabel="index.jsp" index="14">
-<position info="not_deleted" x="856" y="0"/>
-</item>
-<item historyLabel="teste.jsp" index="7">
-<position/>
-</item>
-<item historyLabel="Utils.java" index="9">
-<position info="not_deleted" x="197" y="1"/>
-</item>
-<item historyLabel="index.jsp" index="14">
-<position info="not_deleted" x="856" y="0"/>
-</item>
-<item historyLabel="StudentBean.java" index="13">
-<position info="not_deleted" x="700" y="0"/>
-</item>
-<item historyLabel="Student.java" index="11">
-<position info="not_deleted" x="113" y="7"/>
-</item>
-<item historyLabel="teste.jsp" index="7">
-<position info="not_deleted" x="246" y="0"/>
-</item>
-<item historyLabel="StudentRemote.java" index="12">
-<position info="not_deleted" x="0" y="0"/>
-</item>
-<item active="true" historyLabel="StudentBean.java" index="15">
-<position info="not_deleted" x="700" y="0"/>
+<item active="true" historyLabel="profile.jsp" index="21">
+<position info="not_deleted" x="888" y="0"/>
 </item>
 </navigationHistory>
 <input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
@@ -355,29 +400,50 @@
 </trimLayout>
 </window>
 <mruList>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="PhasebookUserRemote.java" tooltip="PhaseBook/src/phasebook/user/PhasebookUserRemote.java">
+<persistable path="/PhaseBook/src/phasebook/user/PhasebookUserRemote.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Friendship.java" tooltip="PhaseBook/src/phasebook/friendship/Friendship.java">
+<persistable path="/PhaseBook/src/phasebook/friendship/Friendship.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="PhasebookUserBean.java" tooltip="PhaseBook/src/phasebook/user/PhasebookUserBean.java">
+<persistable path="/PhaseBook/src/phasebook/user/PhasebookUserBean.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Post.java" tooltip="PhaseBook/src/phasebook/post/Post.java">
+<persistable path="/PhaseBook/src/phasebook/post/Post.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="FriendshipBean.java" tooltip="PhaseBook/src/phasebook/friendship/FriendshipBean.java">
+<persistable path="/PhaseBook/src/phasebook/friendship/FriendshipBean.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="PostBean.java" tooltip="PhaseBook/src/phasebook/post/PostBean.java">
+<persistable path="/PhaseBook/src/phasebook/post/PostBean.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="CreateFriendshipForm.java" tooltip="PhaseBookWeb/src/phasebook/controller/CreateFriendshipForm.java">
+<persistable path="/PhaseBookWeb/src/phasebook/controller/CreateFriendshipForm.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jpt.jpa.ui.internal.editors.PersistenceEditor" name="persistence.xml" tooltip="PhaseBook/ejbModule/META-INF/persistence.xml">
+<persistable path="/PhaseBook/ejbModule/META-INF/persistence.xml"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="CreateUserForm.java" tooltip="PhaseBookWeb/src/phasebook/controller/CreateUserForm.java">
+<persistable path="/PhaseBookWeb/src/phasebook/controller/CreateUserForm.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="LoginUserForm.java" tooltip="PhaseBookWeb/src/phasebook/controller/LoginUserForm.java">
+<persistable path="/PhaseBookWeb/src/phasebook/controller/LoginUserForm.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="CreatePostForm.java" tooltip="PhaseBookWeb/src/phasebook/controller/CreatePostForm.java">
+<persistable path="/PhaseBookWeb/src/phasebook/controller/CreatePostForm.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jst.jsp.core.jspsource.source" name="template.jsp" tooltip="PhaseBookWeb/WebContent/WEB-INF/template.jsp">
+<persistable path="/PhaseBookWeb/WebContent/WEB-INF/template.jsp"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jst.jsp.core.jspsource.source" name="profile.jsp" tooltip="PhaseBookWeb/WebContent/WEB-INF/myprofile/profile.jsp">
+<persistable path="/PhaseBookWeb/WebContent/WEB-INF/myprofile/profile.jsp"/>
+</file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="StudentRemote.java" tooltip="PhaseBook/src/phasebook/student/StudentRemote.java">
 <persistable path="/PhaseBook/src/phasebook/student/StudentRemote.java"/>
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jst.jsp.core.jspsource.source" name="index.jsp" tooltip="PhaseBookWeb/WebContent/index.jsp">
 <persistable path="/PhaseBookWeb/WebContent/index.jsp"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="StudentBean.java" tooltip="PhaseBook/src/phasebook/student/StudentBean.java">
-<persistable path="/PhaseBook/src/phasebook/student/StudentBean.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Student.java" tooltip="PhaseBook/src/phasebook/student/Student.java">
-<persistable path="/PhaseBook/src/phasebook/student/Student.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Student_.java" tooltip="PhaseBook/src/phasebook/student/Student_.java">
-<persistable path="/PhaseBook/src/phasebook/student/Student_.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jst.jsp.core.jspsource.source" name="teste.jsp" tooltip="PhaseBookWeb/WebContent/WEB-INF/teste.jsp">
-<persistable path="/PhaseBookWeb/WebContent/WEB-INF/teste.jsp"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Utils.java" tooltip="PhaseBookWeb/src/phasebook/controller/Utils.java">
-<persistable path="/PhaseBookWeb/src/phasebook/controller/Utils.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jpt.jpa.ui.internal.editors.PersistenceEditor" name="persistence.xml" tooltip="PhaseBook/ejbModule/META-INF/persistence.xml">
-<persistable path="/PhaseBook/ejbModule/META-INF/persistence.xml"/>
 </file>
 </mruList>
 </workbench>

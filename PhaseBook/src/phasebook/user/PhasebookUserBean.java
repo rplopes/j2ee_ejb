@@ -156,4 +156,18 @@ public class PhasebookUserBean implements PhasebookUserRemote {
 		em.refresh(post);
 		tx.commit();
 	}
+	
+	public void invite(PhasebookUser hostUser, PhasebookUser invitedUser)
+	{
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PhaseBook");
+		EntityManager em = emf.createEntityManager();
+		EntityTransaction tx = em.getTransaction();
+		
+		tx.begin();
+    	Friendship fship = new Friendship(hostUser, invitedUser);
+		em.persist(fship);
+		em.refresh(fship);
+		tx.commit();
+		
+	}
 }

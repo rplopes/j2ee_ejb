@@ -45,7 +45,7 @@ public class Friendship implements Serializable {
 		super();
 	}
 	
-	protected Friendship(PhasebookUser inviterUser, PhasebookUser inveteeUser) 
+	public Friendship(PhasebookUser inviterUser, PhasebookUser inveteeUser) 
 	{
 		super();
 		this.hostUser = inviterUser;
