@@ -14,5 +14,5 @@ public interface PhasebookUserRemote {
 	public PhasebookUser getUserById(Object id);
 	public List getUsersFromSearch(Object search);
 	public List<Post> getUserReceivedPosts(Object userId);
-	public void addPost(PhasebookUser from, PhasebookUser to, String text);
+	public void addPost(PhasebookUser from, PhasebookUser to, String text, String privacy);
 }

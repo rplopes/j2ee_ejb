@@ -54,12 +54,16 @@ public class Post implements Serializable{
 		super();
 	}
 	
-	public Post(PhasebookUser from, PhasebookUser to, String text)
+	public Post(PhasebookUser from, PhasebookUser to, String text, String privacy)
 	{
 		super();
 		this.fromUser = from;
 		this.toUser = to;
 		this.text = text;
+		if (privacy.compareTo("0")==0)
+			this.private_ = false;
+		else
+			this.private_ = true;
 	}
 
 	public int getId() {

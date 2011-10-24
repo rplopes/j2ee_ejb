@@ -145,13 +145,13 @@ public class PhasebookUserBean implements PhasebookUserRemote {
 		}
 	}
 	
-	public void addPost(PhasebookUser from, PhasebookUser to, String text){
+	public void addPost(PhasebookUser from, PhasebookUser to, String text, String privacy){
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PhaseBook");
 		EntityManager em = emf.createEntityManager();
 		EntityTransaction tx = em.getTransaction();
 		
 		tx.begin();
-    	Post post = new Post(from, to, text);
+    	Post post = new Post(from, to, text, privacy);
 		em.persist(post);
 		em.refresh(post);
 		tx.commit();
