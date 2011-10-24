@@ -6,7 +6,7 @@ import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 import phasebook.user.PhasebookUser;
 
-@Generated(value="Dali", date="2011-10-24T17:37:37.600+0100")
+@Generated(value="Dali", date="2011-10-18T14:48:29.291+0100")
 @StaticMetamodel(Friendship.class)
 public class Friendship_ {
 	public static volatile SingularAttribute<Friendship, Integer> id;

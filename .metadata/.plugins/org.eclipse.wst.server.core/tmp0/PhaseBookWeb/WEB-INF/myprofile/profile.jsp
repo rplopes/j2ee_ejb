@@ -31,31 +31,52 @@
 <h1><%= Utils.text(user.getName()) %></h1> 
 <p class="tip"><%= Utils.text(user.getEmail()) %></p>
 
-<form method="POST" action="CreatePostForm">
-	<table>
-		<tr>
-			<td><textarea name="text" COLS=80 ROWS=6></textarea></td>
-			<td><input type="hidden" name="toUser" value="<%= userId.toString() %>"/></td>
-		</tr>
-		<tr>
-			<td></td>
-			<td><input type="submit" value="Send" name="B1"></td>
-		</tr>
-	</table>
+<%
+	if (session.getAttribute("error") != null)
+	{
+%>
+		<p style="color:red"><%= session.getAttribute("error") %></p>
+<%
+		session.removeAttribute("error");
+	}
+%>
+
+<%
+	String post = "";
+	String privacy = "0";
+	try {
+		post = session.getAttribute("post").toString();
+		session.removeAttribute("post");
+		privacy = session.getAttribute("privacy").toString();
+		session.removeAttribute("privacy");
+	} catch (Exception e) {}
+%>
+
+<form method="POST" action="CreatePostForm" style="padding: 0 50px 0 50px;">
+	<p align="center">
+		<textarea id="post" name="post"></textarea>
+		<input type="hidden" name="toUser" value="<%= userId.toString() %>"/>
+	</p>
+	<p align="right">
+		<select name="privacy">
+			<option value="0" <% if (privacy.compareTo("0")==0) { %>selected<% } %>>Public</option>
+			<% // tem de verificar se são ou não amigos %>
+			<option value="1" <% if (privacy.compareTo("1")==0) { %>selected<% } %>>Private</option>
+		</select>
+		<input type="submit" value="Post" name="B1">
+	</p>
 </form>
---------------------------------------------------------------------------------------------
+
 <%
 	List<Post> posts = userBean.getUserReceivedPosts(userId);
-	for(int i=posts.size()-1; i>=0; i--){
+	for (int i=posts.size()-1; i>=0; i--) {
 %>
-	<br>
-    <%= posts.get(i).getText() %>
-    <br>
-    Posted by:
-    <br>
-    <%= posts.get(i).getFromUser().getName() %>
-    <br>
---------------------------------------------------------------------------------------------
+	<p>
+		<b class="user"><%= Utils.a("user&id="+posts.get(i).getFromUser().getId(), Utils.text(posts.get(i).getFromUser().getName())) %></b>
+		<% if (posts.get(i).isPrivate_()) { %><i>(private)</i><% } %>
+		<br />
+		<%= Utils.text(posts.get(i).getText()) %>
+	</p>
 <%
 	}
 %>

@@ -22,7 +22,7 @@
 		PhasebookUser user = (PhasebookUser) users.get(i);
 %>
 		<p>
-			<b><%= Utils.a("user&id="+user.getId(), Utils.text(user.getName())) %></b><br />
+			<b class="user"><%= Utils.a("user&id="+user.getId(), Utils.text(user.getName())) %></b><br />
 			<i><%= Utils.text(user.getEmail()) %></i>
 		</p>
 <%

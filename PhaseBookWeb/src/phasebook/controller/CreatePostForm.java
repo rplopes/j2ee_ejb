@@ -26,20 +26,19 @@ public class CreatePostForm extends HttpServlet {
      */
     public CreatePostForm() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-	}
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		InitialContext ctx = null;
 		HttpSession session = request.getSession();
 		try {
@@ -50,21 +49,23 @@ public class CreatePostForm extends HttpServlet {
 			PhasebookUser fromUser = userBean.getUserById(session.getAttribute("id"));
 			PhasebookUser toUser = userBean.getUserById(request.getParameter("toUser"));
 
-			String text = request.getParameter("text");
+			String text = request.getParameter("post");
+			String privacy = request.getParameter("privacy");
 
 			String error = formValidation(text);
 			if (error != null) {
 				session.setAttribute("error", error);
-				session.setAttribute("text", text);
-				response.sendRedirect(Utils.url("register"));
+				session.setAttribute("post", text);
+				session.setAttribute("privacy", privacy);
+				response.sendRedirect(Utils.url("user&id="+request.getParameter("toUser").toString()));
 			} else {
-				userBean.addPost(fromUser, toUser, text);
-				response.sendRedirect("?p=user&id="+request.getParameter("toUser").toString());
+				userBean.addPost(fromUser, toUser, text, privacy);
+				response.sendRedirect(Utils.url("user&id="+request.getParameter("toUser").toString()));
 			}
 		} catch (NamingException e) {
 			e.printStackTrace();
 			session.setAttribute("error", "The submited data is incorrect");
-			response.sendRedirect(Utils.url("register"));
+			response.sendRedirect(Utils.url("user&id="+request.getParameter("toUser").toString()));
 		}
 	}
 	
