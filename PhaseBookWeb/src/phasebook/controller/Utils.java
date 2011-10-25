@@ -6,6 +6,7 @@ import javax.naming.NamingException;
 import phasebook.friendship.FriendshipRemote;
 import phasebook.post.PostRemote;
 import phasebook.lottery.LotteryRemote;
+import phasebook.lotterybet.LotteryBetRemote;
 import phasebook.user.PhasebookUserRemote;
 
 public class Utils {
@@ -64,7 +65,6 @@ public class Utils {
 		}
 	}
 	
-	//Get friendship bean
 	public static FriendshipRemote getFriendshipBean()
 	{
 		InitialContext ctx = null;
@@ -78,19 +78,31 @@ public class Utils {
 		}
 	}
 	
-	//Get friendship bean
-		public static PostRemote getPostBean()
-		{
-			InitialContext ctx = null;
-			try {
-				ctx = new InitialContext();
-				PostRemote post;
-				post = (PostRemote) ctx.lookup("PostBean/remote");
-				return post;
-			} catch (NamingException e) {
-				return null;
-			}
+	//Get lotterybet bean
+	public static LotteryBetRemote getLotteryBetBean()
+	{
+		InitialContext ctx = null;
+		try {
+			ctx = new InitialContext();
+			return (LotteryBetRemote) ctx.lookup("LotteryBetBean/remote");
+		} catch (NamingException e) {
+			return null;
 		}
+	}
+	
+	//Get friendship bean
+	public static PostRemote getPostBean()
+	{
+		InitialContext ctx = null;
+		try {
+			ctx = new InitialContext();
+			PostRemote post;
+			post = (PostRemote) ctx.lookup("PostBean/remote");
+			return post;
+		} catch (NamingException e) {
+			return null;
+		}
+	}
 	
 	//Get escaped text
 	public static String text(String text)

@@ -1,4 +1,6 @@
 <%@ page import="phasebook.controller.*" %>
+<%@ page import="phasebook.lotterybet.*" %>
+<%@ page import="java.util.List" %>
 
 <img id="imgcharity" src="http://www.medicalaidfilms.org/images/10.jpg">
 
@@ -44,7 +46,23 @@
 
 <h2>Current bets</h2>
 <p>
-	You have no bets for the next draw.
+	<%
+		LotteryBetRemote lotteryBet = Utils.getLotteryBetBean();
+		List<LotteryBet> bets = lotteryBet.userBets(session.getAttribute("id"));
+		if (bets == null || bets.size() == 0) {
+	%>
+			You have no bets for the next draw.
+	<%
+		}
+		else {
+			for (int i=0; i<bets.size(); i++) {
+				LotteryBet bet = bets.get(i);
+	%>
+				Number <%= bet.getBetNumber() %><br />
+	<%
+			}
+		}
+	%>
 </p>
 
 <h2>Old bets</h2>

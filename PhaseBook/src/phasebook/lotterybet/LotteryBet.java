@@ -76,7 +76,7 @@ public class LotteryBet implements Serializable {
 		this.betValue = betValue;
 	}
 
-	protected int getBetNumber() {
+	public int getBetNumber() {
 		return betNumber;
 	}
 
