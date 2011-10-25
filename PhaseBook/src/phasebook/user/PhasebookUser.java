@@ -10,7 +10,6 @@ import javax.persistence.*;
 import phasebook.friendship.Friendship;
 import phasebook.photo.Photo;
 import phasebook.lotterybet.LotteryBet;
-import phasebook.oldlotterybet.OldLotteryBet;
 import phasebook.post.Post;
 
 @Entity
@@ -50,10 +49,6 @@ private static final long serialVersionUID = 1L;
 	@ElementCollection
 	@OneToMany(cascade=CascadeType.ALL, mappedBy = "user")
 	private List<LotteryBet> lotteryBets = new ArrayList<LotteryBet>();
-	
-	@ElementCollection
-	@OneToMany(cascade=CascadeType.ALL, mappedBy = "user")
-	private List<OldLotteryBet> oldLotteryBets = new ArrayList<OldLotteryBet>();
 	
 	@ElementCollection  
 	@OneToMany(cascade=CascadeType.ALL, mappedBy = "fromUser")
@@ -165,14 +160,6 @@ private static final long serialVersionUID = 1L;
 
 	public void setReceivedInvites(List<Friendship> receivedInvites) {
 		this.receivedInvites = receivedInvites;
-	}
-
-	public List<OldLotteryBet> getOldLotteryBets() {
-		return oldLotteryBets;
-	}
-
-	public void setOldLotteryBets(List<OldLotteryBet> oldLotteryBets) {
-		this.oldLotteryBets = oldLotteryBets;
 	}
 
 	public List<LotteryBet> getLotteryBets() {

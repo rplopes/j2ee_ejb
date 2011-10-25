@@ -3,7 +3,6 @@
 	<persistence-unit name="PhaseBook" transaction-type="RESOURCE_LOCAL">
 		<class>phasebook.user.PhasebookUser</class>
 		<class>phasebook.post.Post</class>
-		<class>phasebook.oldlotterybet.OldLotteryBet</class>
 		<class>phasebook.lotterybet.LotteryBet</class>
 		<class>phasebook.lottery.Lottery</class>
 		<class>phasebook.friendship.Friendship</class>

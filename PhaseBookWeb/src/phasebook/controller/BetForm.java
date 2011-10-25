@@ -51,7 +51,8 @@ public class BetForm extends HttpServlet {
 			if (error != null)
 				session.setAttribute("error", error);
 			else
-				bet.createBet(session.getAttribute("id"), Integer.parseInt(number));
+				if (!bet.createBet(session.getAttribute("id"), Integer.parseInt(number)))
+					session.setAttribute("error", "No active draws at the moment, try again later");
 			response.sendRedirect(Utils.url("lottery"));
 		} catch (NamingException e) {
 			e.printStackTrace();

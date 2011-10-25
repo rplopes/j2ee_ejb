@@ -7,11 +7,10 @@ import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 import phasebook.friendship.Friendship;
 import phasebook.lotterybet.LotteryBet;
-import phasebook.oldlotterybet.OldLotteryBet;
 import phasebook.photo.Photo;
 import phasebook.post.Post;
 
-@Generated(value="Dali", date="2011-10-26T16:55:06.142+0100")
+@Generated(value="Dali", date="2011-10-26T16:55:28.520+0100")
 @StaticMetamodel(PhasebookUser.class)
 public class PhasebookUser_ {
 	public static volatile SingularAttribute<PhasebookUser, Integer> id;
@@ -28,5 +27,4 @@ public class PhasebookUser_ {
 	public static volatile ListAttribute<PhasebookUser, Post> receivedPosts;
 	public static volatile SingularAttribute<PhasebookUser, Photo> photo;
 	public static volatile ListAttribute<PhasebookUser, Photo> userPhotos;
-	public static volatile ListAttribute<PhasebookUser, OldLotteryBet> oldLotteryBets;
 }

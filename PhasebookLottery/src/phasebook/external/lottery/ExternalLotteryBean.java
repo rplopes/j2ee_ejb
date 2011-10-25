@@ -1,7 +1,5 @@
 package phasebook.external.lottery;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
@@ -27,11 +25,8 @@ public class ExternalLotteryBean implements ExternalLotteryRemote {
 	
 	@Timeout
 	public void timeout(Timer timer){
-		/*DateFormat dateFormat = new SimpleDateFormat("HH:mm - dd/MM/yyyy");
-		Calendar draw = Calendar.getInstance();
-		draw.add(Calendar.MINUTE, 1);
-		nextDraw = dateFormat.format(draw.getTime());*/
 		nextDraw = Calendar.getInstance();
+		nextDraw.add(Calendar.MILLISECOND, timerInterval);
 		Random r = new Random();
 		number = r.nextInt(100) + 1;
 		System.out.println("External Lottery: number " + number);
