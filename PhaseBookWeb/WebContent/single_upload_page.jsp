@@ -24,7 +24,7 @@
 				byteRead = in.read(dataBytes, totalBytesRead, formDataLength);
 				totalBytesRead += byteRead;
 			}
-			                        String file = new String(dataBytes);
+			String file = new String(dataBytes);
 			//for saving the file name
 			String saveFile = file.substring(file.indexOf("filename=\"") + 10);
 			saveFile = saveFile.substring(0, saveFile.indexOf("\n"));
@@ -39,8 +39,6 @@
 			pos = file.indexOf("\n", pos) + 1;
 			int boundaryLocation = file.indexOf(boundary, pos) - 4;
 			int startPos = ((file.substring(0, pos)).getBytes()).length;
-			int endPos = ((file.substring(0, boundaryLocation)).getBytes()).length;
-			// creating a new file with the same name and writing the  content in new file
 			
 			FileOutputStream fileOut;
 			boolean success = (new File(userId)).mkdir();
@@ -55,7 +53,7 @@
   				fileOut = new FileOutputStream(saveFile);
   			}  			
   			
-			fileOut.write(dataBytes, startPos, (endPos - startPos));
+			fileOut.write(dataBytes, pos, formDataLength-pos);
 			fileOut.flush();
 			fileOut.close();
 			%><Br><table border="2"><tr><td><b>You have successfully upload the file by the name of:</b>
