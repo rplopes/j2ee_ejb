@@ -189,4 +189,8 @@ private static final long serialVersionUID = 1L;
 	public void setSentPosts(List<Post> sentPosts) {
 		this.sentPosts = sentPosts;
 	}
+	
+	public boolean equals(PhasebookUser user) {
+		return user.getId() == this.getId();
+	}
 }

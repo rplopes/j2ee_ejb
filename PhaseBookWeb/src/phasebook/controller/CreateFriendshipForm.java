@@ -42,7 +42,7 @@ public class CreateFriendshipForm extends HttpServlet {
 		InitialContext ctx = null;
 		HttpSession session = request.getSession();
 		
-		int typeOfAction=(Integer) request.getAttribute("hidden");
+		int typeOfAction= Integer.parseInt(request.getParameter("relationship").toString());
 		if(typeOfAction==0)
 		{
 			try {
@@ -75,7 +75,6 @@ public class CreateFriendshipForm extends HttpServlet {
 				
 				PhasebookUser fromUser = userBean.getUserById(session.getAttribute("id"));
 				PhasebookUser toUser = userBean.getUserById(request.getParameter("toUser"));
-	
 	
 				friendshipBean.acceptFriendship(toUser,fromUser);
 				response.sendRedirect("?p=user&id="+request.getParameter("toUser").toString());

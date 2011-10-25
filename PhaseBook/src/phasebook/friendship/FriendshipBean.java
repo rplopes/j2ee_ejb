@@ -1,5 +1,8 @@
 package phasebook.friendship;
 
+import java.util.Iterator;
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -30,9 +33,9 @@ public class FriendshipBean implements FriendshipRemote {
 		
 		if(myFriendship == null)
 			return 0;
-		else if(!myFriendship.isAccepted_() && myFriendship.getHostUser()==user_a)
+		else if(!myFriendship.isAccepted_() && myFriendship.getHostUser().equals(user_a))
 			return 1;
-		else if(!myFriendship.isAccepted_() && myFriendship.getHostUser()==user_b)
+		else if(!myFriendship.isAccepted_() && myFriendship.getHostUser().equals(user_b))
 			return 2;
 		else if(myFriendship.isAccepted_())
 			return 3;
@@ -49,20 +52,18 @@ public class FriendshipBean implements FriendshipRemote {
 
 	public Friendship searchFriendship(PhasebookUser user_a, PhasebookUser user_b)
 	{
-		String userA = user_a.getName();
-		String userB = user_b.getName();
-		Friendship result = null;
 		
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PhaseBook");
 		EntityManager em = emf.createEntityManager();
+		Friendship result = null;
 		
-		Query q = em.createQuery("SELECT u FROM FRIENDSHIP u " +
-				"WHERE (u.HOST_PHASEBOOK_USER_ID LIKE :user_a AND " +
-				"u.INVITED_PHASEBOOK_USER_ID LIKE :user_b) OR"+
-				"(u.HOST_PHASEBOOK_USER_ID LIKE :user_b AND " +
-				"u.INVITED_PHASEBOOK_USER_ID LIKE :user_a)");
-		q.setParameter("user_a",userA);
-		q.setParameter("user_b",userB);
+		Query q = em.createQuery("SELECT u FROM Friendship u " +
+				"WHERE (u.hostUser = :user_a AND " +
+				"u.invitedUser = :user_b) OR"+
+				"(u.hostUser = :user_b AND " +
+				"u.invitedUser = :user_a)");
+		q.setParameter("user_a",user_a);
+		q.setParameter("user_b",user_b);
 		
 		try
 		{
@@ -70,7 +71,7 @@ public class FriendshipBean implements FriendshipRemote {
 		}
 		catch(NoResultException e)
 		{
-			System.out.println("<Não foram encontrados resultados>");
+			System.out.println("<Nï¿½o foram encontrados resultados>");
 		}
 		catch(NonUniqueResultException e)
 		{
@@ -80,7 +81,6 @@ public class FriendshipBean implements FriendshipRemote {
 		{
 			return result;
 		}
-
 	}
 
 	/**
@@ -90,14 +90,13 @@ public class FriendshipBean implements FriendshipRemote {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PhaseBook");
 		EntityManager em = emf.createEntityManager();
 		EntityTransaction tx = em.getTransaction();
+		tx.begin();
 		
-    	Friendship friend = new Friendship(fromUser,toUser);
+    	Friendship friend = searchFriendship(toUser, fromUser);
+    	em.merge(friend);
     	friend.setAccepted_(true);
-		em.merge(friend);
-		em.refresh(friend);
-		tx.commit();
-		
-		
+    	em.merge(friend);
+		tx.commit();	
 	}
 
 }

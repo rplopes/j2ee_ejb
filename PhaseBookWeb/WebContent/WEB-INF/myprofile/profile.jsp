@@ -32,15 +32,17 @@
 	
 %>
 <form method="POST" action="CreateFriendshipForm">
-<input type="hidden" name="toUser" value="<%= userId.toString() %>"/>
-<%if(request.getParameter("id")!=null){
-   if(relationshipType==0){%>
-	<input type="submit" value="Add Friend" hidden=0 name="F0">
-<%}else if(relationshipType==1){%>
-	<input type="submit" value="Friendship request sent" hidden=1 name="F1" disabled="disabled">
-<%}else if(relationshipType==2){ %>
-	<input type="submit" value="Accept Friendship" hidden=2 name="F2">	
-<%}else if(relationshipType==3){}}%>
+	<input type="hidden" name="toUser" value="<%= userId.toString() %>"/>
+	<input type="hidden" name="relationship" value="<%= relationshipType %>"/>
+<%
+	if(request.getParameter("id")!=null && request.getParameter("id") != session.getAttribute("id")){
+   		if(relationshipType==0){%>
+			<input type="submit" value="Add Friend" name="F0">
+<%		}else if(relationshipType==1){%>
+			<input type="submit" value="Friendship request sent" name="F1" disabled="disabled">
+<%		}else if(relationshipType==2){ %>
+			<input type="submit" value="Accept Friendship" name="F2">	
+<%		}else if(relationshipType==3){}}%>
 
 </form>
 
