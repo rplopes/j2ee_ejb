@@ -1,6 +1,7 @@
 <%@ page import="phasebook.controller.*" %>
 <%@ page import="phasebook.lotterybet.*" %>
 <%@ page import="java.util.List" %>
+<%@ page import="java.text.*" %>
 
 <img id="imgcharity" src="http://www.medicalaidfilms.org/images/10.jpg">
 
@@ -15,8 +16,18 @@
 	If you guessed the right number you win 50 L&euro;.
 </p>
 
-<h2>Next Draw: <%= Utils.getLotteryBean().nextDrawDate() %></h2>
+<h2>
+	Next Draw:
+	<%
+		if (Utils.getLotteryBean().nextDrawDate()==null) {
+	%>
+			No draws at the moment, come back later
+	<% } else { %>
+		<%= Utils.getLotteryBean().nextDrawDate() %>
+	<% } %>
+</h2>
 
+<% if (Utils.getLotteryBean().nextDrawDate()!=null) { %>
 <form method="POST" action="BetForm">
 
 	<select name="number">
@@ -30,6 +41,7 @@
 	</p>
 	
 </form>
+<% } %>
 
 <h2>Get more money</h2>
 
@@ -48,7 +60,7 @@
 <p>
 	<%
 		LotteryBetRemote lotteryBet = Utils.getLotteryBetBean();
-		List<LotteryBet> bets = lotteryBet.userBets(session.getAttribute("id"));
+		List<LotteryBet> bets = lotteryBet.userCurrentBets(session.getAttribute("id"));
 		if (bets == null || bets.size() == 0) {
 	%>
 			You have no bets for the next draw.
@@ -68,5 +80,30 @@
 <h2>Old bets</h2>
 
 <p>
-	You have never placed any bet.
+	<%
+		bets = lotteryBet.userOldBets(session.getAttribute("id"));
+		if (bets == null || bets.size() == 0) {
+	%>
+			You have never placed any bet.
+	<%
+		}
+		else {
+			for (int i=0; i<bets.size(); i++) {
+				LotteryBet bet = bets.get(i);
+	%>
+				<% if (bet.getBetNumber() == bet.getLottery().getLotteryNumber()) { %><b><% } %>
+				Number <%= bet.getBetNumber() %> at
+				<%
+					DateFormat dateFormat = new SimpleDateFormat("HH:mm - dd/MM/yyyy");
+					String date = dateFormat.format(bet.getLottery().getLotteryDate().getTime());
+				%>
+				<%= date %>
+				(<%= bet.getLottery().getLotteryNumber() %> won)
+				<% if (bet.getBetNumber() == bet.getLottery().getLotteryNumber()) { %>
+					 - You won <%= bet.getValueWon() %> L&euro;!</b>
+				<% } %><br />
+	<%
+			}
+		}
+	%>
 </p>

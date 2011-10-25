@@ -17,12 +17,16 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 
 import phasebook.external.lottery.ExternalLotteryRemote;
+import phasebook.lotterybet.*;
+import phasebook.user.*;
 
 @Stateless
 public class LotteryBean implements LotteryRemote {
 	
+	private static float MONEYWIN = 50;
+	
 	public static int number = -1;
-	public static Calendar nextDraw;
+	public static Calendar nextDraw = null;
 	public static int timerInterval = 1000 * 60;
 	private @Resource SessionContext ctx;
 	  
@@ -31,6 +35,8 @@ public class LotteryBean implements LotteryRemote {
 	}
 	
 	public String nextDrawDate() {
+		if (nextDraw == null)
+			return null;
 		DateFormat dateFormat = new SimpleDateFormat("HH:mm - dd/MM/yyyy");
 		return dateFormat.format(nextDraw.getTime());
 	}
@@ -42,9 +48,9 @@ public class LotteryBean implements LotteryRemote {
 			ExternalLotteryRemote lottery = (ExternalLotteryRemote) ctx.lookup("ExternalLotteryBean/remote");
 			number = lottery.getNumber();
 			nextDraw = lottery.getNextDraw();
+			createDraw(nextDraw);
 			if (number > 0)
 				updateCurrentDraw(number);
-			createDraw(nextDraw);
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}
@@ -62,6 +68,7 @@ public class LotteryBean implements LotteryRemote {
 		try {
 			lottery = (Lottery)q.getSingleResult();
 		} catch (Exception e) {
+			e.printStackTrace();
 			lottery = null;
 		}
 		return lottery;
@@ -79,6 +86,27 @@ public class LotteryBean implements LotteryRemote {
 			em.merge(lottery);
 		}
 		tx.commit();
+		
+		// Give money to winers
+		LotteryBetBean betEJB = new LotteryBetBean();
+		
+		List bets = betEJB.getAllBets();
+		for (int i=0; i<bets.size(); i++) {
+			LotteryBet bet = (LotteryBet)bets.get(i);
+			if (bet.getBetNumber() == number){
+				giveMoney(bet.getUser().getId());
+				betEJB.updateBet(bet, MONEYWIN);
+			}
+			else {
+				betEJB.updateBet(bet, 0);
+			}
+		}
+	}
+	
+	private void giveMoney(int id) {
+		PhasebookUserBean userEJB = new PhasebookUserBean();
+		userEJB.deposit((Object)id, MONEYWIN);
+		System.out.println("User " + id + "won " + MONEYWIN);
 	}
 	
 	private void createDraw(Calendar date) {
@@ -92,15 +120,7 @@ public class LotteryBean implements LotteryRemote {
     	lottery.setLotteryDate(new java.sql.Date(date.getTimeInMillis()));
 		em.persist(lottery);
 		tx.commit();
+		System.out.println("\n\n\n\n\n\n\nolaaaaaaaaaaaaaaaaa\n\n\n\n\n\n\n");
 	}
-	
-	/*public Lottery getCurrentDraw() {
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PhaseBook");
-		EntityManager em = emf.createEntityManager();
-		
-		Query q = em.createQuery("SELECT u FROM Lottery u ");
-		List draws = q.getResultList();
-		return (Lottery) draws.get(draws.size()-1);
-	}*/
 
 }

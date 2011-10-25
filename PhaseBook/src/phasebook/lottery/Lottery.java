@@ -15,7 +15,6 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import phasebook.lotterybet.LotteryBet;
-import phasebook.oldlotterybet.OldLotteryBet;
 
 @Entity
 public class Lottery implements Serializable {
@@ -34,9 +33,6 @@ public class Lottery implements Serializable {
 	
 	@ElementCollection  
 	private List<LotteryBet> lotteryBets = new ArrayList<LotteryBet>();
-	
-	@ElementCollection
-	private List<OldLotteryBet> oldLotteryBets = new ArrayList<OldLotteryBet>();
 	
 	public Lottery()
 	{
@@ -57,7 +53,7 @@ public class Lottery implements Serializable {
 		this.id = id;
 	}
 
-	protected int getLotteryNumber() {
+	public int getLotteryNumber() {
 		return lotteryNumber;
 	}
 
@@ -65,21 +61,12 @@ public class Lottery implements Serializable {
 		this.lotteryNumber = lotteryNumber;
 	}
 
-	protected Date getLotteryDate() {
+	public Date getLotteryDate() {
 		return lotteryDate;
 	}
 
 	protected void setLotteryDate(Date lotteryDate) {
 		this.lotteryDate = lotteryDate;
-	}
-
-	@OneToMany(cascade=CascadeType.ALL, mappedBy="lottery")
-	public List<OldLotteryBet> getOldLotteryBets() {
-		return oldLotteryBets;
-	}
-
-	public void setOldLotteryBets(List<OldLotteryBet> oldLotteryBets) {
-		this.oldLotteryBets = oldLotteryBets;
 	}
 
 	@OneToMany(cascade=CascadeType.ALL, mappedBy="lottery")

@@ -34,6 +34,9 @@ public class LotteryBet implements Serializable {
 	@Column(name="BET_NUMBER")
 	private int betNumber;
 	
+	@Column(name="VALUE_WON")
+	private int valueWon;
+	
 	@Column(name="CREATED_AT")
 	private Date createdAT;
 	
@@ -60,7 +63,7 @@ public class LotteryBet implements Serializable {
 		this.id = id;
 	}
 
-	protected PhasebookUser getUser() {
+	public PhasebookUser getUser() {
 		return user;
 	}
 
@@ -68,7 +71,7 @@ public class LotteryBet implements Serializable {
 		this.user = user;
 	}
 
-	protected float getBetValue() {
+	public float getBetValue() {
 		return betValue;
 	}
 
@@ -98,6 +101,14 @@ public class LotteryBet implements Serializable {
 
 	public void setLottery(Lottery lottery) {
 		this.lottery = lottery;
+	}
+
+	public int getValueWon() {
+		return valueWon;
+	}
+
+	public void setValueWon(int valueWon) {
+		this.valueWon = valueWon;
 	}
 	
 	
