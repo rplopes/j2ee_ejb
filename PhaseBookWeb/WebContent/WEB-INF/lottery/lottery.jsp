@@ -47,7 +47,7 @@
 	You have no bets for the next draw.
 </p>
 
-<h2>Previous bets</h2>
+<h2>Old bets</h2>
 
 <p>
 	You have never placed any bet.

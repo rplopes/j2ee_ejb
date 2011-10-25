@@ -5,7 +5,7 @@ import javax.ejb.Remote;
 @Remote
 public interface LotteryRemote {
 	
-	public String draw();
+	void scheduleTimer(long milliseconds);
 	public String nextDrawDate();
 
 }
