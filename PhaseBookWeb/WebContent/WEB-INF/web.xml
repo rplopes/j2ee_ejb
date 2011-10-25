@@ -69,4 +69,14 @@
     <servlet-name>GetMoneyForm</servlet-name>
     <url-pattern>/GetMoneyForm</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>BetForm</display-name>
+    <servlet-name>BetForm</servlet-name>
+    <servlet-class>phasebook.controller.BetForm</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>BetForm</servlet-name>
+    <url-pattern>/BetForm</url-pattern>
+  </servlet-mapping>
 </web-app>

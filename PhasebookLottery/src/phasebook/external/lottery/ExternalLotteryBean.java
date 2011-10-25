@@ -15,8 +15,7 @@ import javax.ejb.Timer;
 @Stateless
 public class ExternalLotteryBean implements ExternalLotteryRemote {
 
-	private static String time = "";
-	private static String nextDraw = "";
+	private static Calendar nextDraw;
 	private static int number;
 	private static int timerInterval = 1000 * 60;
 	
@@ -28,14 +27,14 @@ public class ExternalLotteryBean implements ExternalLotteryRemote {
 	
 	@Timeout
 	public void timeout(Timer timer){
-		DateFormat dateFormat = new SimpleDateFormat("HH:mm - dd/MM/yyyy");
+		/*DateFormat dateFormat = new SimpleDateFormat("HH:mm - dd/MM/yyyy");
 		Calendar draw = Calendar.getInstance();
-		time = dateFormat.format(draw.getTime());
 		draw.add(Calendar.MINUTE, 1);
-		nextDraw = dateFormat.format(draw.getTime());
+		nextDraw = dateFormat.format(draw.getTime());*/
+		nextDraw = Calendar.getInstance();
 		Random r = new Random();
 		number = r.nextInt(100) + 1;
-		System.out.println("External Lottery: number " + number + " occurred at " + time);
+		System.out.println("External Lottery: number " + number);
 		this.scheduleTimer(timerInterval);
 	}
 	
@@ -43,7 +42,7 @@ public class ExternalLotteryBean implements ExternalLotteryRemote {
 		return number;
 	}
 	
-	public String getNextDraw() {
+	public Calendar getNextDraw() {
 		return nextDraw;
 	}
 	
