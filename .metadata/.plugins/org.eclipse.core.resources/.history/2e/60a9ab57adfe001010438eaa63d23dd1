@@ -76,10 +76,8 @@ public class FriendshipBean implements FriendshipRemote {
 		{
 			System.out.println("<Foi encontrado mais de um resultado>");
 		}
-		finally
-		{
-			return result;
-		}
+
+		return result;
 
 	}
 
@@ -92,7 +90,6 @@ public class FriendshipBean implements FriendshipRemote {
 		EntityTransaction tx = em.getTransaction();
 		
     	Friendship friend = new Friendship(fromUser,toUser);
-    	friend.setAccepted_(true);
 		em.merge(friend);
 		em.refresh(friend);
 		tx.commit();

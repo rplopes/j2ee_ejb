@@ -78,6 +78,7 @@ public class FriendshipBean implements FriendshipRemote {
 		}
 		finally
 		{
+			System.out.println("Got result");
 			return result;
 		}
 

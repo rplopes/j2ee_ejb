@@ -76,10 +76,8 @@ public class FriendshipBean implements FriendshipRemote {
 		{
 			System.out.println("<Foi encontrado mais de um resultado>");
 		}
-		finally
-		{
-			return result;
-		}
+
+		return result;
 
 	}
 

@@ -1,9 +1,0 @@
-package phasebook.lotterybet;
-
-import javax.annotation.Generated;
-import javax.persistence.metamodel.StaticMetamodel;
-
-@Generated(value="Dali", date="2011-10-17T22:53:13.381+0100")
-@StaticMetamodel(LotteryBet.class)
-public class LotteryBet_ {
-}
