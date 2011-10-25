@@ -52,7 +52,7 @@
 	} catch (Exception e) {}
 %>
 
-<form method="POST" action="CreatePostForm" style="padding: 0 50px 0 50px;">
+<form enctype="multipart/form-data" method="POST" action="CreatePostForm" style="padding: 0 50px 0 50px;">
 	<p align="center">
 		<textarea id="post" name="post"></textarea>
 		<input type="hidden" name="toUser" value="<%= userId.toString() %>"/>
@@ -63,6 +63,7 @@
 			<% // tem de verificar se são ou não amigos %>
 			<option value="1" <% if (privacy.compareTo("1")==0) { %>selected<% } %>>Private</option>
 		</select>
+		<input type="file" name="file1">
 		<input type="submit" value="Post" name="B1">
 	</p>
 </form>

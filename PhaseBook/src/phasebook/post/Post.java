@@ -65,6 +65,19 @@ public class Post implements Serializable{
 		else
 			this.private_ = true;
 	}
+	
+	public Post(PhasebookUser from, PhasebookUser to, String text, String photoLink, String privacy)
+	{
+		super();
+		this.fromUser = from;
+		this.toUser = to;
+		this.text = text;
+		this.photoLink = photoLink;
+		if (privacy.compareTo("0")==0)
+			this.private_ = false;
+		else
+			this.private_ = true;
+	}
 
 	public int getId() {
 		return id;

@@ -27,19 +27,6 @@ public class PhasebookUserBean implements PhasebookUserRemote {
      */
     public PhasebookUserBean() {
     }
-
-	/*public String showName(String name, String email, String password) {
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PhaseBook");
-		EntityManager em = emf.createEntityManager();
-		EntityTransaction tx = em.getTransaction();
-		
-    	tx.begin();
-    	PhasebookUser user = new PhasebookUser(name, email, password);
-		em.persist(user);
-		tx.commit();
-		System.out.println(name);
-		return name;
-	}*/
 	
 	public int create(String name, String email, String password) {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PhaseBook");
@@ -152,6 +139,18 @@ public class PhasebookUserBean implements PhasebookUserRemote {
 		
 		tx.begin();
     	Post post = new Post(from, to, text, privacy);
+		em.persist(post);
+		em.refresh(post);
+		tx.commit();
+	}
+	
+	public void addPost(PhasebookUser from, PhasebookUser to, String text, String photoLink, String privacy){
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PhaseBook");
+		EntityManager em = emf.createEntityManager();
+		EntityTransaction tx = em.getTransaction();
+		
+		tx.begin();
+    	Post post = new Post(from, to, text, photoLink,privacy);
 		em.persist(post);
 		em.refresh(post);
 		tx.commit();
