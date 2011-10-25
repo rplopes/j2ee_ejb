@@ -2,12 +2,14 @@
 <%@ page import="javax.naming.*" %>
 <%@ page import="phasebook.user.*" %>
 <%@ page import="phasebook.post.*" %>
+<%@ page import="phasebook.friendship.*" %>
 <%@ page import="java.util.*" %>
 
 <% 
 	PhasebookUserRemote userBean = Utils.getUserBean();
 	PhasebookUser user;
 	Object userId;
+	Friendship fs;
 	if(request.getParameter("id") == null){
 		userId =  session.getAttribute("id");
 		user = userBean.getUserById(userId);
@@ -22,10 +24,20 @@
 			user = userBean.getUserById(session.getAttribute("id"));
 		}
 	}
+	
+	int relationshipType = Utils.getFriendshipBean().friendshipStatus((PhasebookUser)userId, user);
+	
 %>
 <form method="POST" action="CreateFriendshipForm">
 <input type="hidden" name="toUser" value="<%= userId.toString() %>"/>
-<input type="submit" value="Add Friend" name="B2">
+<%if(relationshipType==0){%>
+	<input type="submit" value="Add Friend" hidden=0 name="F0">
+<%}else if(relationshipType==1){%>
+	<input type="submit" value="Friendship request sent" hidden=1 name="F1" disabled="disabled">
+<%}else if(relationshipType==2){ %>
+	<input type="submit" value="Accept Friendship" hidden=2 name="F2">	
+<%}else if(relationshipType==3){}%>
+
 </form>
 
 <h1><%= Utils.text(user.getName()) %></h1> 

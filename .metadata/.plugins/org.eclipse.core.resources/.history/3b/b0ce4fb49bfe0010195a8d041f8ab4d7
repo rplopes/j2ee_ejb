@@ -1,0 +1,47 @@
+package phasebook.friendship;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
+import phasebook.user.PhasebookUser;
+
+@Stateless
+public class FriendshipBean implements FriendshipRemote {
+	
+	
+	/**
+	 * Checks what's the friendship status of two users.
+	 *@return
+	 *0 if user_a is not friend of user_b{@literal}<br>
+	 *1 if user_a has sent a friendship request for user_b and user_b ha not yet accepted it<br>
+	 *2 if user_a is friend of user_b <br>
+	 */
+	public int friendShipStatus(PhasebookUser user_a, PhasebookUser user_b)
+	{
+		return 0;
+	}
+	
+	/**
+	 * Searches for the Friendship_ID of a friendship between two users
+	 *@return
+	 *FRIENDSHIP_ID<br>
+	 *NULL if there's no friendship between the given users
+	 */
+	public Friendship searchFriendship(PhasebookUser user_a, PhasebookUser user_b)
+	{
+		List users = new ArrayList();
+		List results = new ArrayList();
+		String userA = user_a.getName();
+		String userB = user_b.getName();
+		
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PhaseBook");
+		EntityManager em = emf.createEntityManager();
+		return null;
+	}
+
+}

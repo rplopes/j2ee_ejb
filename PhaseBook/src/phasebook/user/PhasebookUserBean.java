@@ -170,4 +170,5 @@ public class PhasebookUserBean implements PhasebookUserRemote {
 		tx.commit();
 		
 	}
+
 }

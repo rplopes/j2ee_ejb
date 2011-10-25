@@ -1,0 +1,14 @@
+package phasebook.friendship;
+
+import javax.ejb.Remote;
+
+import phasebook.user.PhasebookUser;
+
+@Remote
+public interface FriendshipRemote {
+
+	
+	public int friendShipStatus(PhasebookUser user_a, PhasebookUser user_b);
+	Friendship searchFriendship(PhasebookUser user_a, PhasebookUser user_b);
+	
+}

@@ -3,6 +3,7 @@ package phasebook.controller;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
+import phasebook.friendship.FriendshipRemote;
 import phasebook.user.PhasebookUserRemote;
 
 public class Utils {
@@ -32,6 +33,20 @@ public class Utils {
 			PhasebookUserRemote user;
 			user = (PhasebookUserRemote) ctx.lookup("PhasebookUserBean/remote");
 			return user;
+		} catch (NamingException e) {
+			return null;
+		}
+	}
+	
+	//Get friendship bean
+	public static FriendshipRemote getFriendshipBean()
+	{
+		InitialContext ctx = null;
+		try {
+			ctx = new InitialContext();
+			FriendshipRemote friendship;
+			friendship = (FriendshipRemote) ctx.lookup("FriendshipBean/remote");
+			return friendship;
 		} catch (NamingException e) {
 			return null;
 		}

@@ -1,0 +1,76 @@
+package phasebook.friendship;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
+import javax.persistence.Query;
+
+import phasebook.user.PhasebookUser;
+
+@Stateless
+public class FriendshipBean implements FriendshipRemote {
+	
+	
+	/**
+	 * Checks what's the friendship status of two users.
+	 *@return
+	 *0 if user_a is not friend of user_b{@literal}<br>
+	 *1 if user_a has sent a friendship request for user_b and user_b ha not yet accepted it<br>
+	 *2 if user_a is friend of user_b <br>
+	 */
+	public int friendShipStatus(PhasebookUser user_a, PhasebookUser user_b)
+	{
+		return 0;
+	}
+	
+	/**
+	 * Searches for the Friendship_ID of a friendship between two users
+	 *@return
+	 *Friendship<br>
+	 *NULL if there's no friendship between the given users
+	 */
+	public Friendship searchFriendship(PhasebookUser user_a, PhasebookUser user_b)
+	{
+		String userA = user_a.getName();
+		String userB = user_b.getName();
+		Friendship result;
+		
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PhaseBook");
+		EntityManager em = emf.createEntityManager();
+		EntityTransaction tx = em.getTransaction();
+		
+		Query q = em.createQuery("SELECT u FROM FRIENDSHIP u " +
+				"WHERE u.email LIKE :email AND " +
+				"u.password LIKE :password");
+		q.setParameter("email",userA);
+		q.setParameter("password",userB);
+	
+		result = (Friendship) q..getSingleResult();
+		if (s != null)
+		{
+			Pattern pattern = Pattern.compile(s);
+			for (int i=0; i<users.size(); i++)
+			{
+				PhasebookUser user = (PhasebookUser)users.get(i);
+				boolean found = false;
+				Matcher matcher = pattern.matcher(user.getName());
+				if (matcher.find())
+					found = true;
+				matcher = pattern.matcher(user.getEmail());
+				if (matcher.find())
+					found = true;
+				if (found)
+					results.add(user);
+			}
+		}
+		
+	}
+
+}

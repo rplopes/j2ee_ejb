@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import phasebook.friendship.FriendshipRemote;
 import phasebook.user.PhasebookUser;
 import phasebook.user.PhasebookUserRemote;
 
@@ -40,23 +41,51 @@ public class CreateFriendshipForm extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		InitialContext ctx = null;
 		HttpSession session = request.getSession();
-		try {
-			ctx = new InitialContext();
-			PhasebookUserRemote userBean;
-			userBean = (PhasebookUserRemote) ctx.lookup("PhasebookUserBean/remote");
-			
-			PhasebookUser fromUser = userBean.getUserById(session.getAttribute("id"));
-			PhasebookUser toUser = userBean.getUserById(request.getParameter("toUser"));
-
-
-			userBean.invite(fromUser, toUser);
-			response.sendRedirect("?p=user&id="+request.getParameter("toUser").toString());
-			
+		
+		int typeOfAction=(Integer) request.getAttribute("hidden");
+		if(typeOfAction==0)
+		{
+			try {
+				ctx = new InitialContext();
+				PhasebookUserRemote userBean;
+				userBean = (PhasebookUserRemote) ctx.lookup("PhasebookUserBean/remote");
+				
+				PhasebookUser fromUser = userBean.getUserById(session.getAttribute("id"));
+				PhasebookUser toUser = userBean.getUserById(request.getParameter("toUser"));
+	
+	
+				userBean.invite(fromUser, toUser);
+				response.sendRedirect("?p=user&id="+request.getParameter("toUser").toString());
+				
+			}
+			catch (NamingException e) {
+				e.printStackTrace();
+				session.setAttribute("error", "The submited data is incorrect");
+				response.sendRedirect(Utils.url("register"));
+			}
 		}
-		catch (NamingException e) {
-			e.printStackTrace();
-			session.setAttribute("error", "The submited data is incorrect");
-			response.sendRedirect(Utils.url("register"));
+		else if(typeOfAction==2)
+		{
+			try {
+				ctx = new InitialContext();
+				PhasebookUserRemote userBean;
+				FriendshipRemote friendshipBean;
+				userBean = (PhasebookUserRemote) ctx.lookup("PhasebookUserBean/remote");
+				friendshipBean = (FriendshipRemote) ctx.lookup("FriendshipBean/remote");
+				
+				PhasebookUser fromUser = userBean.getUserById(session.getAttribute("id"));
+				PhasebookUser toUser = userBean.getUserById(request.getParameter("toUser"));
+	
+	
+				friendshipBean.acceptFriendship(toUser,fromUser);
+				response.sendRedirect("?p=user&id="+request.getParameter("toUser").toString());
+				
+			}
+			catch (NamingException e) {
+				e.printStackTrace();
+				session.setAttribute("error", "The submited data is incorrect");
+				response.sendRedirect(Utils.url("register"));
+			}
 		}
 	}
 

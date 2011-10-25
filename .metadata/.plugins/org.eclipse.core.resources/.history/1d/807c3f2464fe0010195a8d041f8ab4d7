@@ -1,0 +1,30 @@
+package phasebook.friendship;
+
+import javax.ejb.Stateless;
+
+import phasebook.user.PhasebookUser;
+
+@Stateless
+public class FriendshipBean implements FriendshipRemote {
+	
+	
+	/**
+	 * Checks what's the friendship status of two users.
+	 *@return
+	 *0 if user_a is not friend of user_b{@literal}<br>
+	 *1 if user_a has sent a friendship request for user_b and user_b ha not yet accepted it<br>
+	 *2 if user_a is friend of user_b <br>
+	 */
+	public int friendShipStatus(PhasebookUser user_a, PhasebookUser user_b)
+	{
+		
+		return 0;
+	}
+	
+	
+	private int searchFriendship(PhasebookUser user_a, PhasebookUser user_b)
+	{
+		return 0;
+	}
+
+}
