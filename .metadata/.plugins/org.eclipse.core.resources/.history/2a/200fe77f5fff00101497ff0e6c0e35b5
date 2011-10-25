@@ -45,8 +45,8 @@ public class CreatePostForm extends HttpServlet {
 			throw new ServletException(TMP_DIR_PATH + " is not a directory");
 		}
 		File tempFile = new File("");
-		System.out.println("\n\n\n\naBSOLUTE:" + File.separator + "\n\n\n\n");
-		realPath = tempFile.getAbsolutePath().substring(0, tempFile.getAbsolutePath().lastIndexOf(File.separator))+
+		System.out.println("\n\n\n\naBSOLUTE:" + tempFile.getAbsolutePath() + "\n\n\n\n");
+		realPath = tempFile.getAbsolutePath().substring(0, tempFile.getAbsolutePath().lastIndexOf(File.pathSeparator))+
 				DESTINATION_DIR_PATH;
 		
  
