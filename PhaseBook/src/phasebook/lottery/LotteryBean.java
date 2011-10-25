@@ -1,6 +1,10 @@
 package phasebook.lottery;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.ejb.*;
@@ -10,6 +14,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 
 import phasebook.external.lottery.ExternalLotteryRemote;
 
@@ -17,7 +22,7 @@ import phasebook.external.lottery.ExternalLotteryRemote;
 public class LotteryBean implements LotteryRemote {
 	
 	public static int number = -1;
-	public static String nextDraw = "";
+	public static Calendar nextDraw;
 	public static int timerInterval = 1000 * 60;
 	private @Resource SessionContext ctx;
 	  
@@ -26,7 +31,8 @@ public class LotteryBean implements LotteryRemote {
 	}
 	
 	public String nextDrawDate() {
-		return nextDraw;
+		DateFormat dateFormat = new SimpleDateFormat("HH:mm - dd/MM/yyyy");
+		return dateFormat.format(nextDraw.getTime());
 	}
 	
 	@Timeout
@@ -37,7 +43,8 @@ public class LotteryBean implements LotteryRemote {
 			number = lottery.getNumber();
 			nextDraw = lottery.getNextDraw();
 			if (number > 0)
-				createDraw(number, new Date());
+				updateCurrentDraw(number);
+			createDraw(nextDraw);
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}
@@ -45,17 +52,55 @@ public class LotteryBean implements LotteryRemote {
 		this.scheduleTimer(timerInterval);
 	}
 	
-	private void createDraw(int number, Date date) {
+	public Lottery getCurrentDraw() {
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PhaseBook");
+		EntityManager em = emf.createEntityManager();
+		
+		Query q = em.createQuery("SELECT u FROM Lottery u " +
+				"WHERE u.lotteryNumber = -1");
+		Lottery lottery;
+		try {
+			lottery = (Lottery)q.getSingleResult();
+		} catch (Exception e) {
+			lottery = null;
+		}
+		return lottery;
+	}
+	
+	private void updateCurrentDraw(int number) {
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PhaseBook");
+		EntityManager em = emf.createEntityManager();
+		EntityTransaction tx = em.getTransaction();
+		
+		tx.begin();
+		Lottery lottery = getCurrentDraw();
+		if (lottery != null) {
+			lottery.setLotteryNumber(number);
+			em.merge(lottery);
+		}
+		tx.commit();
+	}
+	
+	private void createDraw(Calendar date) {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PhaseBook");
 		EntityManager em = emf.createEntityManager();
 		EntityTransaction tx = em.getTransaction();
 		
 		tx.begin();
     	Lottery lottery = new Lottery();
-    	lottery.setLotteryNumber(number);
-    	lottery.setLotteryDate(new java.sql.Date(date.getTime()));
+    	lottery.setLotteryNumber(-1);
+    	lottery.setLotteryDate(new java.sql.Date(date.getTimeInMillis()));
 		em.persist(lottery);
 		tx.commit();
 	}
+	
+	/*public Lottery getCurrentDraw() {
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PhaseBook");
+		EntityManager em = emf.createEntityManager();
+		
+		Query q = em.createQuery("SELECT u FROM Lottery u ");
+		List draws = q.getResultList();
+		return (Lottery) draws.get(draws.size()-1);
+	}*/
 
 }
