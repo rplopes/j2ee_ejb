@@ -17,4 +17,5 @@ public interface PhasebookUserRemote {
 	public void addPost(PhasebookUser from, PhasebookUser to, String text, String privacy);
 	public void invite(PhasebookUser hostUser, PhasebookUser invitedUser);
 	public void addPost(PhasebookUser from, PhasebookUser to, String text, String photoLink, String privacy);
+	public List getUserPublicPosts(Object userId);
 }

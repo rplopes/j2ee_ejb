@@ -9,6 +9,8 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
+import javax.persistence.NoResultException;
+import javax.persistence.NonUniqueResultException;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
@@ -41,22 +43,19 @@ public class PhasebookUserBean implements PhasebookUserRemote {
 		return user.getId();
 	}
 	
+	/* (non-Javadoc)
+	 * @see phasebook.user.PhasebookUserRemote#login(java.lang.String, java.lang.String)
+	 */
 	public int login(String email, String password) {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PhaseBook");
 		EntityManager em = emf.createEntityManager();
-		EntityTransaction tx = em.getTransaction();
 		
-//		try {
+		try {
 			Query q = em.createQuery("SELECT u FROM PhasebookUser u " +
 						"WHERE u.email LIKE :email AND " +
 						"u.password LIKE :password");
 			q.setParameter("email",email);
 			q.setParameter("password",password);
-			
-//	    	Post post = new Post(getUserById(2),getUserById(1),"cenas cenas cenas");
-//			em.persist(post);
-//			em.refresh(post);
-//			tx.commit();
 			
 			PhasebookUser user = ((PhasebookUser)q.getSingleResult());
 			
@@ -64,9 +63,11 @@ public class PhasebookUserBean implements PhasebookUserRemote {
 			em.refresh(user);
 			
 			return user.getId();
-//		} catch(Exception ex){
-//			return -1;
-//		}
+		} catch(NoResultException ex){
+			return -1;
+		} catch(NonUniqueResultException ex){
+			return -1;
+		}
 	}
 	
 	public List<Post> getUserReceivedPosts(Object userId){
@@ -83,6 +84,25 @@ public class PhasebookUserBean implements PhasebookUserRemote {
 		return returnList;
 	}
 	
+	public List getUserPublicPosts(Object userId){
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PhaseBook");
+		EntityManager em = emf.createEntityManager();
+		PhasebookUser user = em.find(PhasebookUser.class, Integer.parseInt(userId.toString()));
+		
+		try{
+			Query q = em.createQuery("SELECT u FROM Post u " +
+					"WHERE u.toUser LIKE :user AND " +
+					"u.private_ = :private_");
+			q.setParameter("user",user);
+			q.setParameter("private_",false);
+			
+			return q.getResultList();
+		} catch(NoResultException e){
+			List<Post> empty = new ArrayList<Post>();
+			return empty;
+		}
+	}
+	
 	public PhasebookUser getUserById(Object id){
 		int userId = Integer.parseInt(id.toString());
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PhaseBook");
@@ -93,7 +113,9 @@ public class PhasebookUserBean implements PhasebookUserRemote {
 			em.persist(user);
 			em.refresh(user);
 			return user;
-		} catch(Exception ex){
+		} catch(NoResultException ex){
+			return null;
+		} catch(NonUniqueResultException ex){
 			return null;
 		}
 	}
@@ -127,9 +149,9 @@ public class PhasebookUserBean implements PhasebookUserRemote {
 				}
 			}
 			return results;
-		} catch (Exception e) {
+		} catch(NoResultException ex){
 			return users;
-		}
+		} 
 	}
 	
 	public void addPost(PhasebookUser from, PhasebookUser to, String text, String privacy){

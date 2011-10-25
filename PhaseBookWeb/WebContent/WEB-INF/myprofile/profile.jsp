@@ -10,6 +10,8 @@
 	PhasebookUser user;
 	Object userId;
 	Friendship fs;
+	PhasebookUser me;
+	me=userBean.getUserById(session.getAttribute("id"));
 	int relationshipType = -1;
 	if(request.getParameter("id") == null){
 		userId =  session.getAttribute("id");
@@ -20,8 +22,6 @@
 		try {
 			Utils.getUserBean().getUserById(request.getParameter("id")).getName();
 			user = userBean.getUserById(userId);
-			PhasebookUser me;
-			me=userBean.getUserById(session.getAttribute("id"));
 			relationshipType = Utils.getFriendshipBean().friendshipStatus(me,user);
 		} catch (Exception e) {
 			userId =  session.getAttribute("id");
@@ -90,7 +90,11 @@
 </form>
 
 <%
-	List<Post> posts = userBean.getUserReceivedPosts(userId);
+	List<Post> posts = null;
+	if (Utils.getFriendshipBean().searchFriendship(me, user) != null || me.equals(user) )
+		 posts = userBean.getUserReceivedPosts(userId);
+	else
+		posts = userBean.getUserPublicPosts(userId);
 	for (int i=posts.size()-1; i>=0; i--) {
 %>
 	<p>
