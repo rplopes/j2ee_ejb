@@ -4,6 +4,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
 import phasebook.lottery.LotteryRemote;
+import phasebook.lotterybet.LotteryBetRemote;
 import phasebook.user.PhasebookUserRemote;
 
 public class Utils {
@@ -43,6 +44,18 @@ public class Utils {
 		try {
 			ctx = new InitialContext();
 			return (LotteryRemote) ctx.lookup("LotteryBean/remote");
+		} catch (NamingException e) {
+			return null;
+		}
+	}
+	
+	//Get lotterybet bean
+	public static LotteryBetRemote getLotteryBetBean()
+	{
+		InitialContext ctx = null;
+		try {
+			ctx = new InitialContext();
+			return (LotteryBetRemote) ctx.lookup("LotteryBetBean/remote");
 		} catch (NamingException e) {
 			return null;
 		}

@@ -1,5 +1,7 @@
 package phasebook.lotterybet;
 
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -31,6 +33,12 @@ public class LotteryBetBean implements LotteryBetRemote {
 		em.persist(bet);
 		em.refresh(bet);
 		tx.commit();
+	}
+	
+	public List<LotteryBet> userBets(Object id) {
+		PhasebookUserBean userEJB = new PhasebookUserBean();
+		PhasebookUser user = userEJB.getUserById(id);
+		return user.getLotteryBets();
 	}
 
 }
