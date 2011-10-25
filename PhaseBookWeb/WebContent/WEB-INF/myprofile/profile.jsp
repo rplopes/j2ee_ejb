@@ -58,12 +58,15 @@
 		<input type="hidden" name="toUser" value="<%= userId.toString() %>"/>
 	</p>
 	<p align="right">
+		Search image file:
+		<input type="file" name="file1">
+	</p>
+	<p align="right">
 		<select name="privacy">
 			<option value="0" <% if (privacy.compareTo("0")==0) { %>selected<% } %>>Public</option>
 			<% // tem de verificar se são ou não amigos %>
 			<option value="1" <% if (privacy.compareTo("1")==0) { %>selected<% } %>>Private</option>
 		</select>
-		<input type="file" name="file1">
 		<input type="submit" value="Post" name="B1">
 	</p>
 </form>
@@ -75,8 +78,12 @@
 	<p>
 		<b class="user"><%= Utils.a("user&id="+posts.get(i).getFromUser().getId(), Utils.text(posts.get(i).getFromUser().getName())) %></b>
 		<% if (posts.get(i).isPrivate_()) { %><i>(private)</i><% } %>
-		<br />
-		<%= Utils.text(posts.get(i).getText()) %>
+		<% if (posts.get(i).getPhotoLink()!=null){ 
+			String photoURL = Utils.MAIN_PATH+userId.toString()+"/"+posts.get(i).getPhotoLink();
+		%>
+			<br /> <%= Utils.aAbsolute(photoURL, Utils.img(photoURL)) %>
+		<%} %>
+		<br /><%= Utils.text(posts.get(i).getText()) %>
 	</p>
 <%
 	}
