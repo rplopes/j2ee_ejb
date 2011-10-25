@@ -70,10 +70,14 @@
 	} catch (Exception e) {}
 %>
 
-<form method="POST" action="CreatePostForm" style="padding: 0 50px 0 50px;">
+<form enctype="multipart/form-data" method="POST" action="CreatePostForm" style="padding: 0 50px 0 50px;">
 	<p align="center">
 		<textarea id="post" name="post"></textarea>
 		<input type="hidden" name="toUser" value="<%= userId.toString() %>"/>
+	</p>
+	<p align="right">
+		Search image file:
+		<input type="file" name="file1">
 	</p>
 	<p align="right">
 		<select name="privacy">
@@ -92,8 +96,12 @@
 	<p>
 		<b class="user"><%= Utils.a("user&id="+posts.get(i).getFromUser().getId(), Utils.text(posts.get(i).getFromUser().getName())) %></b>
 		<% if (posts.get(i).isPrivate_()) { %><i>(private)</i><% } %>
-		<br />
-		<%= Utils.text(posts.get(i).getText()) %>
+		<% if (posts.get(i).getPhotoLink()!=null){ 
+			String photoURL = Utils.MAIN_PATH+userId.toString()+"/"+posts.get(i).getPhotoLink();
+		%>
+			<br /> <%= Utils.aAbsolute(photoURL, Utils.img(photoURL)) %>
+		<%} %>
+		<br /><%= Utils.text(posts.get(i).getText()) %>
 	</p>
 <%
 	}

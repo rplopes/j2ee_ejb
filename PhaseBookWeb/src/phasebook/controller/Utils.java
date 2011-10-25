@@ -8,12 +8,26 @@ import phasebook.user.PhasebookUserRemote;
 
 public class Utils {
 	
+	public static String MAIN_PATH   = "http://localhost:8080/photos/";
+	public static int IMG_DEFAULT_WIDTH = 300; 
+	
 	// Creates a link to a URL in HTML
 	public static String a(String url, String text)
 	{
 		if (url.length() == 0)
 			return "<a href='/PhaseBookWeb'>" + text + "</a>";
 		return "<a href='?p=" + url + "'>" + text + "</a>";
+	}
+	
+	// Creates a link to a URL in HTML
+		public static String aAbsolute(String url, String text)
+		{
+			return "<a href=\"" + url + "\">" + text + "</a>";
+		}
+	
+	public static String img(String url)
+	{
+		return "<img src=\""+url+"\" width=\""+IMG_DEFAULT_WIDTH+"\" />";
 	}
 	
 	// Prints the correct URL

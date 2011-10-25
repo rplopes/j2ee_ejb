@@ -4,6 +4,7 @@ import javax.ejb.Stateless;
 
 @Stateless
 public class PostBean implements PostRemote {
+	
 //	public int create(PhasebookUser toUserId, PhasebookUser fromUserId, String text) {
 //		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PhaseBook");
 //		EntityManager em = emf.createEntityManager();
