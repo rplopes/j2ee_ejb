@@ -27,6 +27,7 @@
 			userId =  session.getAttribute("id");
 			user = userBean.getUserById(session.getAttribute("id"));
 		}
+		out.print(relationshipType);
 	}
 	
 	
