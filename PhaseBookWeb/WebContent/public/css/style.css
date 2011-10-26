@@ -129,6 +129,11 @@ input[type="button"], input[type="submit"] {
 	font-weight: bold;
 }
 
+input[disabled="disabled"] {
+	color: #444;
+	background: #AAA;
+}
+
 select {
 	padding: 5px;
 }

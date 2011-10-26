@@ -117,7 +117,7 @@ public class LotteryBean implements LotteryRemote {
 		tx.begin();
     	Lottery lottery = new Lottery();
     	lottery.setLotteryNumber(-1);
-    	lottery.setLotteryDate(new java.sql.Date(date.getTimeInMillis()));
+    	//lottery.setLotteryDate(new java.sql.Date(date.getTimeInMillis()));
 		em.persist(lottery);
 		tx.commit();
 	}
