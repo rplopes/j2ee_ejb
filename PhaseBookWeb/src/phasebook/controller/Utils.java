@@ -23,10 +23,10 @@ public class Utils {
 	}
 	
 	// Creates a link to a URL in HTML
-		public static String aAbsolute(String url, String text)
-		{
-			return "<a href=\"" + url + "\">" + text + "</a>";
-		}
+	public static String aAbsolute(String url, String text)
+	{
+		return "<a href=\"" + url + "\">" + text + "</a>";
+	}
 	
 	public static String img(String url)
 	{
