@@ -27,6 +27,10 @@
 	<% } %>
 </h2>
 
+<% if (session.getAttribute("errorBet") != null) { %>
+	<p style="color:red"><%= session.getAttribute("errorBet") %></p>
+<% session.removeAttribute("errorBet");} %>
+
 <% if (Utils.getLotteryBean().nextDrawDate()!=null) { %>
 <form method="POST" action="BetForm">
 

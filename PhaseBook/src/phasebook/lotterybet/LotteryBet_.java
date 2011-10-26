@@ -14,7 +14,7 @@ public class LotteryBet_ {
 	public static volatile SingularAttribute<LotteryBet, PhasebookUser> user;
 	public static volatile SingularAttribute<LotteryBet, Float> betValue;
 	public static volatile SingularAttribute<LotteryBet, Integer> betNumber;
+	public static volatile SingularAttribute<LotteryBet, Integer> valueWon;
 	public static volatile SingularAttribute<LotteryBet, Date> createdAT;
 	public static volatile SingularAttribute<LotteryBet, Lottery> lottery;
-	public static volatile SingularAttribute<LotteryBet, Integer> valueWon;
 }

@@ -49,10 +49,10 @@ public class BetForm extends HttpServlet {
 			String error = formValidation(number);
 			
 			if (error != null)
-				session.setAttribute("error", error);
+				session.setAttribute("errorBet", error);
 			else
 				if (!bet.createBet(session.getAttribute("id"), Integer.parseInt(number)))
-					session.setAttribute("error", "No active draws at the moment, try again later");
+					session.setAttribute("errorBet", "The draw is already closed, try betting in a new one");
 			response.sendRedirect(Utils.url("lottery"));
 		} catch (NamingException e) {
 			e.printStackTrace();
