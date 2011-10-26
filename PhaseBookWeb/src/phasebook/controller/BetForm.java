@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import phasebook.lotterybet.LotteryBetRemote;
-import phasebook.user.PhasebookUserRemote;
+import phasebook.user.*;
 
 /**
  * Servlet implementation class BetForm
@@ -42,8 +42,7 @@ public class BetForm extends HttpServlet {
 		HttpSession session = request.getSession();
 		try {
 			ctx = new InitialContext();
-			LotteryBetRemote bet;
-			bet = (LotteryBetRemote) ctx.lookup("LotteryBetBean/remote");
+			LotteryBetRemote bet = (LotteryBetRemote) ctx.lookup("LotteryBetBean/remote");
 			
 			String number = request.getParameter("number");
 			String error = formValidation(number);
@@ -53,6 +52,10 @@ public class BetForm extends HttpServlet {
 			else
 				if (!bet.createBet(session.getAttribute("id"), Integer.parseInt(number)))
 					session.setAttribute("errorBet", "The draw is already closed, try betting in a new one");
+				else {
+					PhasebookUserRemote user = (PhasebookUserRemote) ctx.lookup("PhasebookUserBean/remote");
+					user.deposit(session.getAttribute("id"), (float)-1);
+				}
 			response.sendRedirect(Utils.url("lottery"));
 		} catch (NamingException e) {
 			e.printStackTrace();
