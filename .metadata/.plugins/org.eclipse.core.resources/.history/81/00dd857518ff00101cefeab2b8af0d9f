@@ -10,8 +10,6 @@
 	PhasebookUser user;
 	Object userId;
 	Friendship fs;
-	PhasebookUser me;
-	me=userBean.getUserById(session.getAttribute("id"));
 	int relationshipType = -1;
 	if(request.getParameter("id") == null){
 		userId =  session.getAttribute("id");
@@ -22,6 +20,8 @@
 		try {
 			Utils.getUserBean().getUserById(request.getParameter("id")).getName();
 			user = userBean.getUserById(userId);
+			PhasebookUser me;
+			me=userBean.getUserById(session.getAttribute("id"));
 			relationshipType = Utils.getFriendshipBean().friendshipStatus(me,user);
 		} catch (Exception e) {
 			userId =  session.getAttribute("id");
@@ -31,24 +31,16 @@
 	
 	
 %>
-<% if (user.getPhoto()!=null){ 
-	String photoURL = Utils.MAIN_PATH+userId.toString()+"/"+user.getPhoto().getName();
-%>
-	<br /> <%= Utils.a("user&id="+userId.toString(), Utils.img(photoURL)) %>
-<%} %>
-
 <form method="POST" action="CreateFriendshipForm">
-	<input type="hidden" name="toUser" value="<%= userId.toString() %>"/>
-	<input type="hidden" name="relationship" value="<%= relationshipType %>"/>
-<%
-	if(request.getParameter("id")!=null && !request.getParameter("id").toString().equals(session.getAttribute("id"))){
-   		if(relationshipType==0){%>
-			<input type="submit" value="Add Friend" name="F0">
-<%		}else if(relationshipType==1){%>
-			<input type="submit" value="Friendship request sent" name="F1" disabled="disabled">
-<%		}else if(relationshipType==2){ %>
-			<input type="submit" value="Accept Friendship" name="F2">	
-<%		}else if(relationshipType==3 && relationshipType==-1){}}%>
+<input type="hidden" name="toUser" value="<%= userId.toString() %>"/>
+<%if(request.getParameter("id")!=null){
+   if(relationshipType==0){%>
+	<input type="submit" value="Add Friend" hidden=0 name="F0">
+<%}else if(relationshipType==1){%>
+	<input type="submit" value="Friendship request sent" hidden=1 name="F1" disabled="disabled">
+<%}else if(relationshipType==2){ %>
+	<input type="submit" value="Accept Friendship" hidden=2 name="F2">	
+<%}else if(relationshipType==3){}}%>
 
 </form>
 
@@ -76,43 +68,30 @@
 	} catch (Exception e) {}
 %>
 
-<form enctype="multipart/form-data" method="POST" action="CreatePostForm" style="padding: 0 50px 0 50px;">
+<form method="POST" action="CreatePostForm" style="padding: 0 50px 0 50px;">
 	<p align="center">
 		<textarea id="post" name="post"></textarea>
 		<input type="hidden" name="toUser" value="<%= userId.toString() %>"/>
 	</p>
 	<p align="right">
-		Search image file:
-		<input type="file" name="file1">
-	</p>
-	<p align="right">
 		<select name="privacy">
 			<option value="0" <% if (privacy.compareTo("0")==0) { %>selected<% } %>>Public</option>
-			<% if (Utils.getFriendshipBean().searchFriendship(me, user) != null || me.equals(user) ){ %>
-				<option value="1" <% if (privacy.compareTo("1")==0) { %>selected<% } %>>Private</option>
-			<% } %>
+			<% // tem de verificar se são ou não amigos %>
+			<option value="1" <% if (privacy.compareTo("1")==0) { %>selected<% } %>>Private</option>
 		</select>
 		<input type="submit" value="Post" name="B1">
 	</p>
 </form>
 
 <%
-	List<Post> posts = null;
-	if (Utils.getFriendshipBean().searchFriendship(me, user) != null || me.equals(user) )
-		 posts = userBean.getUserReceivedPosts(userId);
-	else
-		posts = userBean.getUserPublicPosts(userId);
+	List<Post> posts = userBean.getUserReceivedPosts(userId);
 	for (int i=posts.size()-1; i>=0; i--) {
 %>
 	<p>
 		<b class="user"><%= Utils.a("user&id="+posts.get(i).getFromUser().getId(), Utils.text(posts.get(i).getFromUser().getName())) %></b>
 		<% if (posts.get(i).isPrivate_()) { %><i>(private)</i><% } %>
-		<% if (posts.get(i).getPhoto()!=null){ 
-			String photoURL = Utils.MAIN_PATH+userId.toString()+"/"+posts.get(i).getPhoto().getName();
-		%>
-			<br /> <%= Utils.aAbsolute(photoURL, Utils.img(photoURL)) %>
-		<%} %>
-		<br /><%= Utils.text(posts.get(i).getText()) %>
+		<br />
+		<%= Utils.text(posts.get(i).getText()) %>
 	</p>
 <%
 	}

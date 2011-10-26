@@ -31,24 +31,18 @@
 	
 	
 %>
-<% if (user.getPhoto()!=null){ 
-	String photoURL = Utils.MAIN_PATH+userId.toString()+"/"+user.getPhoto().getName();
-%>
-	<br /> <%= Utils.a("user&id="+userId.toString(), Utils.img(photoURL)) %>
-<%} %>
-
 <form method="POST" action="CreateFriendshipForm">
 	<input type="hidden" name="toUser" value="<%= userId.toString() %>"/>
 	<input type="hidden" name="relationship" value="<%= relationshipType %>"/>
 <%
-	if(request.getParameter("id")!=null && !request.getParameter("id").toString().equals(session.getAttribute("id"))){
+	if(request.getParameter("id")!=null && request.getParameter("id") != session.getAttribute("id")){
    		if(relationshipType==0){%>
 			<input type="submit" value="Add Friend" name="F0">
 <%		}else if(relationshipType==1){%>
 			<input type="submit" value="Friendship request sent" name="F1" disabled="disabled">
 <%		}else if(relationshipType==2){ %>
 			<input type="submit" value="Accept Friendship" name="F2">	
-<%		}else if(relationshipType==3 && relationshipType==-1){}}%>
+<%		}else if(relationshipType==3){}}%>
 
 </form>
 
@@ -88,9 +82,8 @@
 	<p align="right">
 		<select name="privacy">
 			<option value="0" <% if (privacy.compareTo("0")==0) { %>selected<% } %>>Public</option>
-			<% if (Utils.getFriendshipBean().searchFriendship(me, user) != null || me.equals(user) ){ %>
-				<option value="1" <% if (privacy.compareTo("1")==0) { %>selected<% } %>>Private</option>
-			<% } %>
+			<% // tem de verificar se são ou não amigos %>
+			<option value="1" <% if (privacy.compareTo("1")==0) { %>selected<% } %>>Private</option>
 		</select>
 		<input type="submit" value="Post" name="B1">
 	</p>
@@ -107,8 +100,8 @@
 	<p>
 		<b class="user"><%= Utils.a("user&id="+posts.get(i).getFromUser().getId(), Utils.text(posts.get(i).getFromUser().getName())) %></b>
 		<% if (posts.get(i).isPrivate_()) { %><i>(private)</i><% } %>
-		<% if (posts.get(i).getPhoto()!=null){ 
-			String photoURL = Utils.MAIN_PATH+userId.toString()+"/"+posts.get(i).getPhoto().getName();
+		<% if (posts.get(i).getPhotoLink()!=null){ 
+			String photoURL = Utils.MAIN_PATH+userId.toString()+"/"+posts.get(i).getPhotoLink();
 		%>
 			<br /> <%= Utils.aAbsolute(photoURL, Utils.img(photoURL)) %>
 		<%} %>

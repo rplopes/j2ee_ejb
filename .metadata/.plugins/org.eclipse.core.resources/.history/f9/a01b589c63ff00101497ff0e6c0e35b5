@@ -31,7 +31,7 @@ public class FriendshipBean implements FriendshipRemote {
 	{
 		Friendship myFriendship = searchFriendship(user_a,user_b);
 		
-		if(myFriendship == null && !user_a.equals(user_b))
+		if(myFriendship == null && user_a.equals(user_b))
 			return 0;
 		else if(!myFriendship.isAccepted_() && myFriendship.getHostUser().equals(user_a))
 			return 1;
