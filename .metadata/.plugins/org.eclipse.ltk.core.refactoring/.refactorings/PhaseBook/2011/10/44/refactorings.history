@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring clone="false" comment="Infer generic type arguments on &apos;PhaseBook&apos;&#x0D;&#x0A;- Original project: &apos;PhaseBook&apos;&#x0D;&#x0A;- Original elements:&#x0D;&#x0A;     phasebook.post.PostBean.java&#x0D;&#x0A;- Leave unconstrained type arguments raw" description="Infer generic type arguments" element1="/src&lt;phasebook.post{PostBean.java" flags="6" id="org.eclipse.jdt.ui.infer.typearguments" leave="true" stamp="1319588988853" version="1.0"/>
+</session>

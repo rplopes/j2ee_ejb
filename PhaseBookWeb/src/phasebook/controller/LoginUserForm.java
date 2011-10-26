@@ -9,6 +9,7 @@ import javax.naming.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
+import phasebook.post.PostRemote;
 import phasebook.user.PhasebookUserRemote;
 
 /**
@@ -39,6 +40,7 @@ public class LoginUserForm extends HttpServlet {
 		try {
 			ctx = new InitialContext();
 			PhasebookUserRemote user;
+						
 			user = (PhasebookUserRemote) ctx.lookup("PhasebookUserBean/remote");
 			
 			String email = request.getParameter("email");

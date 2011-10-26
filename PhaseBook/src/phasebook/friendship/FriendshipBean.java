@@ -12,6 +12,7 @@ import javax.persistence.NonUniqueResultException;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
+import phasebook.post.PostBean;
 import phasebook.user.PhasebookUser;
 
 @Stateless

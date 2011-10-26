@@ -4,6 +4,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
 import phasebook.friendship.FriendshipRemote;
+import phasebook.post.PostRemote;
 import phasebook.user.PhasebookUserRemote;
 
 public class Utils {
@@ -65,6 +66,20 @@ public class Utils {
 			return null;
 		}
 	}
+	
+	//Get friendship bean
+		public static PostRemote getPostBean()
+		{
+			InitialContext ctx = null;
+			try {
+				ctx = new InitialContext();
+				PostRemote post;
+				post = (PostRemote) ctx.lookup("PostBean/remote");
+				return post;
+			} catch (NamingException e) {
+				return null;
+			}
+		}
 	
 	//Get escaped text
 	public static String text(String text)
