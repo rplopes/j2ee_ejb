@@ -194,6 +194,7 @@ public class PhasebookUserBean implements PhasebookUserRemote {
 		EntityTransaction tx = em.getTransaction();
 		
 		tx.begin();
+		System.out.println("\n\n\n\n\n"+privacy+"\n\n\n\n");
     	Post post = new Post(from, to, text, privacy);
 		em.persist(post);
 		em.refresh(post);

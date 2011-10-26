@@ -98,6 +98,9 @@ public class CreatePostForm extends HttpServlet {
 				 */
 				List<?> items = uploadHandler.parseRequest(request);
 				Iterator<?> itr = items.iterator();
+				boolean hasFile = false;
+				long time = 0;
+				String ext = "";
 				while(itr.hasNext()) {
 					FileItem item = (FileItem) itr.next();
 					/*
@@ -117,7 +120,6 @@ public class CreatePostForm extends HttpServlet {
 						/*
 						 * Write file to the ultimate location.
 						 */
-						String ext="";
 						String error = null;
 						if(item.getName().length()!=0){
 							ext = getExtension(item.getName());
@@ -137,17 +139,19 @@ public class CreatePostForm extends HttpServlet {
 								if(!destinationDir.isDirectory()) {
 									throw new ServletException(DESTINATION_DIR_PATH+" is not a directory");
 								}
-								long time = System.currentTimeMillis();
+								time = System.currentTimeMillis();
 								File file = new File(destinationDir, time+ext );
 								item.write(file);
-								userBean.addPost(fromUser, toUser, text, time+ext, privacy);
+								hasFile=true;
 							}
-							else
-								userBean.addPost(fromUser, toUser, text, privacy);
 							response.sendRedirect(Utils.url("user&id="+toUser.getId()));
 						}
 					}
 				}
+				if(hasFile)
+					userBean.addPost(fromUser, toUser, text, time+ext, privacy);
+				else
+					userBean.addPost(fromUser, toUser, text, privacy);
 			}catch(FileUploadException ex) {
 				log("Error encountered while parsing the request",ex);
 			} catch(Exception ex) {

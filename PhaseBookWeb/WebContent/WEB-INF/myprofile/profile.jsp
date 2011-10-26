@@ -83,7 +83,7 @@
 		<input type="hidden" name="toUser" value="<%= userId.toString() %>"/>
 	</p>
 	<p align="right">
-		Search image file:
+		Browse image file:
 		<input type="file" name="file1">
 	</p>
 	<p align="right">
