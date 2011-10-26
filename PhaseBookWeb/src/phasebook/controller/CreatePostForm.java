@@ -2,12 +2,8 @@ package phasebook.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Iterator;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.servlet.ServletConfig;
@@ -100,8 +96,8 @@ public class CreatePostForm extends HttpServlet {
 				/*
 				 * Parse the request
 				 */
-				List items = uploadHandler.parseRequest(request);
-				Iterator itr = items.iterator();
+				List<?> items = uploadHandler.parseRequest(request);
+				Iterator<?> itr = items.iterator();
 				while(itr.hasNext()) {
 					FileItem item = (FileItem) itr.next();
 					/*

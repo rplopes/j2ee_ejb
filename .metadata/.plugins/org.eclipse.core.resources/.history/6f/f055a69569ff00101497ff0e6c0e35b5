@@ -1,0 +1,43 @@
+package phasebook.post;
+
+import java.util.List;
+
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
+import javax.persistence.NonUniqueResultException;
+import javax.persistence.Persistence;
+import javax.persistence.Query;
+
+import phasebook.friendship.Friendship;
+
+@Stateless
+public class PostBean implements PostRemote {
+	
+	public void readUnreadPosts(PhasebookUser entry)
+	{
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PhaseBook");
+		EntityManager em = emf.createEntityManager();
+		
+		List<Post> result = null;
+		
+		Query q = em.createQuery("SELECT u FROM POST u WHERE u.toUser = :user");
+		q.setParameter("user",entry);
+		
+		try
+		{
+			result=q.getResultList();
+		}
+		catch(NoResultException e)
+		{
+			System.out.println("<Não foram encontrados resultados>");
+		}
+		catch(NonUniqueResultException e)
+		{
+			System.out.println("<Foi encontrado mais de um resultado>");
+		}
+
+	}
+	
+}

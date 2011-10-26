@@ -1,0 +1,25 @@
+package phasebook.post;
+
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.Query;
+
+import phasebook.friendship.Friendship;
+
+@Stateless
+public class PostBean implements PostRemote {
+	
+	public void readUnreadPosts()
+	{
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PhaseBook");
+		EntityManager em = emf.createEntityManager();
+		Friendship result = null;
+		
+		Query q = em.createQuery("SELECT u FROM POST u WHERE u.toUser = :user");
+		q.setParameter("user",user);
+
+	}
+	
+}
