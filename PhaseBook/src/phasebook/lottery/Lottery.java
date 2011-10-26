@@ -1,7 +1,7 @@
 package phasebook.lottery;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,7 +29,7 @@ public class Lottery implements Serializable {
 	private int lotteryNumber;
 	
 	@Column(name="LOTTERY_DATE")
-	private Date lotteryDate;
+	private Timestamp lotteryDate;
 	
 	@ElementCollection  
 	private List<LotteryBet> lotteryBets = new ArrayList<LotteryBet>();
@@ -61,11 +61,11 @@ public class Lottery implements Serializable {
 		this.lotteryNumber = lotteryNumber;
 	}
 
-	public Date getLotteryDate() {
+	public Timestamp getLotteryDate() {
 		return lotteryDate;
 	}
 
-	protected void setLotteryDate(Date lotteryDate) {
+	protected void setLotteryDate(Timestamp lotteryDate) {
 		this.lotteryDate = lotteryDate;
 	}
 

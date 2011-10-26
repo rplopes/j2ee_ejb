@@ -39,7 +39,7 @@
 			<option value="<%= i %>"><%= i %></option>
 		<% } %>
 	</select>
-	<input type="submit" value="Place bet">
+	<input type="submit" value="Place bet" <% if(Utils.getUserBean().getUserById(session.getAttribute("id")).getMoney() < 1){ %>disabled="disabled"<% } %>>
 	<p class="tip">
 		(costs 1 L&euro;, you have <%= Utils.getUserBean().getUserById(session.getAttribute("id")).getMoney() %> L&euro;)
 	</p>
@@ -102,7 +102,7 @@
 					String date = dateFormat.format(bet.getLottery().getLotteryDate().getTime());
 				%>
 				<%= date %>
-				(<%= bet.getLottery().getLotteryNumber() %> won)
+				(number <%= bet.getLottery().getLotteryNumber() %> won)
 				<% if (bet.getBetNumber() == bet.getLottery().getLotteryNumber()) { %>
 					 - You won <%= bet.getValueWon() %> L&euro;!</b>
 				<% } %><br />

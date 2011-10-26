@@ -35,7 +35,7 @@ public class LotteryBet implements Serializable {
 	private int betNumber;
 	
 	@Column(name="VALUE_WON")
-	private int valueWon;
+	private float valueWon;
 	
 	@Column(name="CREATED_AT")
 	private Date createdAT;
@@ -103,11 +103,11 @@ public class LotteryBet implements Serializable {
 		this.lottery = lottery;
 	}
 
-	public int getValueWon() {
+	public float getValueWon() {
 		return valueWon;
 	}
 
-	public void setValueWon(int valueWon) {
+	public void setValueWon(float valueWon) {
 		this.valueWon = valueWon;
 	}
 	
