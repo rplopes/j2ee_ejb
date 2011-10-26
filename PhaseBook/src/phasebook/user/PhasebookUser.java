@@ -8,6 +8,7 @@ import java.util.List;
 import javax.persistence.*;
 
 import phasebook.friendship.Friendship;
+import phasebook.photo.Photo;
 import phasebook.lotterybet.LotteryBet;
 import phasebook.oldlotterybet.OldLotteryBet;
 import phasebook.post.Post;
@@ -29,6 +30,14 @@ private static final long serialVersionUID = 1L;
 	
 	@Column(name="DELETED_AT")
 	private Date deletedAt;
+	
+	@OneToOne
+	@JoinColumn(name="PHOTO_ID", referencedColumnName = "PHOTO_ID")
+	private Photo photo;
+	
+	@ElementCollection
+	@OneToMany(cascade=CascadeType.ALL, mappedBy = "user") 
+	private List<Photo> userPhotos = new ArrayList<Photo>();
 	
 	@ElementCollection
 	@OneToMany(cascade=CascadeType.ALL, mappedBy = "hostUser") 
@@ -192,5 +201,21 @@ private static final long serialVersionUID = 1L;
 	
 	public boolean equals(PhasebookUser user) {
 		return user.getId() == this.getId();
+	}
+
+	public List<Photo> getUserPhotos() {
+		return userPhotos;
+	}
+
+	public void setUserPhotos(List<Photo> userPhotos) {
+		this.userPhotos = userPhotos;
+	}
+
+	public Photo getPhoto() {
+		return photo;
+	}
+
+	public void setPhoto(Photo photo) {
+		this.photo = photo;
 	}
 }

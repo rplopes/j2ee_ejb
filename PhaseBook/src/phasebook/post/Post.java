@@ -10,7 +10,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
+import phasebook.photo.Photo;
 import phasebook.user.PhasebookUser;
 
 
@@ -43,8 +45,9 @@ public class Post implements Serializable{
 	@Column(name="DELETED_AT")
 	private Date deletedAt;
 	
-	@Column(name="PHOTO_LINK")
-	private String photoLink;
+	@OneToOne
+	@JoinColumn(name="PHOTO_ID", referencedColumnName = "PHOTO_ID")
+	private Photo photo;
 	
 	@Column(name="TEXT")
 	private String text;
@@ -66,13 +69,13 @@ public class Post implements Serializable{
 			this.private_ = true;
 	}
 	
-	public Post(PhasebookUser from, PhasebookUser to, String text, String photoLink, String privacy)
+	public Post(PhasebookUser from, PhasebookUser to, String text, Photo photo, String privacy)
 	{
 		super();
 		this.fromUser = from;
 		this.toUser = to;
 		this.text = text;
-		this.photoLink = photoLink;
+		this.photo = photo;
 		if (privacy.compareTo("0")==0)
 			this.private_ = false;
 		else
@@ -136,20 +139,20 @@ public class Post implements Serializable{
 		this.deletedAt = deletedAt;
 	}
 
-	public String getPhotoLink() {
-		return photoLink;
-	}
-
-	public void setPhotoLink(String photoLink) {
-		this.photoLink = photoLink;
-	}
-
 	public String getText() {
 		return text;
 	}
 
 	public void setText(String text) {
 		this.text = text;
+	}
+
+	public Photo getPhoto() {
+		return photo;
+	}
+
+	public void setPhoto(Photo photo) {
+		this.photo = photo;
 	}
 	
 	

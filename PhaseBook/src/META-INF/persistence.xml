@@ -7,6 +7,7 @@
 		<class>phasebook.lotterybet.LotteryBet</class>
 		<class>phasebook.lottery.Lottery</class>
 		<class>phasebook.friendship.Friendship</class>
+		<class>phasebook.photo.Photo</class>
 		<properties>
          	<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/phasebook" />
          	<property name="javax.persistence.jdbc.user" value="user" />

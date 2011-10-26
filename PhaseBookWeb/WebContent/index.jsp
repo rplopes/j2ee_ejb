@@ -49,7 +49,10 @@
 		} catch (Exception e) {
 			title = Utils.getUserBean().getUserById(session.getAttribute("id")).getName();
 		}
-		url   = "myprofile/profile.jsp";
+		if(request.getParameter("page") != null && request.getParameter("page").toString().equals("photos"))
+			url   = "myprofile/photos.jsp";
+		else
+			url   = "myprofile/profile.jsp";
 	}
 
 	// Default

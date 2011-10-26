@@ -49,4 +49,14 @@
     <servlet-name>CreateFriendshipForm</servlet-name>
     <url-pattern>/CreateFriendshipForm</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AddPhotoForm</display-name>
+    <servlet-name>AddPhotoForm</servlet-name>
+    <servlet-class>phasebook.controller.AddPhotoForm</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddPhotoForm</servlet-name>
+    <url-pattern>/AddPhotoForm</url-pattern>
+  </servlet-mapping>
 </web-app>
