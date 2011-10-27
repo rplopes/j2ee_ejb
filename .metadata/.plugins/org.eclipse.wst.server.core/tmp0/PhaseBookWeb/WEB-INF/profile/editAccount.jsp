@@ -27,11 +27,29 @@
 
 <h1>Edit Account</h1>
 
+<%
+	if (session.getAttribute("error") != null)
+	{
+%>
+		<p style="color:red"><%= session.getAttribute("error") %></p>
+<%
+		session.removeAttribute("error");
+	}
+%>
+
 <form method="POST" action="EditAccountForm">
 	<table>
 		<tr>
 			<td class="label">Name</td>
 			<td><input type="text" name="name" value="<%= user.getName() %>"></td>
+		</tr>
+		<tr>
+			<td class="label">Password</td>
+			<td><input type="password" name="password1"></td>
+		</tr>
+		<tr>
+			<td class="label">Repeat password</td>
+			<td><input type="password" name="password2"></td>
 		</tr>
 		<tr>
 			<td class="label">Profile picture</td>
@@ -41,7 +59,7 @@
 					<%
 						List<Post> posts = userBean.getUserReceivedPosts(userId);
 						for (int i=posts.size()-1; i>=0; i--) {
-							if (posts.get(i).getPhoto()!=null) {
+							if (posts.get(i).getPhoto()!=null && posts.get(i).getDeletedAt()==null) {
 								String photoURL = Utils.MAIN_PATH+userId.toString()+"/"+posts.get(i).getPhoto().getName();
 								int photoID = posts.get(i).getPhoto().getId();
 					%>
