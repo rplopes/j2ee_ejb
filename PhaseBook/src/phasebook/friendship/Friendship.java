@@ -66,7 +66,7 @@ public class Friendship implements Serializable {
 		this.id = id;
 	}
 
-	protected PhasebookUser getHostUser() {
+	public PhasebookUser getHostUser() {
 		return hostUser;
 	}
 
@@ -74,7 +74,7 @@ public class Friendship implements Serializable {
 		this.hostUser = hostUser;
 	}
 
-	protected PhasebookUser getInvitedUser() {
+	public PhasebookUser getInvitedUser() {
 		return invitedUser;
 	}
 
@@ -82,7 +82,7 @@ public class Friendship implements Serializable {
 		this.invitedUser = invitedUser;
 	}
 
-	protected boolean isAccepted_() {
+	public boolean isAccepted_() {
 		return accepted_;
 	}
 

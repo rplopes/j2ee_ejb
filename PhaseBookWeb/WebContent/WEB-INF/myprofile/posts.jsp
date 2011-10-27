@@ -1,18 +1,14 @@
 <%@ page import="phasebook.controller.*"%>
-<%@ page import="javax.naming.*" %>
-<%@ page import="phasebook.user.*" %>
 <%@ page import="phasebook.post.*" %>
-<%@ page import="phasebook.friendship.*" %>
+<%@ page import="phasebook.user.*" %>
 <%@ page import="java.util.*" %>
 
-<% 
+<%
 	PhasebookUserRemote userBean = Utils.getUserBean();
 	PhasebookUser user;
 	Object userId;
-	Friendship fs;
-	PhasebookUser me;
-	me=userBean.getUserById(session.getAttribute("id"));
-	int relationshipType = -1;
+	PhasebookUser me=userBean.getUserById(session.getAttribute("id"));
+	
 	if(request.getParameter("id") == null){
 		userId =  session.getAttribute("id");
 		user = userBean.getUserById(userId);
@@ -22,22 +18,12 @@
 		try {
 			Utils.getUserBean().getUserById(request.getParameter("id")).getName();
 			user = userBean.getUserById(userId);
-			relationshipType = Utils.getFriendshipBean().friendshipStatus(me,user);
 		} catch (Exception e) {
 			userId =  session.getAttribute("id");
 			user = userBean.getUserById(session.getAttribute("id"));
 		}
 	}
-	
-	String post = "";
-	String privacy = "0";
-	try {
-		post = session.getAttribute("post").toString();
-		session.removeAttribute("post");
-		privacy = session.getAttribute("privacy").toString();
-		session.removeAttribute("privacy");
-	} catch (Exception e) {}
-	
+
 	List<Post> posts = null;
 	if (Utils.getFriendshipBean().searchFriendship(me, user) != null || me.equals(user) )
 		 posts = userBean.getUserReceivedPosts(userId);
@@ -46,11 +32,14 @@
 	for (int i=posts.size()-1; i>=0; i--) {
 %>
 	<p>
+		<b class="user"><%= Utils.a("user&id="+posts.get(i).getFromUser().getId(), Utils.text(posts.get(i).getFromUser().getName())) %></b>
+		<% if (posts.get(i).isPrivate_()) { %><i>(private)</i><% } %>
 		<% if (posts.get(i).getPhoto()!=null){ 
 			String photoURL = Utils.MAIN_PATH+userId.toString()+"/"+posts.get(i).getPhoto().getName();
 		%>
 			<br /> <%= Utils.aAbsolute(photoURL, Utils.img(photoURL)) %>
 		<%} %>
+		<br /><%= Utils.text(posts.get(i).getText()) %>
 	</p>
 <%
 	}
