@@ -13,7 +13,7 @@
 	List<PhasebookUser> friends = user.getUserFriendships(id);
 	if (friends.size() == 0) {
 %>
-		This user has no friends.
+		<p>This user has no friends.</p>
 <%
 	}
 	else for (int i=0; i<friends.size(); i++) {

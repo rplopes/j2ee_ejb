@@ -29,6 +29,12 @@
 		 posts = userBean.getUserReceivedPosts(userId);
 	else
 		posts = userBean.getUserPublicPosts(userId);
+	
+	if (posts.size() == 0) {
+%>
+		<p>This user has no posts.</p>
+<%
+	}
 	for (int i=posts.size()-1; i>=0; i--) {
 		if(posts.get(i).getDeletedAt()==null){
 %>

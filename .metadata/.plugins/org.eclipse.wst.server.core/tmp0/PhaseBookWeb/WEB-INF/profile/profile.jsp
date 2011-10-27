@@ -10,8 +10,7 @@
 	PhasebookUser user;
 	Object userId;
 	Friendship fs;
-	PhasebookUser me;
-	me=userBean.getUserById(session.getAttribute("id"));
+	PhasebookUser me = userBean.getUserById(session.getAttribute("id"));
 	
 	int relationshipType = -1;
 	if(request.getParameter("id") == null){
@@ -122,9 +121,9 @@
 	<li id="tab3" onclick="selectFriends()">Friends</li>
 </ul>
 
-<div id="tabposts"><% pageContext.include("/WEB-INF/myprofile/posts.jsp"); %></div>
-<div id="tabphotos"><% pageContext.include("/WEB-INF/myprofile/photos.jsp"); %></div>
-<div id="tabfriends"><% pageContext.include("/WEB-INF/myprofile/friends.jsp"); %></div>
+<div id="tabposts"><% pageContext.include("/WEB-INF/profile/posts.jsp"); %></div>
+<div id="tabphotos"><% pageContext.include("/WEB-INF/profile/photos.jsp"); %></div>
+<div id="tabfriends"><% pageContext.include("/WEB-INF/profile/friends.jsp"); %></div>
 <script>
 	selectPosts();
 </script>

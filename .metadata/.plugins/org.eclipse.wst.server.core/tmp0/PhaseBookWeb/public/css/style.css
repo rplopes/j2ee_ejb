@@ -209,6 +209,68 @@ textarea#post {
 	font-weight: default;
 }
 
+#profiletabs {
+	width: 800px;
+	padding: 10px;
+	padding-bottom: 5px;
+	margin: 10px -10px 10px -10px;
+	list-style-type: none;
+	border-bottom: 1px solid #C4CDE0;
+}
+
+#profiletabs li {
+	cursor: pointer;
+	padding: 5px;
+	font-size: 110%;
+	display: inline;
+	border: 1px solid #C4CDE0;
+	-moz-border-radius-toprleft: 8px;
+	border-top-left-radius: 8px;
+	-moz-border-radius-topright: 8px;
+	border-top-right-radius: 8px;
+}
+
+#profiletabs li.active {
+	border-bottom: 1px solid white;
+	font-weight: bold;
+}
+
+#profiletabs li.inactive {
+	border-bottom: 1px solid #C4CDE0;
+	font-weight: default;
+}
+
+#profiletabs {
+	width: 800px;
+	padding: 10px;
+	padding-bottom: 5px;
+	margin: 10px -10px 10px -10px;
+	list-style-type: none;
+	border-bottom: 1px solid #C4CDE0;
+}
+
+#profiletabs li {
+	cursor: pointer;
+	padding: 5px;
+	font-size: 110%;
+	display: inline;
+	border: 1px solid #C4CDE0;
+	-moz-border-radius-toprleft: 8px;
+	border-top-left-radius: 8px;
+	-moz-border-radius-topright: 8px;
+	border-top-right-radius: 8px;
+}
+
+#profiletabs li.active {
+	border-bottom: 1px solid white;
+	font-weight: bold;
+}
+
+#profiletabs li.inactive {
+	border-bottom: 1px solid #C4CDE0;
+	font-weight: default;
+}
+
 /*
 	Charity Lottery
 */

@@ -36,7 +36,7 @@
 <%
 	}
 	for (int i=posts.size()-1; i>=0; i--) {
-		if(posts.get(i).getDeletedAt()==null){
+		if(posts.get(i).getDeletedAt()!=null)
 %>
 	<p>
 		<form method="POST" action="RemovePostForm">
@@ -54,5 +54,5 @@
 		<br /><%= Utils.text(posts.get(i).getText()) %>
 	</p>
 <%
-	}}
+	}
 %>

@@ -10,8 +10,7 @@
 	PhasebookUser user;
 	Object userId;
 	Friendship fs;
-	PhasebookUser me;
-	me=userBean.getUserById(session.getAttribute("id"));
+	PhasebookUser me = userBean.getUserById(session.getAttribute("id"));
 	int relationshipType = -1;
 	if(request.getParameter("id") == null){
 		userId =  session.getAttribute("id");
@@ -44,7 +43,15 @@
 	else
 		posts = userBean.getUserPublicPosts(userId);
 %>
-<br />
+<p>
+<%
+	if (posts.size() == 0) {
+%>
+		This user has no photos.
+<%
+	}
+%>
+</p>
 <div id="images">
 <%
 	for (int i=posts.size()-1; i>=0; i--) {
