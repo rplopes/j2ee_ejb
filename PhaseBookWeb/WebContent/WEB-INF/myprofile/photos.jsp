@@ -43,15 +43,18 @@
 		 posts = userBean.getUserReceivedPosts(userId);
 	else
 		posts = userBean.getUserPublicPosts(userId);
+%>
+<br />
+<div id="images">
+<%
 	for (int i=posts.size()-1; i>=0; i--) {
 %>
-	<p>
-		<% if (posts.get(i).getPhoto()!=null){ 
-			String photoURL = Utils.MAIN_PATH+userId.toString()+"/"+posts.get(i).getPhoto().getName();
-		%>
-			<br /> <%= Utils.aAbsolute(photoURL, Utils.img(photoURL)) %>
-		<%} %>
-	</p>
+	<% if (posts.get(i).getPhoto()!=null){ 
+		String photoURL = Utils.MAIN_PATH+userId.toString()+"/"+posts.get(i).getPhoto().getName();
+	%>
+		<span style="margin: 15px"><%= Utils.aAbsolute(photoURL, Utils.img(photoURL)) %></span>
+	<% } %>
 <%
 	}
 %>
+</div>

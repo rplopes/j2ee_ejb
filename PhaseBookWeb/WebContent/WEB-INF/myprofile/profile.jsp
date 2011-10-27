@@ -32,13 +32,8 @@
 	
 	
 %>
-<% if (user.getPhoto()!=null){ 
-	String photoURL = Utils.MAIN_PATH+userId.toString()+"/"+user.getPhoto().getName();
-%>
-	<br /> <%= Utils.a("user&id="+userId.toString(), Utils.img(photoURL)) %>
-<%} %>
 
-<form enctype="multipart/form-data" method="POST" action="AddPhotoForm" style="padding: 0 50px 0 50px;">
+<!--<form enctype="multipart/form-data" method="POST" action="AddPhotoForm" style="padding: 0 50px 0 50px;">
 	<p align="right">
 		Browse image file:
 		<input type="file" name="file1">
@@ -46,7 +41,7 @@
 	<p align="right">
 		<input type="submit" value="Change profile picture" name="B1">
 	</p>
-</form>
+</form>-->
 
 <form method="POST" action="CreateFriendshipForm">
 	<input type="hidden" name="toUser" value="<%= userId.toString() %>"/>
@@ -63,8 +58,21 @@
 
 </form>
 
-<h1><%= Utils.text(user.getName()) %></h1> 
-<p class="tip"><%= Utils.text(user.getEmail()) %></p>
+<table width="100%">
+	<tr>
+		<td width="120">
+			<% if (user.getPhoto()!=null){ 
+				String photoURL = Utils.MAIN_PATH + userId.toString() + "/"+user.getPhoto().getName();
+			%>
+				<%= Utils.a("user&id="+userId.toString(), Utils.img(photoURL)) %>
+			<% } %>
+		</td>
+		<td>
+			<h1><%= Utils.text(user.getName()) %></h1> 
+			<p class="tip"><%= Utils.text(user.getEmail()) %></p>
+		</td>
+	</tr>
+</table>
 
 <%
 	if (session.getAttribute("error") != null)
@@ -88,23 +96,24 @@
 %>
 
 <form enctype="multipart/form-data" method="POST" action="CreatePostForm" style="padding: 0 50px 0 50px;">
-	<p align="center">
-		<textarea id="post" name="post"></textarea>
-		<input type="hidden" name="toUser" value="<%= userId.toString() %>"/>
-	</p>
-	<p align="right">
-		Browse image file:
-		<input type="file" name="file1">
-	</p>
-	<p align="right">
-		<select name="privacy">
-			<option value="0" <% if (privacy.compareTo("0")==0) { %>selected<% } %>>Public</option>
-			<% if (Utils.getFriendshipBean().searchFriendship(me, user) != null || me.equals(user) ){ %>
-				<option value="1" <% if (privacy.compareTo("1")==0) { %>selected<% } %>>Private</option>
-			<% } %>
-		</select>
-		<input type="submit" value="Post" name="B1">
-	</p>
+	<textarea id="post" name="post" placeholder="What's on your mind?"></textarea>
+	<input type="hidden" name="toUser" value="<%= userId.toString() %>"/>
+	<table width="100%">
+		<tr>
+			<td>
+				Upload image: <input type="file" name="file1">
+			</td>
+			<td style="text-align: right">
+				<select name="privacy">
+					<option value="0" <% if (privacy.compareTo("0")==0) { %>selected<% } %>>Public</option>
+					<% if (Utils.getFriendshipBean().searchFriendship(me, user) != null || me.equals(user) ){ %>
+						<option value="1" <% if (privacy.compareTo("1")==0) { %>selected<% } %>>Private</option>
+					<% } %>
+				</select>
+				<input type="submit" value="Post" name="B1">
+			</td>
+		</tr>
+	</table>
 </form>
 
 <ul id="profiletabs">
