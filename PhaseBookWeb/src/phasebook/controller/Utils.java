@@ -12,7 +12,7 @@ import phasebook.user.PhasebookUserRemote;
 public class Utils {
 	
 	public static String MAIN_PATH   = "http://localhost:8080/photos/";
-	public static int IMG_DEFAULT_WIDTH = 300; 
+	public static int IMG_DEFAULT_WIDTH = 100; 
 	
 	// Creates a link to a URL in HTML
 	public static String a(String url, String text)

@@ -13,7 +13,20 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<link href="public/css/style.css" rel="stylesheet" type="text/css">
+	<link href="public/css/MooFlow.css" rel="stylesheet" type="text/css">
 	<script src="public/js/action.js"></script>
+	<script type="text/javascript" src="http://gettopup.com/releases/latest/top_up-min.js"></script>
+	<script type="text/javascript" src="path/to/top_up-min.js?fast_mode=1"></script>
+	<script type="text/javascript">
+	  TopUp.addPresets({
+	    "#images a": {
+	      group: "images",
+	      layout: "flatlook",
+	      shaded: 1,
+	      overlayClose: 1
+	    }
+	  });
+	</script> 
 	<title>Phasebook - <%= title %></title>
 </head>
 <body>
