@@ -79,4 +79,14 @@
     <servlet-name>BetForm</servlet-name>
     <url-pattern>/BetForm</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>EditAccountForm</display-name>
+    <servlet-name>EditAccountForm</servlet-name>
+    <servlet-class>phasebook.controller.EditAccountForm</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>EditAccountForm</servlet-name>
+    <url-pattern>/EditAccountForm</url-pattern>
+  </servlet-mapping>
 </web-app>

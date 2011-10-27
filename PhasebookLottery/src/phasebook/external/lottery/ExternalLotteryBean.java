@@ -23,6 +23,10 @@ public class ExternalLotteryBean implements ExternalLotteryRemote {
 		ctx.getTimerService().createTimer(new Date(new Date().getTime() + milliseconds), "Hello World");  
 	}
 	
+	public void reset() {
+		ctx.getTimerService().getTimers().clear();
+	}
+	
 	@Timeout
 	public void timeout(Timer timer){
 		nextDraw = Calendar.getInstance();

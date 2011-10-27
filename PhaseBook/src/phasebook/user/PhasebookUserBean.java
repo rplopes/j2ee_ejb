@@ -16,6 +16,7 @@ import javax.persistence.Query;
 
 import phasebook.friendship.Friendship;
 import phasebook.photo.Photo;
+import phasebook.photo.PhotoBean;
 import phasebook.post.Post;
 
 
@@ -295,6 +296,22 @@ public class PhasebookUserBean implements PhasebookUserRemote {
 				friends.add(friendship.getInvitedUser());
 		}
 		return friends;
+	}
+	
+	public void editAccount(Object id, String name, String photo) {
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PhaseBook");
+		EntityManager em = emf.createEntityManager();
+		EntityTransaction tx = em.getTransaction();
+		
+		tx.begin();
+		PhasebookUser user = getUserById(id);
+		user.setName(name);
+		PhotoBean photoEJB = new PhotoBean();
+		user.setPhoto(photoEJB.getPhotoById(photo));
+		em.merge(user);
+		tx.commit();
+		em.close();
+		emf.close();
 	}
 	
 }

@@ -52,6 +52,12 @@
 		url   = "profile/profile.jsp";
 	}
 	
+	else if (p.compareTo("edit") == 0 && session.getAttribute("id") != null)
+	{
+		title = "Edit Account";
+		url   = "profile/editAccount.jsp";
+	}
+	
 	else if (p.compareTo("lottery") == 0 && session.getAttribute("id") != null)
 	{
 		title = "Charity Lottery";

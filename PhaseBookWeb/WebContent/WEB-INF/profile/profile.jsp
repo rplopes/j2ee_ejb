@@ -10,8 +10,7 @@
 	PhasebookUser user;
 	Object userId;
 	Friendship fs;
-	PhasebookUser me;
-	me=userBean.getUserById(session.getAttribute("id"));
+	PhasebookUser me = userBean.getUserById(session.getAttribute("id"));
 	
 	int relationshipType = -1;
 	if(request.getParameter("id") == null){
