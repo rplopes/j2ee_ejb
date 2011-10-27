@@ -64,7 +64,7 @@ public class LoginUserForm extends HttpServlet {
 				}
 				else
 				{
-					session.setAttribute("error", "Email ou palavra passe inválidos");
+					session.setAttribute("error", "Wrong email or password");
 					response.sendRedirect(Utils.url("login"));
 				}
 			}

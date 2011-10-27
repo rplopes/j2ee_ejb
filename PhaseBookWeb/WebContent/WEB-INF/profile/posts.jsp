@@ -42,7 +42,7 @@
 		<form method="POST" action="RemovePostForm">
 		<input type="hidden" name="postId" value="<%= posts.get(i).getId() %>"/>
 		<input type="hidden" name="userId" value="<%= userId %>"/>
-		<input type="submit" value="x" name="B0">
+		<input type="submit" value="x" name="B0" style="float: right; font-size: 80%; background: white; color: #444; border: 1px solid #444; padding: 3px; font-weight: normal">
 		</form>
 		<b class="user"><%= Utils.a("user&id="+posts.get(i).getFromUser().getId(), Utils.text(posts.get(i).getFromUser().getName())) %></b>
 		<% if (posts.get(i).isPrivate_()) { %><i>(private)</i><% } %>
