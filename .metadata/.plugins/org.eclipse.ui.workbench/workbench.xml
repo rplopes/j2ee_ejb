@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<workbench progressCount="58" version="2.0">
+<workbench progressCount="66" version="2.0">
 <workbenchAdvisor/>
 <window height="728" maximized="true" width="1024" x="150" y="0">
 <fastViewData fastViewLocation="1024"/>
@@ -21,10 +21,10 @@
 <coolItem id="group.nav" itemType="typeGroupMarker"/>
 <coolItem id="org.eclipse.ui.workbench.navigate" itemType="typeToolBarContribution" x="190" y="22"/>
 <coolItem id="group.editor" itemType="typeGroupMarker"/>
-<coolItem id="org.eclipse.jst.jsp.core.jspsource.source" itemType="typePlaceholder" x="-1" y="-1"/>
+<coolItem id="org.eclipse.jst.jsp.core.jspsource.source" itemType="typeToolBarContribution" x="-1" y="-1"/>
 <coolItem id="org.eclipse.ui.DefaultTextEditor" itemType="typePlaceholder" x="-1" y="-1"/>
 <coolItem id="org.eclipse.jpt.jpa.ui.internal.editors.PersistenceEditor" itemType="typePlaceholder" x="-1" y="-1"/>
-<coolItem id="org.eclipse.jdt.ui.CompilationUnitEditor" itemType="typeToolBarContribution" x="-1" y="-1"/>
+<coolItem id="org.eclipse.jdt.ui.CompilationUnitEditor" itemType="typePlaceholder" x="-1" y="-1"/>
 <coolItem id="group.help" itemType="typeGroupMarker"/>
 <coolItem id="org.eclipse.ui.workbench.help" itemType="typeToolBarContribution" x="-1" y="-1"/>
 </coolbarLayout>
@@ -35,28 +35,13 @@
 <folder appearance="1" expanded="2">
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
 <part id="0"/>
-<part id="1"/>
-<part id="2"/>
-<part id="3"/>
 </presentation>
 </folder>
 </info>
 </editorArea>
-<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="PhasebookUserBean.java" partName="PhasebookUserBean.java" path="C:/Users/Gustavo/Desktop/IS/Trabalho 2/Repository/j2ee_ejb/PhaseBook/src/phasebook/user/PhasebookUserBean.java" title="PhasebookUserBean.java" tooltip="PhaseBook/src/phasebook/user/PhasebookUserBean.java" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/PhaseBook/src/phasebook/user/PhasebookUserBean.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="8099" selectionTopPixel="3794"/>
-</editor>
-<editor activePart="true" focus="true" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="PostBean.java" partName="PostBean.java" path="C:/Users/Gustavo/Desktop/IS/Trabalho 2/Repository/j2ee_ejb/PhaseBook/src/phasebook/post/PostBean.java" title="PostBean.java" tooltip="PhaseBook/src/phasebook/post/PostBean.java" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/PhaseBook/src/phasebook/post/PostBean.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="333" selectionOffset="0" selectionTopPixel="0"/>
-</editor>
-<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Post.java" partName="Post.java" path="C:/Users/Gustavo/Desktop/IS/Trabalho 2/Repository/j2ee_ejb/PhaseBook/src/phasebook/post/Post.java" title="Post.java" tooltip="PhaseBook/src/phasebook/post/Post.java" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/PhaseBook/src/phasebook/post/Post.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="640" selectionTopPixel="270"/>
-</editor>
-<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="PostRemote.java" partName="PostRemote.java" path="C:/Users/Gustavo/Desktop/IS/Trabalho 2/Repository/j2ee_ejb/PhaseBook/src/phasebook/post/PostRemote.java" title="PostRemote.java" tooltip="PhaseBook/src/phasebook/post/PostRemote.java" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/PhaseBook/src/phasebook/post/PostRemote.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="224" selectionTopPixel="0"/>
+<editor activePart="true" focus="true" id="org.eclipse.jst.jsp.core.jspsource.source" name="profile.jsp" partName="profile.jsp" path="C:/Users/Gustavo/Desktop/IS/Trabalho 2/Repository/j2ee_ejb/PhaseBookWeb/WebContent/WEB-INF/myprofile/profile.jsp" title="profile.jsp" tooltip="PhaseBookWeb/WebContent/WEB-INF/myprofile/profile.jsp" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/PhaseBookWeb/WebContent/WEB-INF/myprofile/profile.jsp"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="3614" selectionTopPixel="1395"/>
 </editor>
 </editors>
 <views>
@@ -65,8 +50,7 @@
 </view>
 <view id="org.eclipse.ui.views.AllMarkersView" partName="Markers">
 <viewState PRIMARY_SORT_FIELD="org.eclipse.ui.ide.allSeverityField" categoryGroup="org.eclipse.ui.ide.type" markerContentGenerator="org.eclipse.ui.ide.allMarkersGenerator" partName="Markers">
-<expanded>
-<category IMemento.internal.id="Java Problems"/>
+<expanded>&#x0A;<category IMemento.internal.id="Java Problems"/>
 </expanded>
 <columnWidths org.eclipse.ui.ide.allSeverityField="648" org.eclipse.ui.ide.locationField="90" org.eclipse.ui.ide.markerType="90" org.eclipse.ui.ide.pathField="120" org.eclipse.ui.ide.resourceField="90"/>
 <visible IMemento.internal.id="org.eclipse.ui.ide.allSeverityField"/>
@@ -84,9 +68,7 @@
 </view>
 <view id="org.eclipse.mylyn.tasks.ui.views.tasks" partName="Task List">
 <viewState linkWithEditor="true" presentation="org.eclipse.mylyn.tasks.ui.categorized">
-<sorter groupBy="CATEGORY_QUERY">
-<sorter>
-<sort0 sortDirection="1" sortKey="PRIORITY"/>
+<sorter groupBy="CATEGORY_QUERY">&#x0A;<sorter>&#x0A;<sort0 sortDirection="1" sortKey="PRIORITY"/>
 <sort1 sortDirection="1" sortKey="RANK"/>
 <sort2 sortDirection="1" sortKey="DATE_CREATED"/>
 <sort3 sortDirection="1" sortKey="NONE"/>
@@ -106,7 +88,7 @@
 <viewState CommonNavigator.LINKING_ENABLED="0"/>
 </view>
 </views>
-<perspectives activePart="org.eclipse.jdt.ui.CompilationUnitEditor" activePerspective="org.eclipse.jst.j2ee.J2EEPerspective">
+<perspectives activePart="org.eclipse.jst.jsp.core.jspsource.source" activePerspective="org.eclipse.jst.j2ee.J2EEPerspective">
 <perspective editorAreaTrimState="2" editorAreaVisible="1" fixed="0" version="0.016">
 <descriptor class="org.eclipse.jst.j2ee.internal.perspective.J2EEPerspective" id="org.eclipse.jst.j2ee.J2EEPerspective" label="Java EE"/>
 <alwaysOnActionSet id="org.eclipse.mylyn.context.ui.actionSet"/>
@@ -229,94 +211,166 @@
 <workingSets/>
 <navigationHistory>
 <editors>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/PhaseBook/src/phasebook/user/PhasebookUserBean.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/PhasebookLottery/src/phasebook/external/lottery/ExternalLotteryMain.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/PhaseBook/src/phasebook/lottery/LotteryMain.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jst.jsp.core.jspsource.source" path="/PhaseBookWeb/WebContent/WEB-INF/template.jsp"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jst.jsp.core.jspsource.source" path="/PhaseBookWeb/WebContent/WEB-INF/login.jsp"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/PhaseBook/src/phasebook/post/PostBean.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/PhaseBook/src/phasebook/post/Post.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/PhaseBook/src/phasebook/user/PhasebookUser_.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/PhaseBook/src/phasebook/user/PhasebookUser.java"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/PhaseBook/src/phasebook/post/PostRemote.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jst.jsp.core.jspsource.source" path="/PhaseBookWeb/WebContent/WEB-INF/myprofile/posts.jsp"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jst.jsp.core.jspsource.source" path="/PhaseBookWeb/WebContent/WEB-INF/myprofile/profile.jsp"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/PhaseBookWeb/src/phasebook/controller/RemovePostForm.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/PhaseBookWeb/src/phasebook/controller/CreatePostForm.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/PhaseBookWeb/src/phasebook/controller/CreateUserForm.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/PhaseBook/src/phasebook/user/PhasebookUserRemote.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/PhaseBook/src/phasebook/user/PhasebookUser.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/PhaseBook/src/phasebook/user/PhasebookUserBean.java"/>
 </editors>
-<item historyLabel="PhasebookUserBean.java" index="0">
-<position info="not_deleted" x="8022" y="0"/>
+<item historyLabel="CreateUserForm.java" index="6">
+<position info="not_deleted" x="692" y="0"/>
 </item>
-<item historyLabel="ExternalLotteryMain.java" index="1">
-<position info="not_deleted" x="0" y="0"/>
-</item>
-<item historyLabel="LotteryMain.java" index="2">
-<position info="not_deleted" x="0" y="0"/>
-</item>
-<item historyLabel="ExternalLotteryMain.java" index="1">
-<position info="not_deleted" x="0" y="0"/>
-</item>
-<item historyLabel="PhasebookUserBean.java" index="0">
-<position info="not_deleted" x="8022" y="0"/>
-</item>
-<item historyLabel="template.jsp" index="3">
-<position info="not_deleted" x="465" y="6"/>
-</item>
-<item historyLabel="login.jsp" index="4">
-<position info="not_deleted" x="526" y="0"/>
-</item>
-<item historyLabel="template.jsp" index="3">
-<position info="not_deleted" x="839" y="0"/>
-</item>
-<item historyLabel="login.jsp" index="4">
-<position info="not_deleted" x="526" y="0"/>
-</item>
-<item historyLabel="PhasebookUserBean.java" index="0">
-<position info="not_deleted" x="8099" y="0"/>
-</item>
-<item historyLabel="PostBean.java" index="5">
-<position info="not_deleted" x="0" y="0"/>
-</item>
-<item historyLabel="PostBean.java" index="5">
-<position info="not_deleted" x="1572" y="2"/>
-</item>
-<item historyLabel="Post.java" index="6">
-<position info="not_deleted" x="655" y="2"/>
-</item>
-<item historyLabel="PostBean.java" index="5">
-<position info="not_deleted" x="1572" y="2"/>
-</item>
-<item historyLabel="PostBean.java" index="5">
+<item historyLabel="RemovePostForm.java" index="4">
 <position/>
 </item>
-<item historyLabel="PostBean.java" index="5">
-<position info="not_deleted" x="1829" y="0"/>
+<item historyLabel="profile.jsp" index="3">
+<position/>
 </item>
-<item historyLabel="PhasebookUserBean.java" index="0">
-<position info="not_deleted" x="8099" y="0"/>
+<item historyLabel="posts.jsp" index="2">
+<position info="not_deleted" x="1130" y="2"/>
 </item>
-<item historyLabel="PhasebookUser_.java" index="7">
-<position info="not_deleted" x="0" y="0"/>
+<item historyLabel="posts.jsp" index="2">
+<position info="not_deleted" x="1166" y="0"/>
 </item>
-<item historyLabel="PhasebookUserBean.java" index="0">
-<position info="not_deleted" x="8099" y="0"/>
+<item historyLabel="RemovePostForm.java" index="4">
+<position info="not_deleted" x="1576" y="0"/>
+</item>
+<item historyLabel="profile.jsp" index="3">
+<position/>
+</item>
+<item historyLabel="RemovePostForm.java" index="4">
+<position info="not_deleted" x="1785" y="0"/>
+</item>
+<item historyLabel="posts.jsp" index="2">
+<position info="not_deleted" x="1200" y="0"/>
+</item>
+<item historyLabel="RemovePostForm.java" index="4">
+<position info="not_deleted" x="1785" y="0"/>
+</item>
+<item historyLabel="posts.jsp" index="2">
+<position info="not_deleted" x="1200" y="0"/>
+</item>
+<item historyLabel="RemovePostForm.java" index="4">
+<position info="not_deleted" x="1785" y="0"/>
+</item>
+<item historyLabel="PostBean.java" index="0">
+<position info="not_deleted" x="1334" y="1"/>
+</item>
+<item historyLabel="RemovePostForm.java" index="4">
+<position info="not_deleted" x="1575" y="0"/>
+</item>
+<item historyLabel="PostRemote.java" index="1">
+<position info="not_deleted" x="170" y="0"/>
+</item>
+<item historyLabel="PostBean.java" index="0">
+<position info="not_deleted" x="1646" y="0"/>
+</item>
+<item historyLabel="RemovePostForm.java" index="4">
+<position/>
+</item>
+<item historyLabel="CreatePostForm.java" index="5">
+<position info="not_deleted" x="4888" y="60"/>
+</item>
+<item historyLabel="PostRemote.java" index="1">
+<position info="not_deleted" x="170" y="0"/>
+</item>
+<item historyLabel="RemovePostForm.java" index="4">
+<position info="not_deleted" x="1666" y="0"/>
+</item>
+<item historyLabel="PostRemote.java" index="1">
+<position info="not_deleted" x="170" y="0"/>
+</item>
+<item historyLabel="CreatePostForm.java" index="5">
+<position info="not_deleted" x="4888" y="60"/>
+</item>
+<item historyLabel="PostRemote.java" index="1">
+<position info="not_deleted" x="170" y="0"/>
+</item>
+<item historyLabel="RemovePostForm.java" index="4">
+<position info="not_deleted" x="1532" y="13"/>
+</item>
+<item historyLabel="PhasebookUserRemote.java" index="7">
+<position/>
+</item>
+<item historyLabel="RemovePostForm.java" index="4">
+<position info="not_deleted" x="1774" y="0"/>
+</item>
+<item historyLabel="PostRemote.java" index="1">
+<position info="not_deleted" x="170" y="0"/>
+</item>
+<item historyLabel="posts.jsp" index="2">
+<position info="not_deleted" x="1268" y="0"/>
+</item>
+<item historyLabel="RemovePostForm.java" index="4">
+<position info="not_deleted" x="1774" y="0"/>
+</item>
+<item historyLabel="PostBean.java" index="0">
+<position info="not_deleted" x="1646" y="0"/>
+</item>
+<item historyLabel="posts.jsp" index="2">
+<position info="not_deleted" x="1114" y="0"/>
 </item>
 <item historyLabel="PhasebookUser.java" index="8">
-<position info="not_deleted" x="2872" y="6"/>
+<position info="not_deleted" x="0" y="0"/>
 </item>
-<item historyLabel="PhasebookUserBean.java" index="0">
-<position info="not_deleted" x="8099" y="0"/>
+<item historyLabel="posts.jsp" index="2">
+<position info="not_deleted" x="1114" y="0"/>
 </item>
-<item historyLabel="PostBean.java" index="5">
-<position info="not_deleted" x="1873" y="0"/>
+<item historyLabel="PhasebookUserBean.java" index="9">
+<position info="not_deleted" x="3516" y="0"/>
 </item>
-<item historyLabel="PostBean.java" index="5">
-<position info="not_deleted" x="1311" y="35"/>
+<item historyLabel="RemovePostForm.java" index="4">
+<position info="not_deleted" x="1666" y="0"/>
 </item>
-<item historyLabel="PostRemote.java" index="9">
-<position info="not_deleted" x="224" y="0"/>
+<item historyLabel="PhasebookUserBean.java" index="9">
+<position info="not_deleted" x="3516" y="0"/>
 </item>
-<item historyLabel="Post.java" index="6">
-<position info="not_deleted" x="640" y="0"/>
+<item historyLabel="RemovePostForm.java" index="4">
+<position info="not_deleted" x="1961" y="0"/>
 </item>
-<item active="true" historyLabel="PostBean.java" index="5">
-<position info="not_deleted" x="1311" y="35"/>
+<item historyLabel="PostRemote.java" index="1">
+<position info="not_deleted" x="170" y="0"/>
+</item>
+<item historyLabel="posts.jsp" index="2">
+<position info="not_deleted" x="1114" y="0"/>
+</item>
+<item historyLabel="posts.jsp" index="2">
+<position info="not_deleted" x="1070" y="0"/>
+</item>
+<item historyLabel="PostBean.java" index="0">
+<position info="not_deleted" x="1646" y="0"/>
+</item>
+<item historyLabel="PostRemote.java" index="1">
+<position info="not_deleted" x="170" y="0"/>
+</item>
+<item historyLabel="PhasebookUserBean.java" index="9">
+<position info="not_deleted" x="3516" y="0"/>
+</item>
+<item historyLabel="posts.jsp" index="2">
+<position info="not_deleted" x="1810" y="0"/>
+</item>
+<item historyLabel="RemovePostForm.java" index="4">
+<position info="not_deleted" x="1961" y="0"/>
+</item>
+<item historyLabel="profile.jsp" index="3">
+<position info="not_deleted" x="3452" y="12"/>
+</item>
+<item historyLabel="posts.jsp" index="2">
+<position info="not_deleted" x="1810" y="0"/>
+</item>
+<item historyLabel="PostRemote.java" index="1">
+<position info="not_deleted" x="170" y="0"/>
+</item>
+<item historyLabel="RemovePostForm.java" index="4">
+<position info="not_deleted" x="1961" y="0"/>
+</item>
+<item active="true" historyLabel="profile.jsp" index="3">
+<position info="not_deleted" x="0" y="0"/>
 </item>
 </navigationHistory>
 <input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
@@ -336,11 +390,38 @@
 </trimLayout>
 </window>
 <mruList>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="PostRemote.java" tooltip="PhaseBook/src/phasebook/post/PostRemote.java">
-<persistable path="/PhaseBook/src/phasebook/post/PostRemote.java"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jst.jsp.core.jspsource.source" name="profile.jsp" tooltip="PhaseBookWeb/WebContent/WEB-INF/myprofile/profile.jsp">
+<persistable path="/PhaseBookWeb/WebContent/WEB-INF/myprofile/profile.jsp"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="PhasebookUserBean.java" tooltip="PhaseBook/src/phasebook/user/PhasebookUserBean.java">
+<persistable path="/PhaseBook/src/phasebook/user/PhasebookUserBean.java"/>
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="PhasebookUser.java" tooltip="PhaseBook/src/phasebook/user/PhasebookUser.java">
 <persistable path="/PhaseBook/src/phasebook/user/PhasebookUser.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="PhasebookUserRemote.java" tooltip="PhaseBook/src/phasebook/user/PhasebookUserRemote.java">
+<persistable path="/PhaseBook/src/phasebook/user/PhasebookUserRemote.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="CreatePostForm.java" tooltip="PhaseBookWeb/src/phasebook/controller/CreatePostForm.java">
+<persistable path="/PhaseBookWeb/src/phasebook/controller/CreatePostForm.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="PostRemote.java" tooltip="PhaseBook/src/phasebook/post/PostRemote.java">
+<persistable path="/PhaseBook/src/phasebook/post/PostRemote.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="CreateUserForm.java" tooltip="PhaseBookWeb/src/phasebook/controller/CreateUserForm.java">
+<persistable path="/PhaseBookWeb/src/phasebook/controller/CreateUserForm.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="LoginUserForm.java" tooltip="PhaseBookWeb/src/phasebook/controller/LoginUserForm.java">
+<persistable path="/PhaseBookWeb/src/phasebook/controller/LoginUserForm.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="CreateFriendshipForm.java" tooltip="PhaseBookWeb/src/phasebook/controller/CreateFriendshipForm.java">
+<persistable path="/PhaseBookWeb/src/phasebook/controller/CreateFriendshipForm.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="RemovePostForm.java" tooltip="PhaseBookWeb/src/phasebook/controller/RemovePostForm.java">
+<persistable path="/PhaseBookWeb/src/phasebook/controller/RemovePostForm.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jst.jsp.core.jspsource.source" name="posts.jsp" tooltip="PhaseBookWeb/WebContent/WEB-INF/myprofile/posts.jsp">
+<persistable path="/PhaseBookWeb/WebContent/WEB-INF/myprofile/posts.jsp"/>
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="PhasebookUser_.java" tooltip="PhaseBook/src/phasebook/user/PhasebookUser_.java">
 <persistable path="/PhaseBook/src/phasebook/user/PhasebookUser_.java"/>
@@ -353,33 +434,6 @@
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jst.jsp.core.jspsource.source" name="login.jsp" tooltip="PhaseBookWeb/WebContent/WEB-INF/login.jsp">
 <persistable path="/PhaseBookWeb/WebContent/WEB-INF/login.jsp"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jst.jsp.core.jspsource.source" name="template.jsp" tooltip="PhaseBookWeb/WebContent/WEB-INF/template.jsp">
-<persistable path="/PhaseBookWeb/WebContent/WEB-INF/template.jsp"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="LotteryMain.java" tooltip="PhaseBook/src/phasebook/lottery/LotteryMain.java">
-<persistable path="/PhaseBook/src/phasebook/lottery/LotteryMain.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="ExternalLotteryMain.java" tooltip="PhasebookLottery/src/phasebook/external/lottery/ExternalLotteryMain.java">
-<persistable path="/PhasebookLottery/src/phasebook/external/lottery/ExternalLotteryMain.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="PhasebookUserBean.java" tooltip="PhaseBook/src/phasebook/user/PhasebookUserBean.java">
-<persistable path="/PhaseBook/src/phasebook/user/PhasebookUserBean.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.ui.DefaultTextEditor" name="web.xml" tooltip="PhaseBookWeb/WebContent/WEB-INF/web.xml">
-<persistable path="/PhaseBookWeb/WebContent/WEB-INF/web.xml"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="FriendshipBean.java" tooltip="PhaseBook/src/phasebook/friendship/FriendshipBean.java">
-<persistable path="/PhaseBook/src/phasebook/friendship/FriendshipBean.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="PhasebookUserRemote.java" tooltip="PhaseBook/src/phasebook/user/PhasebookUserRemote.java">
-<persistable path="/PhaseBook/src/phasebook/user/PhasebookUserRemote.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Friendship.java" tooltip="PhaseBook/src/phasebook/friendship/Friendship.java">
-<persistable path="/PhaseBook/src/phasebook/friendship/Friendship.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="CreateFriendshipForm.java" tooltip="PhaseBookWeb/src/phasebook/controller/CreateFriendshipForm.java">
-<persistable path="/PhaseBookWeb/src/phasebook/controller/CreateFriendshipForm.java"/>
 </file>
 </mruList>
 </workbench>

@@ -49,7 +49,6 @@ public class LoginUserForm extends HttpServlet {
 			String error = formValidation(email, password);
 			if (error != null)
 			{
-				session.setAttribute("error", error);
 				System.out.println(error);
 				response.sendRedirect(Utils.url("login"));
 			}
@@ -63,10 +62,7 @@ public class LoginUserForm extends HttpServlet {
 					response.sendRedirect(Utils.url(""));
 				}
 				else
-				{
-					session.setAttribute("error", "Email ou palavra passe inválidos");
 					response.sendRedirect(Utils.url("login"));
-				}
 			}
 		} catch (NamingException e) {
 			e.printStackTrace();

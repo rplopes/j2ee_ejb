@@ -4,6 +4,16 @@
 
 <h1>Login</h1>
 
+<%
+if (session.getAttribute("error") != null)
+	{
+%>
+		<p style="color:red"><%= session.getAttribute("error") %></p>
+<%
+		session.removeAttribute("error");
+	}
+%>
+
 <form method="POST" action="LoginUserForm">
 	<table>
 		<tr>
