@@ -17,6 +17,7 @@ public class LotteryMain {
 		InitialContext ctx = new InitialContext(ht);
 		
 		LotteryRemote timer = (LotteryRemote) ctx.lookup("LotteryBean/remote");
+		timer.reset();
 		timer.scheduleTimer(1);
 	}
 

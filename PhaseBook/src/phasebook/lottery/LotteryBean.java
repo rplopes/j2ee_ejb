@@ -30,8 +30,12 @@ public class LotteryBean implements LotteryRemote {
 	public static int timerInterval = 1000 * 60;
 	private @Resource SessionContext ctx;
 	  
-	public void scheduleTimer(long milliseconds) {  
+	public void scheduleTimer(long milliseconds) {
 		ctx.getTimerService().createTimer(new Date(new Date().getTime() + milliseconds), "Hello World");  
+	}
+	
+	public void reset() {
+		ctx.getTimerService().getTimers().clear();
 	}
 	
 	public String nextDrawDate() {

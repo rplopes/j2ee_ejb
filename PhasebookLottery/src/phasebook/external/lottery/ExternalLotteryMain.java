@@ -17,6 +17,7 @@ public class ExternalLotteryMain {
 		InitialContext ctx = new InitialContext(ht);
 		
 		ExternalLotteryRemote timer = (ExternalLotteryRemote) ctx.lookup("ExternalLotteryBean/remote");
+		timer.reset();
 		timer.scheduleTimer(1);
 	}
 
