@@ -18,10 +18,8 @@ public interface PhasebookUserRemote {
 	public void addPost(PhasebookUser from, PhasebookUser to, String text, String privacy);
 	public void invite(PhasebookUser hostUser, PhasebookUser invitedUser);
 	public void addPost(PhasebookUser from, PhasebookUser to, String text, String photoLink, String privacy);
-	public List<Photo> getUserPhotos(Object userId);
 	public List getUserPublicPosts(Object userId);
-	public List getUserPublicPhotos(Object userId);
-	public Photo addPhoto(PhasebookUser user, String text, String photoLink, String privacy);
+	public Photo addPhoto(String photoLink);
 	public void setProfilePicture(PhasebookUser user, Photo photo);
 	public void deposit(Object id, Float money);
 }

@@ -78,10 +78,6 @@ public class AddPhotoForm extends HttpServlet {
 			userBean = (PhasebookUserRemote) ctx.lookup("PhasebookUserBean/remote");
 			
 			PhasebookUser user = userBean.getUserById(session.getAttribute("id"));
-
-			String label = "";
-			String privacy = "";
-			String profile = "";
 			
 			//PrintWriter out = response.getWriter();
 	 
@@ -105,44 +101,28 @@ public class AddPhotoForm extends HttpServlet {
 				while(itr.hasNext()) {
 					FileItem item = (FileItem) itr.next();
 					/*
-					 * Handle Form Fields.
+					 * Write file to the ultimate location.
 					 */
-					if(item.isFormField()) {
-						if (item.getFieldName().compareTo("label")==0){
-							label = item.getString();
-						}
-						else if (item.getFieldName().compareTo("privacy")==0){
-							privacy = item.getString();
-						}
-						else if (item.getFieldName().compareTo("profile")==0){
-							profile = item.getString();
-						}
+					String ext="";
+					String error = null;
+					
+					error = formValidation(item.getName());
+					if (error != null) {
+						session.setAttribute("error", error);
+						response.sendRedirect(Utils.url(""));
 					} else {
-						/*
-						 * Write file to the ultimate location.
-						 */
-						String ext="";
-						String error = null;
-						ext = getExtension(item.getName());
-						error = formValidation(item.getName(), ext);
-						if (error != null) {
-							session.setAttribute("error", error);
-							session.setAttribute("label", label);
-							session.setAttribute("privacy", privacy);
-							response.sendRedirect(Utils.url("user&page=photos&id="+user.getId()));
-						} else {
-							destinationDir = new File(realPath+"/"+user.getId());
-							destinationDir.mkdirs();
-							if(!destinationDir.isDirectory()) {
-								throw new ServletException(DESTINATION_DIR_PATH+" is not a directory");
-							}
-							long time = System.currentTimeMillis();
-							File file = new File(destinationDir, time+ext );
-							item.write(file);
-							Photo photo = userBean.addPhoto(user, label, time+ext, privacy);
-							userBean.setProfilePicture(user, photo);
-							response.sendRedirect(Utils.url("user&page=photos&id="+user.getId()));
+						
+						destinationDir = new File(realPath+"/"+user.getId());
+						destinationDir.mkdirs();
+						if(!destinationDir.isDirectory()) {
+							throw new ServletException(DESTINATION_DIR_PATH+" is not a directory");
 						}
+						long time = System.currentTimeMillis();
+						File file = new File(destinationDir, time+ext );
+						item.write(file);
+						Photo photo = userBean.addPhoto(time+ext);
+						userBean.setProfilePicture(user, photo);
+						response.sendRedirect(Utils.url(""));
 					}
 				}
 			}catch(FileUploadException ex) {
@@ -158,13 +138,14 @@ public class AddPhotoForm extends HttpServlet {
 		}
 	}
 	
-	private String formValidation(String name, String extension) {
-		if (!extension.equalsIgnoreCase(".png") && !extension.equalsIgnoreCase(".jpg") 
-				|| !extension.equalsIgnoreCase(".jpeg") && !!extension.equalsIgnoreCase(".gif")
-				|| name.length()==0)
-			return "Please insert a valid image file";
-
-		return null;
+	private String formValidation(String name) {
+		if (name.length()!=0){
+			String extension = getExtension(name);
+			if (extension.equalsIgnoreCase(".png") || extension.equalsIgnoreCase(".jpg") 
+					|| extension.equalsIgnoreCase(".jpeg") || extension.equalsIgnoreCase(".gif"))
+				return null;
+		}
+		return "Please insert a valid image file";
 	}
 	
 	private String getExtension(String filename)

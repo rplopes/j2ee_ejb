@@ -104,39 +104,6 @@ public class PhasebookUserBean implements PhasebookUserRemote {
 		}
 	}
 	
-	public List<Photo> getUserPhotos(Object userId){
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PhaseBook");
-		EntityManager em = emf.createEntityManager();
-		PhasebookUser user = em.find(PhasebookUser.class, Integer.parseInt(userId.toString()));
-		em.persist(user);
-		em.refresh(user);
-		List<Photo> userPhotos = ((PhasebookUser)user).getUserPhotos();
-		List<Photo> returnList = new ArrayList<Photo>();
-		for(int i = 0; i< userPhotos.size(); i++){
-			returnList.add(userPhotos.get(i));
-		}
-		return returnList;
-	}
-	
-	public List getUserPublicPhotos(Object userId){
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PhaseBook");
-		EntityManager em = emf.createEntityManager();
-		PhasebookUser user = em.find(PhasebookUser.class, Integer.parseInt(userId.toString()));
-		
-		try{
-			Query q = em.createQuery("SELECT u FROM Photo u " +
-					"WHERE u.user LIKE :user AND " +
-					"u.private_ = :private_");
-			q.setParameter("user",user);
-			q.setParameter("private_",false);
-			
-			return q.getResultList();
-		} catch(NoResultException e){
-			List<Photo> empty = new ArrayList<Photo>();
-			return empty;
-		}
-	}
-	
 	public PhasebookUser getUserById(Object id){
 		int userId = Integer.parseInt(id.toString());
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PhaseBook");
@@ -218,13 +185,13 @@ public class PhasebookUserBean implements PhasebookUserRemote {
 		tx.commit();
 	}
 	
-	public Photo addPhoto(PhasebookUser user, String text, String photoLink, String privacy){
+	public Photo addPhoto(String photoLink){
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PhaseBook");
 		EntityManager em = emf.createEntityManager();
 		EntityTransaction tx = em.getTransaction();
 		
 		tx.begin();
-		Photo photo = new Photo(photoLink, user, privacy, text); 
+		Photo photo = new Photo(photoLink); 
 		em.persist(photo);
 		em.refresh(photo);
 

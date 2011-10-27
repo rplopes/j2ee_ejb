@@ -23,15 +23,8 @@ public class Photo implements Serializable{
 	@Column(name="PHOTO_ID")
 	private int id;
 	
-	@ManyToOne
-	@JoinColumn(name="USER_ID", referencedColumnName = "PHASEBOOK_USER_ID")
-	private PhasebookUser user;
-	
 	@Column(name="NAME")
 	private String name;
-	
-	@Column(name="PRIVATE_")
-	private boolean private_;
 	
 	@Column(name="CREATED_AT")
 	private Date createdAt;
@@ -53,15 +46,10 @@ public class Photo implements Serializable{
 		this.name = name;
 	}
 	
-	public Photo(String name, PhasebookUser user, String privacy, String label)
+	public Photo(String name, String label)
 	{
 		super();
 		this.name = name;
-		this.user = user;
-		if (privacy.compareTo("0")==0)
-			this.private_ = false;
-		else
-			this.private_ = true;
 		this.label = label;
 	}
 
@@ -73,28 +61,12 @@ public class Photo implements Serializable{
 		this.id = id;
 	}
 
-	public PhasebookUser getUser() {
-		return user;
-	}
-
-	public void setUser(PhasebookUser user) {
-		this.user = user;
-	}
-
 	public String getName() {
 		return name;
 	}
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public boolean isPrivate_() {
-		return private_;
-	}
-
-	public void setPrivate_(boolean private_) {
-		this.private_ = private_;
 	}
 
 	public Date getCreatedAt() {

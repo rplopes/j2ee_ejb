@@ -51,6 +51,7 @@ public class LotteryBean implements LotteryRemote {
 			if (number > 0)
 				updateCurrentDraw(number);
 			createDraw(nextDraw);
+			ctx.close();
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}
@@ -120,6 +121,9 @@ public class LotteryBean implements LotteryRemote {
     	//lottery.setLotteryDate(new java.sql.Date(date.getTimeInMillis()));
 		em.persist(lottery);
 		tx.commit();
+		
+		em.close();
+		emf.close();
 	}
 
 }

@@ -35,10 +35,6 @@ private static final long serialVersionUID = 1L;
 	private Photo photo;
 	
 	@ElementCollection
-	@OneToMany(cascade=CascadeType.ALL, mappedBy = "user") 
-	private List<Photo> userPhotos = new ArrayList<Photo>();
-	
-	@ElementCollection
 	@OneToMany(cascade=CascadeType.ALL, mappedBy = "hostUser") 
 	private List<Friendship> sentInvites = new ArrayList<Friendship>();
 	
@@ -188,14 +184,6 @@ private static final long serialVersionUID = 1L;
 	
 	public boolean equals(PhasebookUser user) {
 		return user.getId() == this.getId();
-	}
-
-	public List<Photo> getUserPhotos() {
-		return userPhotos;
-	}
-
-	public void setUserPhotos(List<Photo> userPhotos) {
-		this.userPhotos = userPhotos;
 	}
 
 	public Photo getPhoto() {
