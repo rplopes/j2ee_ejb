@@ -201,10 +201,11 @@ public class PhasebookUserBean implements PhasebookUserRemote {
 		tx.commit();
 		em.close();
 		emf.close();
-		EmailUtils.notifyUser(to, "PHASEBOOK: You have a new post", from.getName()+
-				" posted a message on your wall:<br><br>\""+text+"\"<br><br>You have also "+(getNUnreadUserPosts(to)-1)+
-				" posts to read.<br><br>"+
-				EmailUtils.a("Go to your wall"));
+		if(!from.equals(to))
+			EmailUtils.notifyUser(to, "PHASEBOOK: You have a new post", from.getName()+
+					" posted a message on your wall:<br><br>\""+text+"\"<br><br>You have also "+(getNUnreadUserPosts(to)-1)+
+					" posts to read.<br><br>"+
+					EmailUtils.a("Go to your wall"));
 	}
 	
 	public void addPost(PhasebookUser from, PhasebookUser to, String text, String photoLink, String privacy){
