@@ -56,7 +56,7 @@
 <%
 	for (int i=posts.size()-1; i>=0; i--) {
 %>
-	<% if (posts.get(i).getPhoto()!=null){ 
+	<% if (posts.get(i).getPhoto()!=null && posts.get(i).getDeletedAt()==null){ 
 		String photoURL = Utils.MAIN_PATH+userId.toString()+"/"+posts.get(i).getPhoto().getName();
 	%>
 		<span style="margin: 15px"><%= Utils.aAbsolute(photoURL, Utils.img(photoURL)) %></span>
