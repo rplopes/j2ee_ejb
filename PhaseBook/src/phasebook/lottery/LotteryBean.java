@@ -59,20 +59,24 @@ public class LotteryBean implements LotteryRemote {
 		this.scheduleTimer(timerInterval);
 	}
 	
+	@SuppressWarnings("finally")
 	public Lottery getCurrentDraw() {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PhaseBook");
 		EntityManager em = emf.createEntityManager();
 		
 		Query q = em.createQuery("SELECT u FROM Lottery u " +
 				"WHERE u.lotteryNumber = -1");
-		Lottery lottery;
+		Lottery lottery = null;
 		try {
 			lottery = (Lottery)q.getSingleResult();
 		} catch (Exception e) {
 			e.printStackTrace();
 			lottery = null;
+		} finally{
+			em.close();
+			emf.close();
+			return lottery;
 		}
-		return lottery;
 	}
 	
 	private void updateCurrentDraw(int number) {
@@ -91,7 +95,7 @@ public class LotteryBean implements LotteryRemote {
 		// Give money to winers
 		LotteryBetBean betEJB = new LotteryBetBean();
 		
-		List bets = betEJB.getAllBets();
+		List<?> bets = betEJB.getAllBets();
 		for (int i=0; i<bets.size(); i++) {
 			LotteryBet bet = (LotteryBet)bets.get(i);
 			if (bet.getBetNumber() == number){
@@ -102,6 +106,8 @@ public class LotteryBean implements LotteryRemote {
 				betEJB.updateBet(bet, 0);
 			}
 		}
+		em.close();
+		emf.close();
 	}
 	
 	private void giveMoney(int id) {

@@ -40,9 +40,13 @@ public class PostBean implements PostRemote {
 				em.merge(post);
 			}
 			tx.commit();
+			em.close();
+			emf.close();
 		}
 		catch(NoResultException e)
 		{
+			em.close();
+			emf.close();
 			System.out.println("<Não foram encontrados posts por ler>");
 		}
 	}

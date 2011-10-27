@@ -36,7 +36,11 @@ public class LotteryBetBean implements LotteryBetRemote {
 			bet.setLottery(lottery);
 			em.persist(bet);
 			em.refresh(bet);
-			tx.commit();
+			tx.commit();em.persist(bet);em.persist(bet);
+			em.refresh(bet);
+			em.refresh(bet);
+			em.close();
+			emf.close();
 		} catch(Exception e) {
 			return false;
 		}
@@ -71,6 +75,8 @@ public class LotteryBetBean implements LotteryBetRemote {
 		
 		Query q = em.createQuery("SELECT u FROM LotteryBet u ");
 		List bets = q.getResultList();
+		em.close();
+		emf.close();
 		return bets;
 	}
 	
@@ -83,6 +89,8 @@ public class LotteryBetBean implements LotteryBetRemote {
 		bet.setValueWon((int)won);
 		em.merge(bet);
 		tx.commit();
+		em.close();
+		emf.close();
 	}
 
 }

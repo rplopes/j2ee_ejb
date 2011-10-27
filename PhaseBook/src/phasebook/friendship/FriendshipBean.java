@@ -1,8 +1,5 @@
 package phasebook.friendship;
 
-import java.util.Iterator;
-import java.util.List;
-
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -12,7 +9,6 @@ import javax.persistence.NonUniqueResultException;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
-import phasebook.post.PostBean;
 import phasebook.user.PhasebookUser;
 
 @Stateless
@@ -51,6 +47,7 @@ public class FriendshipBean implements FriendshipRemote {
 	 *null if there's no friendship between the given users
 	 */
 
+	@SuppressWarnings("finally")
 	public Friendship searchFriendship(PhasebookUser user_a, PhasebookUser user_b)
 	{
 		
@@ -80,8 +77,11 @@ public class FriendshipBean implements FriendshipRemote {
 		}
 		finally
 		{
+			em.close();
+			emf.close();
 			return result;
 		}
+		
 	}
 
 	/**
@@ -97,7 +97,9 @@ public class FriendshipBean implements FriendshipRemote {
     	em.merge(friend);
     	friend.setAccepted_(true);
     	em.merge(friend);
-		tx.commit();	
+		tx.commit();
+		em.close();
+		emf.close();
 	}
 
 }

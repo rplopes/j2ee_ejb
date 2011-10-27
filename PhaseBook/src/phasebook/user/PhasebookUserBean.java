@@ -41,7 +41,10 @@ public class PhasebookUserBean implements PhasebookUserRemote {
 		em.persist(user);
 		em.refresh(user);
 		tx.commit();
-		return user.getId();
+		int id = user.getId();
+		em.close();
+		emf.close();
+		return id;
 	}
 	
 	/* (non-Javadoc)
@@ -52,6 +55,7 @@ public class PhasebookUserBean implements PhasebookUserRemote {
 		EntityManager em = emf.createEntityManager();
 		
 		try {
+			int returnValue = -1;
 			Query q = em.createQuery("SELECT u FROM PhasebookUser u " +
 						"WHERE u.email LIKE :email AND " +
 						"u.password LIKE :password");
@@ -63,6 +67,8 @@ public class PhasebookUserBean implements PhasebookUserRemote {
 			em.merge(user);
 			em.refresh(user);
 			
+			em.close();
+			emf.close();
 			return user.getId();
 		} catch(NoResultException ex){
 			return -1;
@@ -82,6 +88,8 @@ public class PhasebookUserBean implements PhasebookUserRemote {
 		for(int i = 0; i< userReceivedPosts.size(); i++){
 			returnList.add(userReceivedPosts.get(i));
 		}
+		em.close();
+		emf.close();
 		return returnList;
 	}
 	
@@ -97,8 +105,13 @@ public class PhasebookUserBean implements PhasebookUserRemote {
 			q.setParameter("user",user);
 			q.setParameter("private_",false);
 			
+			em.clear();
+			emf.close();
+			
 			return q.getResultList();
 		} catch(NoResultException e){
+			em.close();
+			emf.close();
 			List<Post> empty = new ArrayList<Post>();
 			return empty;
 		}
@@ -113,10 +126,16 @@ public class PhasebookUserBean implements PhasebookUserRemote {
 			PhasebookUser user = em.find(PhasebookUser.class, userId);
 			em.persist(user);
 			em.refresh(user);
+			em.close();
+			emf.close();
 			return user;
 		} catch(NoResultException ex){
+			em.close();
+			emf.close();
 			return null;
 		} catch(NonUniqueResultException ex){
+			em.close();
+			emf.close();
 			return null;
 		}
 	}
@@ -149,8 +168,12 @@ public class PhasebookUserBean implements PhasebookUserRemote {
 						results.add(user);
 				}
 			}
+			em.close();
+			emf.close();
 			return results;
 		} catch(NoResultException ex){
+			em.close();
+			emf.close();
 			return users;
 		} 
 	}
@@ -166,6 +189,8 @@ public class PhasebookUserBean implements PhasebookUserRemote {
 		em.persist(post);
 		em.refresh(post);
 		tx.commit();
+		em.close();
+		emf.close();
 	}
 	
 	public void addPost(PhasebookUser from, PhasebookUser to, String text, String photoLink, String privacy){
@@ -183,6 +208,8 @@ public class PhasebookUserBean implements PhasebookUserRemote {
 		em.refresh(post);
 		
 		tx.commit();
+		em.close();
+		emf.close();
 	}
 	
 	public Photo addPhoto(String photoLink){
@@ -196,6 +223,8 @@ public class PhasebookUserBean implements PhasebookUserRemote {
 		em.refresh(photo);
 
 		tx.commit();
+		em.close();
+		emf.close();
 		return photo;
 	}
 	
@@ -210,7 +239,8 @@ public class PhasebookUserBean implements PhasebookUserRemote {
 		em.persist(fship);
 		em.refresh(fship);
 		tx.commit();
-		
+		em.close();
+		emf.close();
 	}
 	
 	public void setProfilePicture(PhasebookUser user, Photo photo)
@@ -224,6 +254,8 @@ public class PhasebookUserBean implements PhasebookUserRemote {
 		user.setPhoto(photo);
 		em.merge(user);
 		tx.commit();
+		em.close();
+		emf.close();
 		
 	}
 
@@ -237,6 +269,8 @@ public class PhasebookUserBean implements PhasebookUserRemote {
 		user.setMoney(user.getMoney() + money);
 		em.merge(user);
 		tx.commit();
+		em.close();
+		emf.close();
 	}
 	
 }
