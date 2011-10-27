@@ -19,8 +19,19 @@
 	else for (int i=0; i<friends.size(); i++) {
 		PhasebookUser friend = friends.get(i);
 %>
-		<p>
-			<b class="user"><%= Utils.a("user&id="+friend.getId(), Utils.text(friend.getName())) %></b><br />
-			<i><%= Utils.text(friend.getEmail()) %></i>
-		</p>
+		<table width="100%">
+			<tr>
+				<td width="60">
+					<% if (friend.getPhoto()!=null){ 
+						String photoURL = Utils.MAIN_PATH + friend.getId() + "/"+friend.getPhoto().getName();
+					%>
+						<%= Utils.a("user&id="+friend.getId(), Utils.smallImg(photoURL)) %>
+					<% } %>
+				</td>
+				<td>
+					<b class="user"><%= Utils.a("user&id="+friend.getId(), Utils.text(friend.getName())) %></b><br />
+					<i><%= Utils.text(friend.getEmail()) %></i>
+				</td>
+			</tr>
+		</table>
 <% } %>
