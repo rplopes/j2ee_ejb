@@ -123,15 +123,16 @@ public class CreatePostForm extends HttpServlet {
 						String error = null;
 						if(item.getName().length()!=0){
 							ext = getExtension(item.getName());
-							error = formValidation(text, ext);
+							error = formPhotoValidation(ext);
 						}
 						else
-							error = formValidation(text);
+							error = formTextValidation(text);
 						if (error != null) {
 							session.setAttribute("error", error);
 							session.setAttribute("post", text);
 							session.setAttribute("privacy", privacy);
 							response.sendRedirect(Utils.url("user&id="+toUser.getId()));
+							return;
 						} else {
 							if(item.getName().length()!=0){
 								destinationDir = new File(realPath+"/"+toUser.getId());
@@ -143,15 +144,14 @@ public class CreatePostForm extends HttpServlet {
 								File file = new File(destinationDir, time+ext );
 								item.write(file);
 								hasFile=true;
+								userBean.addPost(fromUser, toUser, text, time+ext, privacy);
 							}
+							else
+								userBean.addPost(fromUser, toUser, text, privacy);
 							response.sendRedirect(Utils.url("user&id="+toUser.getId()));
 						}
 					}
 				}
-				if(hasFile)
-					userBean.addPost(fromUser, toUser, text, time+ext, privacy);
-				else
-					userBean.addPost(fromUser, toUser, text, privacy);
 			}catch(FileUploadException ex) {
 				log("Error encountered while parsing the request",ex);
 			} catch(Exception ex) {
@@ -165,11 +165,7 @@ public class CreatePostForm extends HttpServlet {
 		}
 	}
 	
-	private String formValidation(String text, String extension) {
-		// Text can't be blank
-		if (text == null || text.length() == 0) {
-			return "Please write something to post";
-		}
+	private String formPhotoValidation(String extension) {
 		
 		if (!extension.equalsIgnoreCase(".png") && !extension.equalsIgnoreCase(".jpg") 
 				|| !extension.equalsIgnoreCase(".jpeg") && !!extension.equalsIgnoreCase(".gif"))
@@ -178,7 +174,7 @@ public class CreatePostForm extends HttpServlet {
 		return null;
 	}
 	
-	private String formValidation(String text) {
+	private String formTextValidation(String text) {
 		// Text can't be blank
 		if (text == null || text.length() == 0) {
 			return "Please write something to post";

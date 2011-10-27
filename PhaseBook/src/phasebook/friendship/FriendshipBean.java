@@ -10,6 +10,7 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 
 import phasebook.user.PhasebookUser;
+import phasebook.email.*;
 
 @Stateless
 public class FriendshipBean implements FriendshipRemote {
@@ -100,6 +101,8 @@ public class FriendshipBean implements FriendshipRemote {
 		tx.commit();
 		em.close();
 		emf.close();
+		EmailUtils.notifyUser(fromUser, "PHASEBOOK: "+toUser.getName()+" accepted your frienship request", 
+			"You and "+toUser.getName()+" are friends now!<br><br>"+EmailUtils.a("Go to your notifications"));
 	}
 
 }
