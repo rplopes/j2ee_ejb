@@ -45,14 +45,16 @@ public class EditAccountForm extends HttpServlet {
 			
 			String name = request.getParameter("name");
 			String photo = request.getParameter("avatar");
-			String error = formValidation(name, photo);
+			String password1 = request.getParameter("password1");
+			String password2 = request.getParameter("password2");
+			String error = formValidation(name, photo, password1, password2);
 			
 			if (error != null) {
 				session.setAttribute("error", error);
 				response.sendRedirect(Utils.url("edit"));
 			}
 			else {
-				user.editAccount(session.getAttribute("id"), name, photo);
+				user.editAccount(session.getAttribute("id"), name, photo, password1);
 				response.sendRedirect(Utils.url(""));
 			}
 			
@@ -63,7 +65,7 @@ public class EditAccountForm extends HttpServlet {
 		}
 	}
 	
-	private String formValidation(String name, String photo) {
+	private String formValidation(String name, String photo, String password1, String password2) {
 		// Name can't be blank
 		if (name == null || name.length() == 0) {
 			return "You must specify your name";
@@ -72,6 +74,17 @@ public class EditAccountForm extends HttpServlet {
 		// Photo can't be blank
 		if (photo == null || photo.length() == 0) {
 			return "You must choose a profile picture";
+		}
+		
+		// Passwords must be both or none blank
+		if ((password1 == null && password2 != null) || (password1 != null && password2 == null))
+		{
+			return "The new password must be typed in both boxes";
+		}
+		
+		// Passwords must match
+		if (password1.compareTo(password2) != 0) {
+			return "The passwords do not match";
 		}
 		
 		return null;

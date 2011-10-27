@@ -1,5 +1,6 @@
 package phasebook.user;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -298,7 +299,7 @@ public class PhasebookUserBean implements PhasebookUserRemote {
 		return friends;
 	}
 	
-	public void editAccount(Object id, String name, String photo) {
+	public void editAccount(Object id, String name, String photo, String password) {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PhaseBook");
 		EntityManager em = emf.createEntityManager();
 		EntityTransaction tx = em.getTransaction();
@@ -308,10 +309,36 @@ public class PhasebookUserBean implements PhasebookUserRemote {
 		user.setName(name);
 		PhotoBean photoEJB = new PhotoBean();
 		user.setPhoto(photoEJB.getPhotoById(photo));
+		if (password != null && password.length() > 0)
+			user.setPassword(byteArrayToHexString(computeHash(password + "salt" + user.getEmail())));
 		em.merge(user);
 		tx.commit();
 		em.close();
 		emf.close();
+	}
+	
+	private String byteArrayToHexString(byte[] b) {
+		StringBuffer sb = new StringBuffer(b.length * 2);
+		for (int i = 0; i < b.length; i++) {
+			int v = b[i] & 0xff;
+			if (v < 16)
+				sb.append('0');
+			sb.append(Integer.toHexString(v));
+		}
+		return sb.toString().toUpperCase();
+	}
+
+	private byte[] computeHash(String x) {
+		java.security.MessageDigest d = null;
+		try {
+			d = java.security.MessageDigest.getInstance("SHA-1");
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+			d = null;
+		}
+		d.reset();
+		d.update(x.getBytes());
+		return d.digest();
 	}
 	
 }

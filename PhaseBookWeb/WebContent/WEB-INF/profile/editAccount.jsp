@@ -27,11 +27,29 @@
 
 <h1>Edit Account</h1>
 
+<%
+	if (session.getAttribute("error") != null)
+	{
+%>
+		<p style="color:red"><%= session.getAttribute("error") %></p>
+<%
+		session.removeAttribute("error");
+	}
+%>
+
 <form method="POST" action="EditAccountForm">
 	<table>
 		<tr>
 			<td class="label">Name</td>
 			<td><input type="text" name="name" value="<%= user.getName() %>"></td>
+		</tr>
+		<tr>
+			<td class="label">Password</td>
+			<td><input type="password" name="password1"></td>
+		</tr>
+		<tr>
+			<td class="label">Repeat password</td>
+			<td><input type="password" name="password2"></td>
 		</tr>
 		<tr>
 			<td class="label">Profile picture</td>
