@@ -48,5 +48,9 @@
 		<br /><%= Utils.text(posts.get(i).getText()) %>
 	</p>
 <%
+<<<<<<< HEAD
 	}}
+=======
+	}
+>>>>>>> profile dividido em posts, gallery e friends, tudo na mesma página (mas em divs escondidas)
 %>
