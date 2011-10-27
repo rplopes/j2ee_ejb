@@ -97,24 +97,15 @@
 	</p>
 </form>
 
-<%
-	List<Post> posts = null;
-	if (Utils.getFriendshipBean().searchFriendship(me, user) != null || me.equals(user) )
-		 posts = userBean.getUserReceivedPosts(userId);
-	else
-		posts = userBean.getUserPublicPosts(userId);
-	for (int i=posts.size()-1; i>=0; i--) {
-%>
-	<p>
-		<b class="user"><%= Utils.a("user&id="+posts.get(i).getFromUser().getId(), Utils.text(posts.get(i).getFromUser().getName())) %></b>
-		<% if (posts.get(i).isPrivate_()) { %><i>(private)</i><% } %>
-		<% if (posts.get(i).getPhoto()!=null){ 
-			String photoURL = Utils.MAIN_PATH+userId.toString()+"/"+posts.get(i).getPhoto().getName();
-		%>
-			<br /> <%= Utils.aAbsolute(photoURL, Utils.img(photoURL)) %>
-		<%} %>
-		<br /><%= Utils.text(posts.get(i).getText()) %>
-	</p>
-<%
-	}
-%>
+<ul id="profiletabs">
+	<li id="tab1" onclick="selectPosts()">Posts</li>
+	<li id="tab2" onclick="selectPhotos()">Gallery</li>
+	<li id="tab3" onclick="selectFriends()">Friends</li>
+</ul>
+
+<div id="tabposts"><% pageContext.include("/WEB-INF/myprofile/posts.jsp"); %></div>
+<div id="tabphotos"><% pageContext.include("/WEB-INF/myprofile/photos.jsp"); %></div>
+<div id="tabfriends"><% pageContext.include("/WEB-INF/myprofile/friends.jsp"); %></div>
+<script>
+	selectPosts();
+</script>

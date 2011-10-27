@@ -24,4 +24,5 @@ public interface PhasebookUserRemote {
 	public Photo addPhoto(PhasebookUser user, String text, String photoLink, String privacy);
 	public void setProfilePicture(PhasebookUser user, Photo photo);
 	public void deposit(Object id, Float money);
+	public List<PhasebookUser> getUserFriendships(String id);
 }
