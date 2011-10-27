@@ -88,8 +88,8 @@ public class PhasebookUserBean implements PhasebookUserRemote {
 		for(int i = 0; i< userReceivedPosts.size(); i++){
 			returnList.add(userReceivedPosts.get(i));
 		}
-		em.close();
-		emf.close();
+		//em.close();
+		//emf.close();
 		return returnList;
 	}
 	
@@ -126,8 +126,8 @@ public class PhasebookUserBean implements PhasebookUserRemote {
 			PhasebookUser user = em.find(PhasebookUser.class, userId);
 			em.persist(user);
 			em.refresh(user);
-			em.close();
-			emf.close();
+			//em.close();
+			//emf.close();
 			return user;
 		} catch(NoResultException ex){
 			em.close();
@@ -274,17 +274,23 @@ public class PhasebookUserBean implements PhasebookUserRemote {
 	}
 	
 	public List<PhasebookUser> getUserFriendships(String id) {
-		PhasebookUser user = getUserById(id);
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PhaseBook");
+		EntityManager em = emf.createEntityManager();
+		PhasebookUser user = em.find(PhasebookUser.class, Integer.parseInt(id.toString()));
+		em.persist(user);
+		em.refresh(user);
 		List friends1 = user.getReceivedInvites();
 		List friends2 = user.getSentInvites();
 		List<PhasebookUser> friends = new ArrayList<PhasebookUser>();
 		for (int i=0; i<friends1.size(); i++){
 			Friendship friendship = (Friendship) friends1.get(i);
+			em.persist(friendship);
 			if (friendship.isAccepted_())
 				friends.add(friendship.getHostUser());
 		}
 		for (int i=0; i<friends2.size(); i++){
 			Friendship friendship = (Friendship) friends2.get(i);
+			em.persist(friendship);
 			if (friendship.isAccepted_())
 				friends.add(friendship.getInvitedUser());
 		}
