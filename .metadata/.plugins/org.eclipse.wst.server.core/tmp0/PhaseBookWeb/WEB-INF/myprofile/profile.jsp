@@ -13,9 +13,6 @@
 	PhasebookUser me;
 	me=userBean.getUserById(session.getAttribute("id"));
 	
-	PostRemote postBean = Utils.getPostBean();
-	postBean.readUnreadPosts(me);
-	
 	int relationshipType = -1;
 	if(request.getParameter("id") == null){
 		userId =  session.getAttribute("id");
@@ -35,6 +32,17 @@
 	
 	
 %>
+
+<!--<form enctype="multipart/form-data" method="POST" action="AddPhotoForm" style="padding: 0 50px 0 50px;">
+	<p align="right">
+		Browse image file:
+		<input type="file" name="file1">
+	</p>
+	<p align="right">
+		<input type="submit" value="Change profile picture" name="B1">
+	</p>
+</form>-->
+
 <form method="POST" action="CreateFriendshipForm">
 	<input type="hidden" name="toUser" value="<%= userId.toString() %>"/>
 	<input type="hidden" name="relationship" value="<%= relationshipType %>"/>
@@ -50,8 +58,21 @@
 
 </form>
 
-<h1><%= Utils.text(user.getName()) %></h1> 
-<p class="tip"><%= Utils.text(user.getEmail()) %></p>
+<table width="100%">
+	<tr>
+		<td width="120">
+			<% if (user.getPhoto()!=null){ 
+				String photoURL = Utils.MAIN_PATH + userId.toString() + "/"+user.getPhoto().getName();
+			%>
+				<%= Utils.a("user&id="+userId.toString(), Utils.img(photoURL)) %>
+			<% } %>
+		</td>
+		<td>
+			<h1><%= Utils.text(user.getName()) %></h1> 
+			<p class="tip"><%= Utils.text(user.getEmail()) %></p>
+		</td>
+	</tr>
+</table>
 
 <%
 	if (session.getAttribute("error") != null)
@@ -75,42 +96,35 @@
 %>
 
 <form enctype="multipart/form-data" method="POST" action="CreatePostForm" style="padding: 0 50px 0 50px;">
-	<p align="center">
-		<textarea id="post" name="post"></textarea>
-		<input type="hidden" name="toUser" value="<%= userId.toString() %>"/>
-	</p>
-	<p align="right">
-		Search image file:
-		<input type="file" name="file1">
-	</p>
-	<p align="right">
-		<select name="privacy">
-			<option value="0" <% if (privacy.compareTo("0")==0) { %>selected<% } %>>Public</option>
-			<% // tem de verificar se são ou não amigos %>
-			<option value="1" <% if (privacy.compareTo("1")==0) { %>selected<% } %>>Private</option>
-		</select>
-		<input type="submit" value="Post" name="B1">
-	</p>
+	<textarea id="post" name="post" placeholder="What's on your mind?"></textarea>
+	<input type="hidden" name="toUser" value="<%= userId.toString() %>"/>
+	<table width="100%">
+		<tr>
+			<td>
+				Upload image: <input type="file" name="file1">
+			</td>
+			<td style="text-align: right">
+				<select name="privacy">
+					<option value="0" <% if (privacy.compareTo("0")==0) { %>selected<% } %>>Public</option>
+					<% if (Utils.getFriendshipBean().searchFriendship(me, user) != null || me.equals(user) ){ %>
+						<option value="1" <% if (privacy.compareTo("1")==0) { %>selected<% } %>>Private</option>
+					<% } %>
+				</select>
+				<input type="submit" value="Post" name="B1">
+			</td>
+		</tr>
+	</table>
 </form>
 
-<%
-	List<Post> posts = null;
-	if (Utils.getFriendshipBean().searchFriendship(me, user) != null || me.equals(user) )
-		 posts = userBean.getUserReceivedPosts(userId);
-	else
-		posts = userBean.getUserPublicPosts(userId);
-	for (int i=posts.size()-1; i>=0; i--) {
-%>
-	<p>
-		<b class="user"><%= Utils.a("user&id="+posts.get(i).getFromUser().getId(), Utils.text(posts.get(i).getFromUser().getName())) %></b>
-		<% if (posts.get(i).isPrivate_()) { %><i>(private)</i><% } %>
-		<% if (posts.get(i).getPhotoLink()!=null){ 
-			String photoURL = Utils.MAIN_PATH+userId.toString()+"/"+posts.get(i).getPhotoLink();
-		%>
-			<br /> <%= Utils.aAbsolute(photoURL, Utils.img(photoURL)) %>
-		<%} %>
-		<br /><%= Utils.text(posts.get(i).getText()) %>
-	</p>
-<%
-	}
-%>
+<ul id="profiletabs">
+	<li id="tab1" onclick="selectPosts()">Posts</li>
+	<li id="tab2" onclick="selectPhotos()">Gallery</li>
+	<li id="tab3" onclick="selectFriends()">Friends</li>
+</ul>
+
+<div id="tabposts"><% pageContext.include("/WEB-INF/myprofile/posts.jsp"); %></div>
+<div id="tabphotos"><% pageContext.include("/WEB-INF/myprofile/photos.jsp"); %></div>
+<div id="tabfriends"><% pageContext.include("/WEB-INF/myprofile/friends.jsp"); %></div>
+<script>
+	selectPosts();
+</script>

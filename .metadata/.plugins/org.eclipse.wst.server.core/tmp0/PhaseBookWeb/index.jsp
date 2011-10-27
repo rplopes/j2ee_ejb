@@ -49,7 +49,22 @@
 		} catch (Exception e) {
 			title = Utils.getUserBean().getUserById(session.getAttribute("id")).getName();
 		}
-		url   = "myprofile/profile.jsp";
+		if(request.getParameter("page") != null && request.getParameter("page").toString().equals("photos"))
+			url   = "myprofile/photos.jsp";
+		else
+			url   = "myprofile/profile.jsp";
+	}
+	
+	else if (p.compareTo("lottery") == 0 && session.getAttribute("id") != null)
+	{
+		title = "Charity Lottery";
+		url   = "lottery/lottery.jsp";
+	}
+	
+	else if (p.compareTo("lottery") == 0 && session.getAttribute("id") != null)
+	{
+		title = "Charity Lottery";
+		url   = "lottery/lottery.jsp";
 	}
 
 	// Default

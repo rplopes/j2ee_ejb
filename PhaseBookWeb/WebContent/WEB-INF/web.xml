@@ -79,4 +79,14 @@
     <servlet-name>BetForm</servlet-name>
     <url-pattern>/BetForm</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>RemovePostForm</display-name>
+    <servlet-name>RemovePostForm</servlet-name>
+    <servlet-class>phasebook.controller.RemovePostForm</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RemovePostForm</servlet-name>
+    <url-pattern>/RemovePostForm</url-pattern>
+  </servlet-mapping>
 </web-app>
