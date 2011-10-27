@@ -239,4 +239,22 @@ public class PhasebookUserBean implements PhasebookUserRemote {
 		tx.commit();
 	}
 	
+	public List<PhasebookUser> getUserFriendships(String id) {
+		PhasebookUser user = getUserById(id);
+		List friends1 = user.getReceivedInvites();
+		List friends2 = user.getSentInvites();
+		List<PhasebookUser> friends = new ArrayList<PhasebookUser>();
+		for (int i=0; i<friends1.size(); i++){
+			Friendship friendship = (Friendship) friends1.get(i);
+			if (friendship.isAccepted_())
+				friends.add(friendship.getHostUser());
+		}
+		for (int i=0; i<friends2.size(); i++){
+			Friendship friendship = (Friendship) friends2.get(i);
+			if (friendship.isAccepted_())
+				friends.add(friendship.getInvitedUser());
+		}
+		return friends;
+	}
+	
 }
