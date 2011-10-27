@@ -2,11 +2,20 @@ package phasebook.user;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+
 import java.util.List;
+import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.ejb.Stateless;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.NoSuchProviderException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -19,7 +28,7 @@ import phasebook.friendship.Friendship;
 import phasebook.photo.Photo;
 import phasebook.photo.PhotoBean;
 import phasebook.post.Post;
-
+import phasebook.email.*;
 
 /**
  * Session Bean implementation class PhasebookUserBean
@@ -186,13 +195,17 @@ public class PhasebookUserBean implements PhasebookUserRemote {
 		EntityTransaction tx = em.getTransaction();
 		
 		tx.begin();
-		System.out.println("\n\n\n\n\n"+privacy+"\n\n\n\n");
     	Post post = new Post(from, to, text, privacy);
 		em.persist(post);
 		em.refresh(post);
 		tx.commit();
 		em.close();
 		emf.close();
+		if(!from.equals(to))
+			EmailUtils.notifyUser(to, "PHASEBOOK: You have a new post", from.getName()+
+					" posted a message on your wall:<br><br>\""+text+"\"<br><br>You have also "+(getNUnreadUserPosts(to)-1)+
+					" posts to read.<br><br>"+
+					EmailUtils.a("Go to your wall"));
 	}
 	
 	public void addPost(PhasebookUser from, PhasebookUser to, String text, String photoLink, String privacy){
@@ -212,6 +225,11 @@ public class PhasebookUserBean implements PhasebookUserRemote {
 		tx.commit();
 		em.close();
 		emf.close();
+		if(!from.equals(to))
+			EmailUtils.notifyUser(to, "PHASEBOOK: You have a new post", 
+				from.getName()+" posted a message on your wall:<br><br>"+EmailUtils.img(photo.getName(), from.getId())+
+				"<br><br>\""+text+"\"<br><br>You have also "+(getNUnreadUserPosts(to)-1)+
+				" posts to read.<br><br>"+EmailUtils.a("Go to your wall"));
 	}
 	
 	public Photo addPhoto(String photoLink){
@@ -241,8 +259,8 @@ public class PhasebookUserBean implements PhasebookUserRemote {
 		em.persist(fship);
 		em.refresh(fship);
 		tx.commit();
-		em.close();
-		emf.close();
+		EmailUtils.notifyUser(invitedUser, "PHASEBOOK: "+hostUser.getName()+" invited you", hostUser.getName()+" invited you to be his friend<br><br>"
+				+EmailUtils.a("Go to your notifications"));
 	}
 	
 	public void setProfilePicture(PhasebookUser user, Photo photo)
@@ -339,6 +357,20 @@ public class PhasebookUserBean implements PhasebookUserRemote {
 		d.reset();
 		d.update(x.getBytes());
 		return d.digest();
+	}
+	
+	public int getNUnreadUserPosts(PhasebookUser user)
+	{
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PhaseBook");
+		EntityManager em = emf.createEntityManager();
+		
+		List<?> posts = null;
+		
+		Query q = em.createQuery("SELECT u FROM Post u WHERE u.toUser = :user AND u.read_ = :status");
+		q.setParameter("user",user);
+		q.setParameter("status",false);
+		
+		return q.getResultList().size();
 	}
 	
 }

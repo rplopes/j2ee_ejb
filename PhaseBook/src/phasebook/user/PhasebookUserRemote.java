@@ -24,4 +24,5 @@ public interface PhasebookUserRemote {
 	public void deposit(Object id, Float money);
 	public List<PhasebookUser> getUserFriendships(String id);
 	public void editAccount(Object id, String name, String photo, String password);
+	public int getNUnreadUserPosts(PhasebookUser user);
 }

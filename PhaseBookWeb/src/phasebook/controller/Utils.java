@@ -33,6 +33,11 @@ public class Utils {
 		return "<img src=\""+url+"\" width=\""+IMG_DEFAULT_WIDTH+"\" />";
 	}
 	
+	public static String smallImg(String url)
+	{
+		return "<img src=\""+url+"\" width=\""+IMG_DEFAULT_WIDTH/2+"\" />";
+	}
+	
 	// Prints the correct URL
 	public static String url(String url)
 	{
