@@ -144,14 +144,15 @@ public class CreatePostForm extends HttpServlet {
 								File file = new File(destinationDir, time+ext );
 								item.write(file);
 								hasFile=true;
-								userBean.addPost(fromUser, toUser, text, time+ext, privacy);
 							}
-							else
-								userBean.addPost(fromUser, toUser, text, privacy);
-							response.sendRedirect(Utils.url("user&id="+toUser.getId()));
 						}
 					}
 				}
+				if(hasFile)
+					userBean.addPost(fromUser, toUser, text, time+ext, privacy);
+				else
+					userBean.addPost(fromUser, toUser, text, privacy);
+				response.sendRedirect(Utils.url("user&id="+toUser.getId()));
 			}catch(FileUploadException ex) {
 				log("Error encountered while parsing the request",ex);
 			} catch(Exception ex) {
