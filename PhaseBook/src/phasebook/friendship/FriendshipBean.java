@@ -184,13 +184,13 @@ public class FriendshipBean implements FriendshipRemote {
 			result=q.getResultList();
 			EntityTransaction tx = em.getTransaction();
 			tx.begin();
-			Post post;
+			Friendship friendship;
 			for(Object object : result)
 			{
-				post = (Post)object;
-				em.merge(post);
-				post.setRead_(true);
-				em.merge(post);
+				friendship = (Friendship)object;
+				em.merge(friendship);
+				friendship.setRead(true);
+				em.merge(friendship);
 			}
 			tx.commit();
 			em.close();

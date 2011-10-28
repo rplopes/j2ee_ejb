@@ -82,6 +82,17 @@ public class LotteryBetBean implements LotteryBetRemote {
 		return bets;
 	}
 	
+	public List getAllCurrentBets() {
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PhaseBook");
+		EntityManager em = emf.createEntityManager();
+		
+		Query q = em.createQuery("SELECT u FROM LotteryBet u WHERE u.valueWon = -1");
+		List bets = q.getResultList();
+		em.close();
+		emf.close();
+		return bets;
+	}
+	
 	public void updateBet(LotteryBet bet, float won) {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PhaseBook");
 		EntityManager em = emf.createEntityManager();
@@ -125,13 +136,13 @@ public class LotteryBetBean implements LotteryBetRemote {
 			result=q.getResultList();
 			EntityTransaction tx = em.getTransaction();
 			tx.begin();
-			Post post;
+			LotteryBet bet;
 			for(Object object : result)
 			{
-				post = (Post)object;
-				em.merge(post);
-				post.setRead_(true);
-				em.merge(post);
+				bet = (LotteryBet)object;
+				em.merge(bet);
+				bet.setRead_(true);
+				em.merge(bet);
 			}
 			tx.commit();
 			em.close();
