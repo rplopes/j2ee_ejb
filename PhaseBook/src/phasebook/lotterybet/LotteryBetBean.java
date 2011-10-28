@@ -100,7 +100,7 @@ public class LotteryBetBean implements LotteryBetRemote {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PhaseBook");
 		EntityManager em = emf.createEntityManager();
 		
-		Query q = em.createQuery("SELECT u FROM LotteryBet u WHERE u.user = :user AND u.read_ = :readStatus");
+		Query q = em.createQuery("SELECT u FROM LotteryBet u WHERE u.user = :user AND u.read_ = :readStatus AND u.valueWon > -1");
 		q.setParameter("user", entry);
 		q.setParameter("readStatus", false);
 		List<?> bets = q.getResultList();
@@ -116,9 +116,9 @@ public class LotteryBetBean implements LotteryBetRemote {
 		
 		List<?> result = null;
 		
-		Query q = em.createQuery("SELECT u FROM LotteryBet u WHERE u.toUser = :user AND u.read_ = :status");
-		q.setParameter("user",entry);
-		q.setParameter("status",false);
+		Query q = em.createQuery("SELECT u FROM LotteryBet u WHERE u.user = :user AND u.read_ = :readStatus AND u.valueWon > -1");
+		q.setParameter("user", entry);
+		q.setParameter("readStatus", false);
 		
 		try
 		{

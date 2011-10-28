@@ -54,6 +54,9 @@
 								<%= Utils.a("edit", "Edit Account") %>
 							</li>
 							<li>
+								<%= Utils.a("notifications", "Notifications") %>
+							</li>
+							<li>
 								<%= Utils.a("lottery", "Lottery ("+Utils.getUserBean().getUserById(session.getAttribute("id")).getMoney()+" L&euro;)") %>
 							</li>
 							<li>
