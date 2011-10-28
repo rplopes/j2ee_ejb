@@ -21,10 +21,21 @@
 	{
 		PhasebookUser user = (PhasebookUser) users.get(i);
 %>
-		<p>
-			<b class="user"><%= Utils.a("user&id="+user.getId(), Utils.text(user.getName())) %></b><br />
-			<i><%= Utils.text(user.getEmail()) %></i>
-		</p>
+		<table width="100%">
+			<tr>
+				<td width="60">
+					<% if (user.getPhoto()!=null){ 
+						String photoURL = Utils.MAIN_PATH + user.getId() + "/"+user.getPhoto().getName();
+					%>
+						<%= Utils.a("user&id="+user.getId(), Utils.smallImg(photoURL)) %>
+					<% } %>
+				</td>
+				<td>
+					<b class="user"><%= Utils.a("user&id="+user.getId(), Utils.text(user.getName())) %></b><br />
+					<i><%= Utils.text(user.getEmail()) %></i>
+				</td>
+			</tr>
+		</table>
 <%
 	}
 %>

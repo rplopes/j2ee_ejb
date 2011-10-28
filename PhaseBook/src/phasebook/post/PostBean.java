@@ -85,4 +85,20 @@ public class PostBean implements PostRemote {
 		}		
 	}
 	
+	public Object getUnreadPosts(PhasebookUser entry)
+	{
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PhaseBook");
+		EntityManager em = emf.createEntityManager();
+		
+		List<Object> result = null;
+		
+		Query q = em.createQuery("SELECT u FROM Post u WHERE u.id = :postid AND u.read_ = :readStatus");
+		q.setParameter("postid",entry.getId());
+		q.setParameter("readStatus", false);
+		
+		result=(List<Object>) q.getResultList();
+		
+		return result;
+	}
+	
 }

@@ -8,5 +8,5 @@ import phasebook.user.PhasebookUser;
 public interface PostRemote {
 	public void readUnreadPosts(PhasebookUser entry);
 	public void removePost(String post);
-
+	public Object getUnreadPosts(PhasebookUser entry);
 }

@@ -1,0 +1,24 @@
+package phasebook.controller;
+
+import phasebook.user.PhasebookUser;
+import java.util.List;
+
+public class Notifications {
+	
+	private PhasebookUser user;
+	private Utils utils;
+	
+	Notifications(PhasebookUser user)
+	{
+		this.user=user;
+	}
+	
+	public List<?> checkForNotifications()
+	{
+		List<?> notifications = new List<?>();
+		utils.getPostBean().getUnreadPosts(this.user);
+		utils.getLotteryBetBean().checkUnreadBetResults(this.user);
+		utils.getFriendshipBean().getNewFriendshipInvites(this.user);
+		utils.getFriendshipBean().getNewFriendshipAcceptances(this.user);
+	}
+}

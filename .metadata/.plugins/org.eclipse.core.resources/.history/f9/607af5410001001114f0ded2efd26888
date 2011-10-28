@@ -1,0 +1,5 @@
+package phasebook.controller;
+
+public class Notifications {
+
+}
