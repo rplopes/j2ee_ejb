@@ -41,6 +41,7 @@ public class CreatePostForm extends HttpServlet {
 			throw new ServletException(TMP_DIR_PATH + " is not a directory");
 		}
 		File tempFile = new File("");
+		System.out.println("\n\n\n\naBSOLUTE:" + File.separator + "\n\n\n\n");
 		realPath = tempFile.getAbsolutePath().substring(0, tempFile.getAbsolutePath().lastIndexOf(File.separator))+
 				DESTINATION_DIR_PATH;
 		
@@ -143,19 +144,17 @@ public class CreatePostForm extends HttpServlet {
 								File file = new File(destinationDir, time+ext );
 								item.write(file);
 								hasFile=true;
+								userBean.addPost(fromUser, toUser, text, time+ext, privacy);
 							}
+							else
+								userBean.addPost(fromUser, toUser, text, privacy);
 							response.sendRedirect(Utils.url("user&id="+toUser.getId()));
 						}
 					}
 				}
-				if(hasFile)
-					userBean.addPost(fromUser, toUser, text, time+ext, privacy);
-				else
-					userBean.addPost(fromUser, toUser, text, privacy);
 			}catch(FileUploadException ex) {
 				log("Error encountered while parsing the request",ex);
 			} catch(Exception ex) {
-				ex.printStackTrace();
 				log("Error encountered while uploading file",ex);
 			}
 

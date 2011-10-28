@@ -44,7 +44,12 @@
 					</form>
 				</td>
 				<td id="menupopupheader" width="150" style="text-align:right; color:white" onmouseover="showPopup()" onmouseout="hidePopup()">
-					<%= Utils.text(Utils.getUserBean().getUserById(session.getAttribute("id")).getName()) %>
+					<%
+						String notifications = "";
+						if (Utils.getNumberNotifications(Utils.getUserBean().getUserById(session.getAttribute("id")))>0)
+							notifications = " (" + Utils.getNumberNotifications(Utils.getUserBean().getUserById(session.getAttribute("id"))) + ")";
+					%>
+					<%= Utils.text(Utils.getUserBean().getUserById(session.getAttribute("id")).getName() + notifications) %>
 					<div id="menupopup">
 						<ul>
 							<li>
@@ -52,6 +57,9 @@
 							</li>
 							<li>
 								<%= Utils.a("edit", "Edit Account") %>
+							</li>
+							<li>
+								<%= Utils.a("notifications", "Notifications" + notifications) %>
 							</li>
 							<li>
 								<%= Utils.a("lottery", "Lottery ("+Utils.getUserBean().getUserById(session.getAttribute("id")).getMoney()+" L&euro;)") %>

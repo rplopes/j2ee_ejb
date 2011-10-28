@@ -343,5 +343,6 @@ public class PhasebookUserBean implements PhasebookUserRemote {
 		
 		return q.getResultList().size();
 	}
+
 	
 }

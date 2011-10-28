@@ -15,7 +15,6 @@ public class ExternalLotteryBean implements ExternalLotteryRemote {
 
 	private static Calendar nextDraw;
 	private static int number;
-	private static int count = 0;
 	private static int timerInterval = 1000 * 60;
 	
 	private @Resource SessionContext ctx;
@@ -35,7 +34,6 @@ public class ExternalLotteryBean implements ExternalLotteryRemote {
 		Random r = new Random();
 		number = r.nextInt(100) + 1;
 		System.out.println("External Lottery: number " + number);
-		count++;
 		this.scheduleTimer(timerInterval);
 	}
 	
@@ -48,11 +46,7 @@ public class ExternalLotteryBean implements ExternalLotteryRemote {
 	}
 	
 	public int getTimerInterval() {
-		return timerInterval;
-	}
-
-	public int getCount() {
-		return count;
+		return this.timerInterval;
 	}
 
 }

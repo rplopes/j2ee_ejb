@@ -1,5 +1,7 @@
 package phasebook.friendship;
 
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -9,6 +11,7 @@ import javax.persistence.NonUniqueResultException;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
+import phasebook.post.Post;
 import phasebook.user.PhasebookUser;
 import phasebook.email.*;
 
@@ -104,6 +107,138 @@ public class FriendshipBean implements FriendshipRemote {
 		EmailUtils.acceptedInvite(hostUser, invitedUser);
 		em.close();
 		emf.close();
+	}
+	
+	public Object getNewFriendshipInvites(PhasebookUser entry)
+	{
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PhaseBook");
+		EntityManager em = emf.createEntityManager();
+		List<?> result = null;
+		
+		Query q = em.createQuery("SELECT u FROM Friendship u WHERE u.invitedUser = :user"
+				+" AND u.accepted_ = :acceptedStatus");
+		q.setParameter("user",entry);
+		q.setParameter("acceptedStatus", false);
+		
+		try
+		{
+			result = q.getResultList();
+		}
+		catch(NoResultException e)
+		{
+			System.out.println("<Não foram encontrados resultados>");
+		}
+		
+		finally
+		{
+			em.close();
+			emf.close();
+			return result;
+		}
+		
+	}
+	
+	public Object getNewFriendshipAcceptances(PhasebookUser entry)
+	{
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PhaseBook");
+		EntityManager em = emf.createEntityManager();
+		List<?> result = null;
+		
+		Query q = em.createQuery("SELECT u FROM Friendship u WHERE u.hostUser = :user"
+				+" AND u.accepted_ = :accepted AND u.read_ = :readStatus");
+		q.setParameter("user",entry);
+		q.setParameter("accepted", true);
+		q.setParameter("readStatus", false);
+		
+		try
+		{
+			result = q.getResultList();
+		}
+		catch(NoResultException e)
+		{
+			System.out.println("<Não foram encontrados resultados>");
+		}
+		
+		finally
+		{
+			em.close();
+			emf.close();
+			return result;
+		}
+		
+	}
+	
+	public void readUnreadFriendshipInvites(PhasebookUser entry)
+	{
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PhaseBook");
+		EntityManager em = emf.createEntityManager();
+		List<?> result = null;
+		
+		Query q = em.createQuery("SELECT u FROM Friendship u WHERE u.hostUser = :user"
+				+" AND u.accepted_ = :readStatus");
+		q.setParameter("user",entry);
+		q.setParameter("readStatus", false);
+		
+		try
+		{
+			result=q.getResultList();
+			EntityTransaction tx = em.getTransaction();
+			tx.begin();
+			Post post;
+			for(Object object : result)
+			{
+				post = (Post)object;
+				em.merge(post);
+				post.setRead_(true);
+				em.merge(post);
+			}
+			tx.commit();
+			em.close();
+			emf.close();
+		}
+		catch(NoResultException e)
+		{
+			em.close();
+			emf.close();
+			System.out.println("<Não foram encontrados posts por ler>");
+		}
+	}
+	
+	public void readUnreadFriendshipAcceptances(PhasebookUser entry)
+	{
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PhaseBook");
+		EntityManager em = emf.createEntityManager();
+		List<?> result = null;
+		
+		Query q = em.createQuery("SELECT u FROM Friendship u WHERE u.hostUser = :user"
+				+" AND u.accepted_ = :accepted AND u.read_ = :readStatus");
+		q.setParameter("user",entry);
+		q.setParameter("accepted", true);
+		q.setParameter("readStatus", false);
+		
+		try
+		{
+			result=q.getResultList();
+			EntityTransaction tx = em.getTransaction();
+			tx.begin();
+			Friendship friendship;
+			for(Object object : result)
+			{
+				friendship = (Friendship)object;
+				em.merge(friendship);
+				friendship.setRead(true);
+				em.merge(friendship);
+			}
+			tx.commit();
+			em.close();
+			emf.close();
+		}
+		catch(NoResultException e)
+		{
+			em.close();
+			emf.close();
+			System.out.println("<Não foram encontrados posts por ler>");
+		}
 	}
 
 }

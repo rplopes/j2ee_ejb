@@ -2,7 +2,6 @@ package phasebook.user;
 
 import java.io.Serializable;
 import java.sql.Date;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +25,7 @@ private static final long serialVersionUID = 1L;
 	private float money;
 	
 	@Column(name="CREATED_AT")
-	private Timestamp createdAt;
+	private Date createdAt;
 	
 	@Column(name="DELETED_AT")
 	private Date deletedAt;
@@ -123,11 +122,11 @@ private static final long serialVersionUID = 1L;
 		this.money = money;
 	}
 
-	public Timestamp getCreatedAt() {
+	public Date getCreatedAt() {
 		return createdAt;
 	}
 
-	public void setCreatedAt(Timestamp createdAt) {
+	public void setCreatedAt(Date createdAt) {
 		this.createdAt = createdAt;
 	}
 

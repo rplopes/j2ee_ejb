@@ -2,7 +2,6 @@ package phasebook.post;
 
 import java.io.Serializable;
 import java.sql.Date;
-import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -41,7 +40,7 @@ public class Post implements Serializable{
 	private boolean read_;
 	
 	@Column(name="CREATED_AT")
-	private Timestamp createdAt;
+	private Date createdAt;
 	
 	@Column(name="DELETED_AT")
 	private Date deletedAt;
@@ -124,11 +123,11 @@ public class Post implements Serializable{
 		this.read_ = read_;
 	}
 
-	public Timestamp getCreatedAt() {
+	public Date getCreatedAt() {
 		return createdAt;
 	}
 
-	public void setCreatedAt(Timestamp createdAt) {
+	public void setCreatedAt(Date createdAt) {
 		this.createdAt = createdAt;
 	}
 

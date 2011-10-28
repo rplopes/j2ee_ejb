@@ -7,10 +7,12 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
+import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
 import phasebook.lottery.*;
+import phasebook.post.Post;
 import phasebook.user.*;
 
 @Stateless
@@ -75,8 +77,8 @@ public class LotteryBetBean implements LotteryBetRemote {
 		
 		Query q = em.createQuery("SELECT u FROM LotteryBet u ");
 		List bets = q.getResultList();
-		//em.close();
-		//emf.close();
+		em.close();
+		emf.close();
 		return bets;
 	}
 	
@@ -91,6 +93,56 @@ public class LotteryBetBean implements LotteryBetRemote {
 		tx.commit();
 		em.close();
 		emf.close();
+	}
+	
+	public Object checkUnreadBetResults(PhasebookUser entry)
+	{
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PhaseBook");
+		EntityManager em = emf.createEntityManager();
+		
+		Query q = em.createQuery("SELECT u FROM LotteryBet u WHERE u.user = :user AND u.read_ = :readStatus AND u.valueWon > -1");
+		q.setParameter("user", entry);
+		q.setParameter("readStatus", false);
+		List<?> bets = q.getResultList();
+		em.close();
+		emf.close();
+		return bets;
+	}
+	
+	public void readUnreadBets(PhasebookUser entry)
+	{
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PhaseBook");
+		EntityManager em = emf.createEntityManager();
+		
+		List<?> result = null;
+		
+		Query q = em.createQuery("SELECT u FROM LotteryBet u WHERE u.user = :user AND u.read_ = :readStatus AND u.valueWon > -1");
+		q.setParameter("user", entry);
+		q.setParameter("readStatus", false);
+		
+		try
+		{
+			result=q.getResultList();
+			EntityTransaction tx = em.getTransaction();
+			tx.begin();
+			Post post;
+			for(Object object : result)
+			{
+				post = (Post)object;
+				em.merge(post);
+				post.setRead_(true);
+				em.merge(post);
+			}
+			tx.commit();
+			em.close();
+			emf.close();
+		}
+		catch(NoResultException e)
+		{
+			em.close();
+			emf.close();
+			System.out.println("<Não foram encontrados posts por ler>");
+		}
 	}
 
 }
