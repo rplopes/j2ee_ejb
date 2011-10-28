@@ -202,10 +202,7 @@ public class PhasebookUserBean implements PhasebookUserRemote {
 		em.close();
 		emf.close();
 		if(!from.equals(to))
-			EmailUtils.notifyUser(to, "PHASEBOOK: You have a new post", from.getName()+
-					" posted a message on your wall:<br><br>\""+text+"\"<br><br>You have also "+(getNUnreadUserPosts(to)-1)+
-					" posts to read.<br><br>"+
-					EmailUtils.a("Go to your wall"));
+			EmailUtils.postSent(to, from, text, null, getNUnreadUserPosts(to));
 	}
 	
 	public void addPost(PhasebookUser from, PhasebookUser to, String text, String photoLink, String privacy){
@@ -223,13 +220,10 @@ public class PhasebookUserBean implements PhasebookUserRemote {
 		em.refresh(post);
 		
 		tx.commit();
+		if(!from.equals(to))
+			EmailUtils.postSent(to, from, text, photo, getNUnreadUserPosts(to));
 		em.close();
 		emf.close();
-		if(!from.equals(to))
-			EmailUtils.notifyUser(to, "PHASEBOOK: You have a new post", 
-				from.getName()+" posted a message on your wall:<br><br>"+EmailUtils.img(photo.getName(), from.getId())+
-				"<br><br>\""+text+"\"<br><br>You have also "+(getNUnreadUserPosts(to)-1)+
-				" posts to read.<br><br>"+EmailUtils.a("Go to your wall"));
 	}
 	
 	public Photo addPhoto(String photoLink){
@@ -259,8 +253,9 @@ public class PhasebookUserBean implements PhasebookUserRemote {
 		em.persist(fship);
 		em.refresh(fship);
 		tx.commit();
-		EmailUtils.notifyUser(invitedUser, "PHASEBOOK: "+hostUser.getName()+" invited you", hostUser.getName()+" invited you to be his friend<br><br>"
-				+EmailUtils.a("Go to your notifications"));
+		EmailUtils.sentInvite(hostUser, invitedUser);
+		em.close();
+		emf.close();
 	}
 	
 	public void setProfilePicture(PhasebookUser user, Photo photo)
@@ -366,7 +361,7 @@ public class PhasebookUserBean implements PhasebookUserRemote {
 		
 		List<?> posts = null;
 		
-		Query q = em.createQuery("SELECT u FROM Post u WHERE u.toUser = :user AND u.read_ = :status");
+		Query q = em.createQuery("SELECT u FROM Post u WHERE u.toUser = :user AND u.read_ = :status AND u.deletedAt = NULL");
 		q.setParameter("user",user);
 		q.setParameter("status",false);
 		

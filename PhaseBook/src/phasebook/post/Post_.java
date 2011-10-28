@@ -8,7 +8,7 @@ import javax.persistence.metamodel.StaticMetamodel;
 import phasebook.photo.Photo;
 import phasebook.user.PhasebookUser;
 
-@Generated(value="Dali", date="2011-10-28T01:47:40.274+0100")
+@Generated(value="Dali", date="2011-10-28T04:44:39.516+0100")
 @StaticMetamodel(Post.class)
 public class Post_ {
 	public static volatile SingularAttribute<Post, Integer> id;

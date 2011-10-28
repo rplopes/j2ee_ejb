@@ -31,6 +31,8 @@ public class FriendshipBean implements FriendshipRemote {
 		
 		if(myFriendship == null && !user_a.equals(user_b))
 			return 0;
+		else if(myFriendship == null && user_a.equals(user_b))
+			return -1;
 		else if(!myFriendship.isAccepted_() && myFriendship.getHostUser().equals(user_a))
 			return 1;
 		else if(!myFriendship.isAccepted_() && myFriendship.getHostUser().equals(user_b))
@@ -88,21 +90,20 @@ public class FriendshipBean implements FriendshipRemote {
 	/**
 	 * Accepts a friendship request by the fromUser to the toUser 
 	 */
-	public void acceptFriendship(PhasebookUser toUser, PhasebookUser fromUser) {
+	public void acceptFriendship(PhasebookUser hostUser, PhasebookUser invitedUser) {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PhaseBook");
 		EntityManager em = emf.createEntityManager();
 		EntityTransaction tx = em.getTransaction();
 		tx.begin();
 		
-    	Friendship friend = searchFriendship(toUser, fromUser);
+    	Friendship friend = searchFriendship(invitedUser, hostUser);
     	em.merge(friend);
     	friend.setAccepted_(true);
     	em.merge(friend);
 		tx.commit();
+		EmailUtils.acceptedInvite(hostUser, invitedUser);
 		em.close();
 		emf.close();
-		EmailUtils.notifyUser(fromUser, "PHASEBOOK: "+toUser.getName()+" accepted your frienship request", 
-			"You and "+toUser.getName()+" are friends now!<br><br>"+EmailUtils.a("Go to your notifications"));
 	}
 
 }

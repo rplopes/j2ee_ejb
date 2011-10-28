@@ -25,7 +25,7 @@
 	}
 
 	List<Post> posts = null;
-	if (Utils.getFriendshipBean().searchFriendship(me, user) != null || me.equals(user) )
+	if (Utils.getFriendshipBean().friendshipStatus(me, user) ==3 || me.equals(user) )
 		 posts = userBean.getUserReceivedPosts(userId);
 	else
 		posts = userBean.getUserPublicPosts(userId);

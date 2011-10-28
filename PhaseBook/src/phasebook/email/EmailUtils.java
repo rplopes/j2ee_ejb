@@ -10,6 +10,7 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import phasebook.photo.Photo;
 import phasebook.user.PhasebookUser;
 
 public class EmailUtils {
@@ -19,7 +20,8 @@ public class EmailUtils {
     private static final String SMTP_AUTH_USER = "phasebookmessager@gmail.com";
     private static final String SMTP_AUTH_PWD  = "grrgrrgrr";
 	public static String MAIN_PATH   = "http://localhost:8080/photos/";
-	public static int IMG_DEFAULT_WIDTH = 300; 
+	public static String DEFAULT_PATH = "http://localhost:8080/PhaseBookWeb/";
+	public static int IMG_DEFAULT_WIDTH = 300;
 	
 	public static void notifyUser(PhasebookUser user, String subject, String body){
 		Properties props = new Properties();
@@ -63,14 +65,49 @@ public class EmailUtils {
 
 	}
 	
-	public static String img(String url, int id)
+	public static void postSent(PhasebookUser to, PhasebookUser from, String text, Photo photo, int unread)
 	{
-		return "<img src=\""+MAIN_PATH+"/"+id+"/"+url+"\" width=\""+IMG_DEFAULT_WIDTH+"\" />";
+		String subject = "PHASEBOOK: You have a new post";
+		String body = "";
+		if(!text.equals(""))
+			body = from.getName()+" posted a message on your wall:<br><br>\""+text+"\"<br><br>";
+		else
+			body = from.getName()+" posted a photo on your wall:<br><br>";
+		if(photo != null)
+			body += img(photo.getName(), to.getId())+"<br><br>";
+		if(unread-1 == 1)
+			body += "You have also "+(unread-1)+" more post to read.<br><br>";
+		else if(unread-1 > 1)
+			body += "You have also "+(unread-1)+" more posts to read.<br><br>";
+		body += EmailUtils.a("","You wall");
+		notifyUser(to, subject, body);
 	}
 	
-	public static String a(String text)
+	public static void sentInvite(PhasebookUser hostUser, PhasebookUser invitedUser){
+		String subject = "PHASEBOOK: "+hostUser.getName()+" invited you";
+		String body=hostUser.getName()+" invited you to be his friend<br><br>"
+				+EmailUtils.a("","Your notifications");
+		notifyUser(invitedUser, subject, body);
+	}
+	
+	public static void acceptedInvite(PhasebookUser hostUser, PhasebookUser invitedUser){
+		String subject = "PHASEBOOK: "+invitedUser.getName()+" accepted your friendship request";
+		String body="You and "+invitedUser.getName()+" are friends now!<br><br>"+
+				EmailUtils.a("","Go to your notifications");
+		notifyUser(hostUser, subject, body);
+	}
+	
+	public static String img(String url, int id)
 	{
-		return "<a href='http://localhost:8080/PhaseBookWeb'>" + text + "</a>";
+		return "<img src=\""+MAIN_PATH+id+"/"+url+"\" width=\""+IMG_DEFAULT_WIDTH+"\" />";
+	}
+	
+	// Creates a link to a URL in HTML
+	public static String a(String url, String text)
+	{
+		if (url.length() == 0)
+			return "<a href='"+DEFAULT_PATH+"'>" + text + "</a>";
+		return "<a href='"+DEFAULT_PATH+"?p=" + url + "'>" + text + "</a>";
 	}
 
 }

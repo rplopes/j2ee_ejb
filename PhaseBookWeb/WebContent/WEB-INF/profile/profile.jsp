@@ -95,7 +95,7 @@
 			<td style="text-align: right">
 				<select name="privacy">
 					<option value="0" <% if (privacy.compareTo("0")==0) { %>selected<% } %>>Public</option>
-					<% if (Utils.getFriendshipBean().searchFriendship(me, user) != null || me.equals(user) ){ %>
+					<% if (Utils.getFriendshipBean().friendshipStatus(me, user) == 3 || me.equals(user) ){ %>
 						<option value="1" <% if (privacy.compareTo("1")==0) { %>selected<% } %>>Private</option>
 					<% } %>
 				</select>
