@@ -28,7 +28,6 @@ public class Notifications {
 	{
 		Utils.getPostBean().readUnreadPosts(this.user);
 		Utils.getLotteryBetBean().readUnreadBets(this.user);
-		Utils.getFriendshipBean().readUnreadFriendshipAcceptances(this.user);
-		Utils.getFriendshipBean().readUnreadFriendshipInvites(this.user);
+		
 	}
 }

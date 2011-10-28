@@ -77,8 +77,8 @@ public class LotteryBetBean implements LotteryBetRemote {
 		
 		Query q = em.createQuery("SELECT u FROM LotteryBet u ");
 		List bets = q.getResultList();
-		//em.close();
-		//emf.close();
+		em.close();
+		emf.close();
 		return bets;
 	}
 	
@@ -116,7 +116,7 @@ public class LotteryBetBean implements LotteryBetRemote {
 		
 		List<?> result = null;
 		
-		Query q = em.createQuery("SELECT u FROM LotteryBet u WHERE u.toUser = :user AND u.read_ = :status");
+		Query q = em.createQuery("SELECT u FROM Post u WHERE u.toUser = :user AND u.read_ = :status");
 		q.setParameter("user",entry);
 		q.setParameter("status",false);
 		

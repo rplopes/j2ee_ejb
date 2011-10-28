@@ -34,8 +34,6 @@ public class FriendshipBean implements FriendshipRemote {
 		
 		if(myFriendship == null && !user_a.equals(user_b))
 			return 0;
-		else if(myFriendship == null && user_a.equals(user_b))
-			return -1;
 		else if(!myFriendship.isAccepted_() && myFriendship.getHostUser().equals(user_a))
 			return 1;
 		else if(!myFriendship.isAccepted_() && myFriendship.getHostUser().equals(user_b))
@@ -93,20 +91,21 @@ public class FriendshipBean implements FriendshipRemote {
 	/**
 	 * Accepts a friendship request by the fromUser to the toUser 
 	 */
-	public void acceptFriendship(PhasebookUser hostUser, PhasebookUser invitedUser) {
+	public void acceptFriendship(PhasebookUser toUser, PhasebookUser fromUser) {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PhaseBook");
 		EntityManager em = emf.createEntityManager();
 		EntityTransaction tx = em.getTransaction();
 		tx.begin();
 		
-    	Friendship friend = searchFriendship(invitedUser, hostUser);
+    	Friendship friend = searchFriendship(toUser, fromUser);
     	em.merge(friend);
     	friend.setAccepted_(true);
     	em.merge(friend);
 		tx.commit();
-		EmailUtils.acceptedInvite(hostUser, invitedUser);
 		em.close();
 		emf.close();
+		EmailUtils.notifyUser(fromUser, "PHASEBOOK: "+toUser.getName()+" accepted your frienship request", 
+			"You and "+toUser.getName()+" are friends now!<br><br>"+EmailUtils.a("Go to your notifications"));
 	}
 	
 	public Object getNewFriendshipInvites(PhasebookUser entry)
@@ -174,10 +173,11 @@ public class FriendshipBean implements FriendshipRemote {
 		EntityManager em = emf.createEntityManager();
 		List<?> result = null;
 		
-		Query q = em.createQuery("SELECT u FROM Friendship u WHERE u.hostUser = :user"
-				+" AND u.accepted_ = :readStatus");
+		Query q = em.createQuery("SELECT u FROM Friendship u WHERE u.invitedUser = :user"
+				+" AND u.accepted_ = :acceptedStatus AND u.deletedAt = :isDeleted");
 		q.setParameter("user",entry);
-		q.setParameter("readStatus", false);
+		q.setParameter("acceptedStatus", false);
+		q.setParameter("isDeleted", null);
 		
 		try
 		{
