@@ -92,5 +92,19 @@ public class LotteryBetBean implements LotteryBetRemote {
 		em.close();
 		emf.close();
 	}
+	
+	public Object checkUnreadBetResults(PhasebookUser entry)
+	{
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PhaseBook");
+		EntityManager em = emf.createEntityManager();
+		
+		Query q = em.createQuery("SELECT u FROM LotteryBet u WHERE u.user = :user AND u.read_ = :readStatus");
+		q.setParameter("user", entry);
+		q.setParameter("readStatus", false);
+		List<?> bets = q.getResultList();
+		em.close();
+		emf.close();
+		return bets;
+	}
 
 }

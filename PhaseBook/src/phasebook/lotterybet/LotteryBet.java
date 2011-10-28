@@ -40,6 +40,9 @@ public class LotteryBet implements Serializable {
 	@Column(name="CREATED_AT")
 	private Timestamp createdAT;
 	
+	@Column(name="READ_")
+	private boolean read_;
+	
 	@ManyToOne
 	@JoinColumn(name="LOTTERY_ID", referencedColumnName="LOTTERY_ID")
 	private Lottery lottery;
@@ -110,6 +113,15 @@ public class LotteryBet implements Serializable {
 	public void setValueWon(float valueWon) {
 		this.valueWon = valueWon;
 	}
+
+	public boolean isRead_() {
+		return read_;
+	}
+
+	public void setRead_(boolean read_) {
+		this.read_ = read_;
+	}
+	
 	
 	
 }

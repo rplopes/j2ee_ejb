@@ -40,6 +40,8 @@ public class Friendship implements Serializable {
 	@Column(name="DELETED_AT")
 	private Date deletedAt;
 	
+	@Column(name="READ_")
+	private boolean read_;
 	
 	protected Friendship()
 	{
@@ -111,6 +113,15 @@ public class Friendship implements Serializable {
 	{
 		this.deletedAt=getCurrentTime();
 	}
+
+	public boolean isRead() {
+		return read_;
+	}
+
+	public void setRead(boolean read_) {
+		this.read_ = read_;
+	}
+	
 	
 	
 }
