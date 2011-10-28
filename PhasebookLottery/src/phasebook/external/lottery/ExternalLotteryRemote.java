@@ -12,6 +12,5 @@ public interface ExternalLotteryRemote {
 	public int getNumber();
 	public Calendar getNextDraw();
 	public int getTimerInterval();
-	public int getCount();
 
 }

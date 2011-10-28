@@ -1,7 +1,7 @@
 package phasebook.lotterybet;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
+import java.sql.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -38,7 +38,7 @@ public class LotteryBet implements Serializable {
 	private float valueWon;
 	
 	@Column(name="CREATED_AT")
-	private Timestamp createdAT;
+	private Date createdAT;
 	
 	@Column(name="READ_")
 	private boolean read_;
@@ -90,11 +90,11 @@ public class LotteryBet implements Serializable {
 		this.betNumber = betNumber;
 	}
 
-	protected Timestamp getCreatedAT() {
+	protected Date getCreatedAT() {
 		return createdAT;
 	}
 
-	protected void setCreatedAT(Timestamp createdAT) {
+	protected void setCreatedAT(Date createdAT) {
 		this.createdAT = createdAT;
 	}
 

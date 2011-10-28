@@ -25,10 +25,9 @@ public class LotteryBean implements LotteryRemote {
 	
 	private static float MONEYWIN = 50;
 	
-	private static int number = -1;
-	private static int count = -1;
-	private static Calendar nextDraw = null;
-	private static int timerInterval = 1000 * 30;
+	public static int number = -1;
+	public static Calendar nextDraw = null;
+	public static int timerInterval = 1000 * 60;
 	private @Resource SessionContext ctx;
 	  
 	public void scheduleTimer(long milliseconds) {
@@ -51,12 +50,6 @@ public class LotteryBean implements LotteryRemote {
 		try {
 			InitialContext ctx = new InitialContext();
 			ExternalLotteryRemote lottery = (ExternalLotteryRemote) ctx.lookup("ExternalLotteryBean/remote");
-			int newCount = lottery.getCount();
-			if (newCount == count) {
-				this.scheduleTimer(timerInterval);
-				return;
-			}
-			count = newCount;
 			number = lottery.getNumber();
 			nextDraw = lottery.getNextDraw();
 			if (number > 0)
