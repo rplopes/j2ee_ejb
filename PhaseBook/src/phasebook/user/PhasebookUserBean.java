@@ -160,25 +160,11 @@ public class PhasebookUserBean implements PhasebookUserRemote {
 		EntityManager em = emf.createEntityManager();
 		
 		try {
-			Query q = em.createQuery("SELECT u FROM PhasebookUser u ");
+			Query q = em.createQuery("SELECT u FROM PhasebookUser u WHERE lower(u.name) like '%"+search+"%' OR " +
+					"lower(u.email) like '%"+search+"%' ");
 			users = q.getResultList();
-			if (s != null)
-			{
-				Pattern pattern = Pattern.compile(s);
-				for (int i=0; i<users.size(); i++)
-				{
-					PhasebookUser user = (PhasebookUser)users.get(i);
-					boolean found = false;
-					Matcher matcher = pattern.matcher(user.getName());
-					if (matcher.find())
-						found = true;
-					matcher = pattern.matcher(user.getEmail());
-					if (matcher.find())
-						found = true;
-					if (found)
-						results.add(user);
-				}
-			}
+			for(int i=0; i<users.size(); i++)
+				results.add(users.get(i));
 			em.close();
 			emf.close();
 			return results;
