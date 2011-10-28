@@ -58,6 +58,12 @@
 		url   = "profile/editAccount.jsp";
 	}
 	
+	else if (p.compareTo("notifications") == 0 && session.getAttribute("id") != null)
+	{
+		title = "Notifications";
+		url   = "profile/notification.jsp";
+	}
+	
 	else if (p.compareTo("lottery") == 0 && session.getAttribute("id") != null)
 	{
 		title = "Charity Lottery";

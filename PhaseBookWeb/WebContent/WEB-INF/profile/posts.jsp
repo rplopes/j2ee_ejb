@@ -57,8 +57,8 @@
 				</form>
 				<% } %>
 	
-				<b class="user"><%= Utils.a("user&id="+sender.getId(), Utils.text(sender.getName())) %></b><br />
-				<% if (posts.get(i).isPrivate_()) { %><i>(private)</i><% } %>
+				<b class="user"><%= Utils.a("user&id="+sender.getId(), Utils.text(sender.getName())) %></b>
+				<% if (posts.get(i).isPrivate_()) { %><i>(private)</i><% } %><br />
 				<% if (posts.get(i).getPhoto()!=null){ 
 					String photoURL = Utils.MAIN_PATH+userId.toString()+"/"+posts.get(i).getPhoto().getName();
 				%>

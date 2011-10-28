@@ -115,10 +115,9 @@ public class FriendshipBean implements FriendshipRemote {
 		List<?> result = null;
 		
 		Query q = em.createQuery("SELECT u FROM Friendship u WHERE u.invitedUser = :user"
-				+" AND u.accepted_ = :acceptedStatus AND u.deletedAt = :isDeleted");
+				+" AND u.accepted_ = :acceptedStatus");
 		q.setParameter("user",entry);
 		q.setParameter("acceptedStatus", false);
-		q.setParameter("isDeleted", null);
 		
 		try
 		{
@@ -145,8 +144,9 @@ public class FriendshipBean implements FriendshipRemote {
 		List<?> result = null;
 		
 		Query q = em.createQuery("SELECT u FROM Friendship u WHERE u.hostUser = :user"
-				+" AND u.accepted_ = :readStatus");
+				+" AND u.accepted_ = :accepted AND u.read_ = :readStatus");
 		q.setParameter("user",entry);
+		q.setParameter("accepted", true);
 		q.setParameter("readStatus", false);
 		
 		try
@@ -209,24 +209,24 @@ public class FriendshipBean implements FriendshipRemote {
 		EntityManager em = emf.createEntityManager();
 		List<?> result = null;
 		
-		Query q = em.createQuery("SELECT u FROM Friendship u WHERE u.invitedUser = :user"
-				+" AND u.accepted_ = :acceptedStatus AND u.deletedAt = :isDeleted");
+		Query q = em.createQuery("SELECT u FROM Friendship u WHERE u.hostUser = :user"
+				+" AND u.accepted_ = :accepted AND u.read_ = :readStatus");
 		q.setParameter("user",entry);
-		q.setParameter("acceptedStatus", false);
-		q.setParameter("isDeleted", null);
+		q.setParameter("accepted", true);
+		q.setParameter("readStatus", false);
 		
 		try
 		{
 			result=q.getResultList();
 			EntityTransaction tx = em.getTransaction();
 			tx.begin();
-			Post post;
+			Friendship friendship;
 			for(Object object : result)
 			{
-				post = (Post)object;
-				em.merge(post);
-				post.setRead_(true);
-				em.merge(post);
+				friendship = (Friendship)object;
+				em.merge(friendship);
+				friendship.setRead(true);
+				em.merge(friendship);
 			}
 			tx.commit();
 			em.close();

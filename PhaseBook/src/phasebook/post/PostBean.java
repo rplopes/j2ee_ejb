@@ -92,8 +92,8 @@ public class PostBean implements PostRemote {
 		
 		List<Object> result = null;
 		
-		Query q = em.createQuery("SELECT u FROM Post u WHERE u.id = :postid AND u.read_ = :readStatus");
-		q.setParameter("postid",entry.getId());
+		Query q = em.createQuery("SELECT u FROM Post u WHERE u.toUser = :user AND u.read_ = :readStatus");
+		q.setParameter("user",entry);
 		q.setParameter("readStatus", false);
 		
 		result=(List<Object>) q.getResultList();
