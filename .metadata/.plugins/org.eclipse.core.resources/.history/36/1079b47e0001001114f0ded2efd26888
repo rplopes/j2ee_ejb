@@ -1,0 +1,14 @@
+package phasebook.controller;
+
+import phasebook.user.PhasebookUser;
+
+public class Notifications {
+	
+	private PhasebookUser user;
+	
+	Notifications(PhasebookUser user)
+	{
+		this.user;
+	}
+
+}

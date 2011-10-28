@@ -32,16 +32,6 @@
 	
 %>
 
-<!--<form enctype="multipart/form-data" method="POST" action="AddPhotoForm" style="padding: 0 50px 0 50px;">
-	<p align="right">
-		Browse image file:
-		<input type="file" name="file1">
-	</p>
-	<p align="right">
-		<input type="submit" value="Change profile picture" name="B1">
-	</p>
-</form>-->
-
 <form method="POST" action="CreateFriendshipForm">
 	<input type="hidden" name="toUser" value="<%= userId.toString() %>"/>
 	<input type="hidden" name="relationship" value="<%= relationshipType %>"/>

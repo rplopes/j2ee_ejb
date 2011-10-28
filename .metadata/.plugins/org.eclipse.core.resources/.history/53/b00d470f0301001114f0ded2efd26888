@@ -1,0 +1,19 @@
+package phasebook.controller;
+
+import phasebook.user.PhasebookUser;
+
+public class Notifications {
+	
+	private PhasebookUser user;
+	private Utils utils;
+	
+	Notifications(PhasebookUser user)
+	{
+		this.user=user;
+	}
+	
+	public void checkForNotifications()
+	{
+		utils.getPostBean().getUnreadPosts(this.user);
+	}
+}
