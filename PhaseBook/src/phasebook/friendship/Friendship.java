@@ -2,6 +2,7 @@ package phasebook.friendship;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.Calendar;
 
 import javax.persistence.Column;
@@ -34,7 +35,7 @@ public class Friendship implements Serializable {
 	private boolean accepted_;
 	
 	@Column(name="CREATED_AT")
-	private Date createdAt;
+	private Timestamp createdAt;
 	
 	@Column(name="DELETED_AT")
 	private Date deletedAt;
@@ -90,11 +91,11 @@ public class Friendship implements Serializable {
 		this.accepted_ = accepted_;
 	}
 
-	protected Date getCreatedAt() {
+	protected Timestamp getCreatedAt() {
 		return createdAt;
 	}
 
-	protected void setCreatedAt(Date createdAt) {
+	protected void setCreatedAt(Timestamp createdAt) {
 		this.createdAt = createdAt;
 	}
 

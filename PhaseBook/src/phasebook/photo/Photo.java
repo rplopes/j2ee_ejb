@@ -2,6 +2,7 @@ package phasebook.photo;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -27,7 +28,7 @@ public class Photo implements Serializable{
 	private String name;
 	
 	@Column(name="CREATED_AT")
-	private Date createdAt;
+	private Timestamp createdAt;
 	
 	@Column(name="DELETED_AT")
 	private Date deletedAt;
@@ -69,11 +70,11 @@ public class Photo implements Serializable{
 		this.name = name;
 	}
 
-	public Date getCreatedAt() {
+	public Timestamp getCreatedAt() {
 		return createdAt;
 	}
 
-	public void setCreatedAt(Date createdAt) {
+	public void setCreatedAt(Timestamp createdAt) {
 		this.createdAt = createdAt;
 	}
 

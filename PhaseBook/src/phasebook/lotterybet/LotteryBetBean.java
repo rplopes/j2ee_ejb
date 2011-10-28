@@ -75,8 +75,8 @@ public class LotteryBetBean implements LotteryBetRemote {
 		
 		Query q = em.createQuery("SELECT u FROM LotteryBet u ");
 		List bets = q.getResultList();
-		em.close();
-		emf.close();
+		//em.close();
+		//emf.close();
 		return bets;
 	}
 	
