@@ -11,6 +11,12 @@
 <%
 	PhasebookUserRemote userBean = Utils.getUserBean();
 	PhasebookUser me = userBean.getUserById(session.getAttribute("id"));
+	if (Utils.getNumberNotifications(me) == 0) {
+%>
+		There are no new notifications.
+<%
+	}
+	else {
 	List<Post> posts = (List<Post>)Utils.getPostBean().getUnreadPosts(me);
 	if (posts.size() > 0) {
 %>
@@ -120,4 +126,5 @@
 	Utils.getPostBean().readUnreadPosts(me);
 	Utils.getLotteryBetBean().readUnreadBets(me);
 	Utils.getFriendshipBean().readUnreadFriendshipAcceptances(me);
+	}
 %>
