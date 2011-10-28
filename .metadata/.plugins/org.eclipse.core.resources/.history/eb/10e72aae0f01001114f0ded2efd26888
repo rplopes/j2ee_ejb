@@ -14,6 +14,6 @@ public interface FriendshipRemote {
 	public Object getNewFriendshipAcceptances(PhasebookUser entry);
 	public Object getNewFriendshipInvites(PhasebookUser entry);
 	public void readUnreadFriendshipAcceptances(PhasebookUser entry);
-	public void readUnreadFriendshipInvites(PhasebookUser entry);
+	public void readUnreadFriendshipInvites(PhasebookUser entry)
 	
 }

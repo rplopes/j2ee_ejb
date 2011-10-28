@@ -13,5 +13,5 @@ public interface LotteryBetRemote {
 	public List<LotteryBet> userCurrentBets(Object id);
 	public List<LotteryBet> userOldBets(Object id);
 	public Object checkUnreadBetResults(PhasebookUser entry);
-	public void readUnreadBets(PhasebookUser entry);
+
 }

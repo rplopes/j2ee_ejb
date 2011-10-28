@@ -173,10 +173,11 @@ public class FriendshipBean implements FriendshipRemote {
 		EntityManager em = emf.createEntityManager();
 		List<?> result = null;
 		
-		Query q = em.createQuery("SELECT u FROM Friendship u WHERE u.hostUser = :user"
-				+" AND u.accepted_ = :readStatus");
+		Query q = em.createQuery("SELECT u FROM Friendship u WHERE u.invitedUser = :user"
+				+" AND u.accepted_ = :acceptedStatus AND u.deletedAt = :isDeleted");
 		q.setParameter("user",entry);
-		q.setParameter("readStatus", false);
+		q.setParameter("acceptedStatus", false);
+		q.setParameter("isDeleted", null);
 		
 		try
 		{
