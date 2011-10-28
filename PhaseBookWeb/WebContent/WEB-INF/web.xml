@@ -99,14 +99,4 @@
     <servlet-name>EditAccountForm</servlet-name>
     <url-pattern>/EditAccountForm</url-pattern>
   </servlet-mapping>
-  <servlet>
-    <description></description>
-    <display-name>Notifications</display-name>
-    <servlet-name>Notifications</servlet-name>
-    <servlet-class>phasebook.controller.Notifications</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>Notifications</servlet-name>
-    <url-pattern>/Notifications</url-pattern>
-  </servlet-mapping>
 </web-app>

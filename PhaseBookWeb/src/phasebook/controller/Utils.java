@@ -1,5 +1,7 @@
 package phasebook.controller;
 
+import java.util.List;
+
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
@@ -7,6 +9,7 @@ import phasebook.friendship.FriendshipRemote;
 import phasebook.post.PostRemote;
 import phasebook.lottery.LotteryRemote;
 import phasebook.lotterybet.LotteryBetRemote;
+import phasebook.user.PhasebookUser;
 import phasebook.user.PhasebookUserRemote;
 
 public class Utils {
@@ -131,6 +134,17 @@ public class Utils {
 		}
 		
 		return sb.toString();
+	}
+	
+	// Get the number of notifications
+	public static int getNumberNotifications(PhasebookUser user)
+	{
+		int count = 0;
+		count += ((List<Object>)getPostBean().getUnreadPosts(user)).size();
+		count += ((List<Object>)getLotteryBetBean().checkUnreadBetResults(user)).size();
+		count += ((List<Object>)getFriendshipBean().getNewFriendshipInvites(user)).size();
+		count += ((List<Object>)getFriendshipBean().getNewFriendshipAcceptances(user)).size();
+		return count;
 	}
 
 }
