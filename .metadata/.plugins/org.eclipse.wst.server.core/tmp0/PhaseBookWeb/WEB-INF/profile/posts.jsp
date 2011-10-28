@@ -39,6 +39,28 @@
 		if(posts.get(i).getDeletedAt()==null){
 			PhasebookUser sender = posts.get(i).getFromUser();
 %>
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+	<p>
+		<% if (me.equals(user)) { %>
+		<form method="POST" action="RemovePostForm">
+		<input type="hidden" name="postId" value="<%= posts.get(i).getId() %>"/>
+		<input type="hidden" name="userId" value="<%= userId %>"/>
+		<input type="submit" value="x" name="B0" style="float: right; font-size: 80%; background: white; color: #444; border: 1px solid #444; padding: 3px; font-weight: normal">
+		</form>
+		<% } %>
+		<b class="user"><%= Utils.a("user&id="+posts.get(i).getFromUser().getId(), Utils.text(posts.get(i).getFromUser().getName())) %></b>
+		<% if (posts.get(i).isPrivate_()) { %><i>(private)</i><% } %>
+		<% if (posts.get(i).getPhoto()!=null){ 
+			String photoURL = Utils.MAIN_PATH+userId.toString()+"/"+posts.get(i).getPhoto().getName();
+		%>
+			<br /> <%= Utils.aAbsolute(photoURL, Utils.img(photoURL)) %>
+		<%} %>
+		<br /><%= Utils.text(posts.get(i).getText()) %>
+	</p>
+=======
+>>>>>>> 8e1dec9fa44acfa9a5d2509111de5352ca53ec67
 	<table width="100%">
 		<tr>
 			<td width="60" style="vertical-align: top">
@@ -68,6 +90,10 @@
 			</td>
 		</tr>
 	</table>
+<<<<<<< HEAD
+=======
+>>>>>>> 82093d0a287f7a3239f2f22951caebd0e26fbbc0
+>>>>>>> 8e1dec9fa44acfa9a5d2509111de5352ca53ec67
 <%
 	}}
 %>
