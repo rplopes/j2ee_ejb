@@ -3,6 +3,7 @@ package phasebook.lottery;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -28,9 +29,15 @@ public class LotteryBean implements LotteryRemote {
 	public static int number = -1;
 	public static Calendar nextDraw = null;
 	public static int timerInterval = 1000 * 60;
+	@Resource
+	private TimerService t;
+	
 	private @Resource SessionContext ctx;
 	  
 	public void scheduleTimer(long milliseconds) {
+		Collection<Timer> timers = t.getTimers();
+		for (Timer i : timers)
+			i.cancel();
 		ctx.getTimerService().createTimer(new Date(new Date().getTime() + milliseconds), "Hello World");  
 	}
 	

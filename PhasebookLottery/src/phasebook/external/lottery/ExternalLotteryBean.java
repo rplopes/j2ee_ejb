@@ -1,6 +1,7 @@
 package phasebook.external.lottery;
 
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
 import java.util.Random;
 
@@ -9,6 +10,7 @@ import javax.ejb.SessionContext;
 import javax.ejb.Stateless;
 import javax.ejb.Timeout;
 import javax.ejb.Timer;
+import javax.ejb.TimerService;
 
 @Stateless
 public class ExternalLotteryBean implements ExternalLotteryRemote {
@@ -16,10 +18,15 @@ public class ExternalLotteryBean implements ExternalLotteryRemote {
 	private static Calendar nextDraw;
 	private static int number;
 	private static int timerInterval = 1000 * 60;
+	@Resource
+	private TimerService t;
 	
 	private @Resource SessionContext ctx;
 	  
-	public void scheduleTimer(long milliseconds) {  
+	public void scheduleTimer(long milliseconds) {
+		Collection<Timer> timers = t.getTimers();
+		for (Timer i : timers)
+			i.cancel();
 		ctx.getTimerService().createTimer(new Date(new Date().getTime() + milliseconds), "Hello World");  
 	}
 	
