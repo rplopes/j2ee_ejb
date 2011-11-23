@@ -57,12 +57,21 @@ public class CreateUserForm extends HttpServlet {
 				session.setAttribute("email", email);
 				response.sendRedirect(Utils.url("register"));
 			} else {
-				password1 = byteArrayToHexString(computeHash(password1 + "salt"
+				password1 = Utils.byteArrayToHexString(Utils.computeHash(password1 + "salt"
 						+ email));
 
 				int id = user.create(name, email, password1);
-				session.setAttribute("id", id);
-				response.sendRedirect(Utils.url(""));
+				if (id == -1) {
+					session.setAttribute("error", "That email adress is already taken");
+					session.setAttribute("name", name);
+					session.setAttribute("email", email);
+					response.sendRedirect(Utils.url("register"));
+				}
+				else {
+					session.setAttribute("id", id);
+					session.setAttribute("password", password1);
+					response.sendRedirect(Utils.url(""));
+				}
 			}
 		} catch (NamingException e) {
 			e.printStackTrace();
@@ -102,30 +111,6 @@ public class CreateUserForm extends HttpServlet {
 		}
 
 		return null;
-	}
-
-	private String byteArrayToHexString(byte[] b) {
-		StringBuffer sb = new StringBuffer(b.length * 2);
-		for (int i = 0; i < b.length; i++) {
-			int v = b[i] & 0xff;
-			if (v < 16)
-				sb.append('0');
-			sb.append(Integer.toHexString(v));
-		}
-		return sb.toString().toUpperCase();
-	}
-
-	private byte[] computeHash(String x) {
-		java.security.MessageDigest d = null;
-		try {
-			d = java.security.MessageDigest.getInstance("SHA-1");
-		} catch (NoSuchAlgorithmException e) {
-			e.printStackTrace();
-			d = null;
-		}
-		d.reset();
-		d.update(x.getBytes());
-		return d.digest();
 	}
 
 }

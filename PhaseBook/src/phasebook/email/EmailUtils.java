@@ -86,14 +86,14 @@ public class EmailUtils {
 	public static void sentInvite(PhasebookUser hostUser, PhasebookUser invitedUser){
 		String subject = "PHASEBOOK: "+hostUser.getName()+" invited you";
 		String body=hostUser.getName()+" invited you to be his friend<br><br>"
-				+EmailUtils.a("","Your notifications");
+				+EmailUtils.a("notifications","Your notifications");
 		notifyUser(invitedUser, subject, body);
 	}
 	
 	public static void acceptedInvite(PhasebookUser hostUser, PhasebookUser invitedUser){
 		String subject = "PHASEBOOK: "+invitedUser.getName()+" accepted your friendship request";
 		String body="You and "+invitedUser.getName()+" are friends now!<br><br>"+
-				EmailUtils.a("","Go to your notifications");
+				EmailUtils.a("notifications","Go to your notifications");
 		notifyUser(hostUser, subject, body);
 	}
 	

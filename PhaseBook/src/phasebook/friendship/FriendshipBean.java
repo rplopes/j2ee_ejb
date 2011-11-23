@@ -13,24 +13,18 @@ import javax.persistence.Query;
 
 import phasebook.post.Post;
 import phasebook.user.PhasebookUser;
+import phasebook.auth.Auth;
 import phasebook.email.*;
 
 @Stateless
 public class FriendshipBean implements FriendshipRemote {
 	
-	
-	/**
-	 * Checks what's the friendship status of two users.
-	 *@return
-	 *0 if user_a is not friend of user_b{@literal}<br>
-	 *1 if user_a has sent a friendship request to user_b and user_b has not yet accepted it<br>
-	 *2 if user_b has sent a friendship request to user_a and user_a has not yet accepted it<br>
-	 *3 if user_a is friend of user_b <br>
-	 *-1 if there's a database error
-	 */
-	public int friendshipStatus(PhasebookUser user_a, PhasebookUser user_b)
+	public int friendshipStatus(PhasebookUser user_a, PhasebookUser user_b,
+			Object authId, Object authPass)
 	{
-		Friendship myFriendship = searchFriendship(user_a,user_b);
+		if (Auth.authenticate(authId, authPass))
+			return -1;
+		Friendship myFriendship = searchFriendship(user_a,user_b, authId, authPass);
 		
 		if(myFriendship == null && !user_a.equals(user_b))
 			return 0;
@@ -45,18 +39,13 @@ public class FriendshipBean implements FriendshipRemote {
 		else
 			return -1;
 	}
-	
-	/**
-	 * Searches for the Friendship_ID of a friendship between two users
-	 *@return
-	 *Friendship<br>
-	 *null if there's no friendship between the given users
-	 */
 
 	@SuppressWarnings("finally")
-	public Friendship searchFriendship(PhasebookUser user_a, PhasebookUser user_b)
+	public Friendship searchFriendship(PhasebookUser user_a, PhasebookUser user_b,
+			Object authId, Object authPass)
 	{
-		
+		if (Auth.authenticate(authId, authPass))
+			return null;
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PhaseBook");
 		EntityManager em = emf.createEntityManager();
 		Friendship result = null;
@@ -90,16 +79,17 @@ public class FriendshipBean implements FriendshipRemote {
 		
 	}
 
-	/**
-	 * Accepts a friendship request by the fromUser to the toUser 
-	 */
-	public void acceptFriendship(PhasebookUser hostUser, PhasebookUser invitedUser) {
+	public void acceptFriendship(PhasebookUser hostUser, PhasebookUser invitedUser,
+			Object authId, Object authPass)
+	{
+		if (Auth.authenticate(authId, authPass))
+			return;
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PhaseBook");
 		EntityManager em = emf.createEntityManager();
 		EntityTransaction tx = em.getTransaction();
 		tx.begin();
 		
-    	Friendship friend = searchFriendship(invitedUser, hostUser);
+    	Friendship friend = searchFriendship(invitedUser, hostUser, authId, authPass);
     	em.merge(friend);
     	friend.setAccepted_(true);
     	em.merge(friend);
@@ -109,8 +99,11 @@ public class FriendshipBean implements FriendshipRemote {
 		emf.close();
 	}
 	
-	public Object getNewFriendshipInvites(PhasebookUser entry)
+	public Object getNewFriendshipInvites(PhasebookUser entry,
+			Object authId, Object authPass)
 	{
+		if (Auth.authenticate(authId, authPass))
+			return null;
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PhaseBook");
 		EntityManager em = emf.createEntityManager();
 		List<?> result = null;
@@ -138,8 +131,11 @@ public class FriendshipBean implements FriendshipRemote {
 		
 	}
 	
-	public Object getNewFriendshipAcceptances(PhasebookUser entry)
+	public Object getNewFriendshipAcceptances(PhasebookUser entry,
+			Object authId, Object authPass)
 	{
+		if (Auth.authenticate(authId, authPass))
+			return null;
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PhaseBook");
 		EntityManager em = emf.createEntityManager();
 		List<?> result = null;
@@ -168,8 +164,11 @@ public class FriendshipBean implements FriendshipRemote {
 		
 	}
 	
-	public void readUnreadFriendshipInvites(PhasebookUser entry)
+	public void readUnreadFriendshipInvites(PhasebookUser entry,
+			Object authId, Object authPass)
 	{
+		if (Auth.authenticate(authId, authPass))
+			return;
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PhaseBook");
 		EntityManager em = emf.createEntityManager();
 		List<?> result = null;
@@ -184,13 +183,13 @@ public class FriendshipBean implements FriendshipRemote {
 			result=q.getResultList();
 			EntityTransaction tx = em.getTransaction();
 			tx.begin();
-			Post post;
+			Friendship friendship;
 			for(Object object : result)
 			{
-				post = (Post)object;
-				em.merge(post);
-				post.setRead_(true);
-				em.merge(post);
+				friendship = (Friendship)object;
+				em.merge(friendship);
+				friendship.setRead(true);
+				em.merge(friendship);
 			}
 			tx.commit();
 			em.close();
@@ -204,8 +203,11 @@ public class FriendshipBean implements FriendshipRemote {
 		}
 	}
 	
-	public void readUnreadFriendshipAcceptances(PhasebookUser entry)
+	public void readUnreadFriendshipAcceptances(PhasebookUser entry,
+			Object authId, Object authPass)
 	{
+		if (Auth.authenticate(authId, authPass))
+			return;
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PhaseBook");
 		EntityManager em = emf.createEntityManager();
 		List<?> result = null;

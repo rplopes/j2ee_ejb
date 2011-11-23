@@ -7,28 +7,36 @@
 	PhasebookUserRemote userBean = Utils.getUserBean();
 	PhasebookUser user;
 	Object userId;
-	PhasebookUser me=userBean.getUserById(session.getAttribute("id"));
+	PhasebookUser me=userBean.getUserById(session.getAttribute("id"),
+			session.getAttribute("id"), session.getAttribute("password"));
 	
 	if(request.getParameter("id") == null){
 		userId =  session.getAttribute("id");
-		user = userBean.getUserById(userId);
+		user = userBean.getUserById(userId,
+				session.getAttribute("id"), session.getAttribute("password"));
 	}
 	else{
 		userId =  request.getParameter("id");
 		try {
-			Utils.getUserBean().getUserById(request.getParameter("id")).getName();
-			user = userBean.getUserById(userId);
+			Utils.getUserBean().getUserById(request.getParameter("id"),
+					session.getAttribute("id"), session.getAttribute("password")).getName();
+			user = userBean.getUserById(userId,
+					session.getAttribute("id"), session.getAttribute("password"));
 		} catch (Exception e) {
 			userId =  session.getAttribute("id");
-			user = userBean.getUserById(session.getAttribute("id"));
+			user = userBean.getUserById(session.getAttribute("id"),
+					session.getAttribute("id"), session.getAttribute("password"));
 		}
 	}
 
 	List<Post> posts = null;
-	if (Utils.getFriendshipBean().friendshipStatus(me, user) ==3 || me.equals(user) )
-		 posts = userBean.getUserReceivedPosts(userId);
+	if (Utils.getFriendshipBean().friendshipStatus(me, user,
+			session.getAttribute("id"), session.getAttribute("password")) == 3 || me.equals(user) )
+		posts = userBean.getUserReceivedPosts(userId,
+				session.getAttribute("id"), session.getAttribute("password"));
 	else
-		posts = userBean.getUserPublicPosts(userId);
+		posts = userBean.getUserPublicPosts(userId,
+				session.getAttribute("id"), session.getAttribute("password"));
 	
 	if (posts.size() == 0) {
 %>

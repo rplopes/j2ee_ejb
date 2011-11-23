@@ -7,6 +7,7 @@ import javax.persistence.NoResultException;
 import javax.persistence.NonUniqueResultException;
 import javax.persistence.Persistence;
 
+import phasebook.auth.Auth;
 import phasebook.user.PhasebookUser;
 
 /**
@@ -20,7 +21,11 @@ public class PhotoBean implements PhotoRemote {
      */
     public PhotoBean() {}
     
-    public Photo getPhotoById(String id){
+    public Photo getPhotoById(String id,
+			Object authId, Object authPass)
+	{
+		if (Auth.authenticate(authId, authPass))
+			return null;
 		int photoId = Integer.parseInt(id);
 		if (photoId == 0)
 			return null;
@@ -31,8 +36,8 @@ public class PhotoBean implements PhotoRemote {
 			Photo photo = em.find(Photo.class, photoId);
 			em.persist(photo);
 			em.refresh(photo);
-			//em.close();
-			//emf.close();
+			em.close();
+			emf.close();
 			return photo;
 		} catch(NoResultException ex){
 			em.close();

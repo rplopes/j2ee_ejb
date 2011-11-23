@@ -1,17 +1,14 @@
 package phasebook.photo;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.sql.Timestamp;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-
-import phasebook.user.PhasebookUser;
 
 
 @Entity
@@ -27,10 +24,10 @@ public class Photo implements Serializable{
 	private String name;
 	
 	@Column(name="CREATED_AT")
-	private Date createdAt;
+	private Timestamp createdAt = new Timestamp(new Date().getTime());
 	
 	@Column(name="DELETED_AT")
-	private Date deletedAt;
+	private Timestamp deletedAt;
 	
 	@Column(name="LABEL")
 	private String label;
@@ -69,19 +66,19 @@ public class Photo implements Serializable{
 		this.name = name;
 	}
 
-	public Date getCreatedAt() {
+	public Timestamp getCreatedAt() {
 		return createdAt;
 	}
 
-	public void setCreatedAt(Date createdAt) {
+	public void setCreatedAt(Timestamp createdAt) {
 		this.createdAt = createdAt;
 	}
 
-	public Date getDeletedAt() {
+	public Timestamp getDeletedAt() {
 		return deletedAt;
 	}
 
-	public void setDeletedAt(Date deletedAt) {
+	public void setDeletedAt(Timestamp deletedAt) {
 		this.deletedAt = deletedAt;
 	}
 

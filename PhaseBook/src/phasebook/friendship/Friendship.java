@@ -1,8 +1,9 @@
 package phasebook.friendship;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.Calendar;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -34,10 +35,10 @@ public class Friendship implements Serializable {
 	private boolean accepted_;
 	
 	@Column(name="CREATED_AT")
-	private Date createdAt;
+	private Timestamp createdAt = new Timestamp(new Date().getTime());
 	
 	@Column(name="DELETED_AT")
-	private Date deletedAt;
+	private Timestamp deletedAt;
 	
 	@Column(name="READ_")
 	private boolean read_;
@@ -54,10 +55,11 @@ public class Friendship implements Serializable {
 		this.invitedUser = inveteeUser;
 	}
 	
-	private Date getCurrentTime()
+	private Timestamp getCurrentTime()
 	{		
 		Calendar currenttime = Calendar.getInstance();
-		return new Date((currenttime.getTime()).getTime());
+		Date date = new Date((currenttime.getTime()).getTime());
+		return new Timestamp(date.getTime());
 	}
 
 	protected int getId() {
@@ -96,7 +98,7 @@ public class Friendship implements Serializable {
 		return createdAt;
 	}
 
-	protected void setCreatedAt(Date createdAt) {
+	protected void setCreatedAt(Timestamp createdAt) {
 		this.createdAt = createdAt;
 	}
 
@@ -104,13 +106,13 @@ public class Friendship implements Serializable {
 		return deletedAt;
 	}
 
-	protected void setDeletedAt(Date deletedAt) {
+	protected void setDeletedAt(Timestamp deletedAt) {
 		this.deletedAt = deletedAt;
 	}
 
 	protected void deleteFriendship()
 	{
-		this.deletedAt=getCurrentTime();
+		this.deletedAt = getCurrentTime();
 	}
 
 	public boolean isRead() {

@@ -37,7 +37,7 @@ public class ExternalLotteryBean implements ExternalLotteryRemote {
 	@Timeout
 	public void timeout(Timer timer){
 		nextDraw = Calendar.getInstance();
-		nextDraw.add(Calendar.MILLISECOND, timerInterval);
+		nextDraw.add(Calendar.MILLISECOND,  timerInterval);
 		Random r = new Random();
 		number = r.nextInt(100) + 1;
 		System.out.println("External Lottery: number " + number);

@@ -4,18 +4,10 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
 import java.util.List;
-import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.ejb.Stateless;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.NoSuchProviderException;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -28,6 +20,7 @@ import phasebook.friendship.Friendship;
 import phasebook.photo.Photo;
 import phasebook.photo.PhotoBean;
 import phasebook.post.Post;
+import phasebook.auth.Auth;
 import phasebook.email.*;
 
 /**
@@ -42,10 +35,27 @@ public class PhasebookUserBean implements PhasebookUserRemote {
     public PhasebookUserBean() {
     }
 	
-	public int create(String name, String email, String password) {
+	public int create(String name, String email, String password)
+	{
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PhaseBook");
 		EntityManager em = emf.createEntityManager();
 		EntityTransaction tx = em.getTransaction();
+		
+		// Return -1 if email already exists
+		try {
+			Query q = em.createQuery("SELECT u FROM PhasebookUser u " +
+						"WHERE u.email LIKE :email");
+			q.setParameter("email",email);
+			PhasebookUser user = ((PhasebookUser)q.getSingleResult());
+			em.close();
+			emf.close();
+			return -1;
+		} catch(NoResultException ex){
+		} catch(NonUniqueResultException ex){
+			em.close();
+			emf.close();
+			return -1;
+		}
 		
 		tx.begin();
     	PhasebookUser user = new PhasebookUser(name, email, password);
@@ -61,7 +71,8 @@ public class PhasebookUserBean implements PhasebookUserRemote {
 	/* (non-Javadoc)
 	 * @see phasebook.user.PhasebookUserRemote#login(java.lang.String, java.lang.String)
 	 */
-	public int login(String email, String password) {
+	public int login(String email, String password)
+	{
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PhaseBook");
 		EntityManager em = emf.createEntityManager();
 		
@@ -82,29 +93,21 @@ public class PhasebookUserBean implements PhasebookUserRemote {
 			emf.close();
 			return user.getId();
 		} catch(NoResultException ex){
+			em.close();
+			emf.close();
 			return -1;
 		} catch(NonUniqueResultException ex){
+			em.close();
+			emf.close();
 			return -1;
 		}
 	}
 	
-	public List<Post> getUserReceivedPosts(Object userId){
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PhaseBook");
-		EntityManager em = emf.createEntityManager();
-		PhasebookUser user = em.find(PhasebookUser.class, Integer.parseInt(userId.toString()));
-		em.persist(user);
-		em.refresh(user);
-		List<Post> userReceivedPosts = ((PhasebookUser)user).getReceivedPosts();
-		List<Post> returnList = new ArrayList<Post>();
-		for(int i = 0; i< userReceivedPosts.size(); i++){
-			returnList.add(userReceivedPosts.get(i));
-		}
-		//em.close();
-		//emf.close();
-		return returnList;
-	}
-	
-	public List getUserPublicPosts(Object userId){
+	public List<Post> getUserReceivedPosts(Object userId,
+			Object authId, Object authPass)
+	{
+		if (Auth.authenticate(authId, authPass))
+			return null;
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PhaseBook");
 		EntityManager em = emf.createEntityManager();
 		PhasebookUser user = em.find(PhasebookUser.class, Integer.parseInt(userId.toString()));
@@ -112,7 +115,34 @@ public class PhasebookUserBean implements PhasebookUserRemote {
 		try{
 			Query q = em.createQuery("SELECT u FROM Post u " +
 					"WHERE u.toUser LIKE :user AND " +
-					"u.private_ = :private_");
+					"u.deletedAt is NULL");
+			q.setParameter("user",user);
+			
+			em.clear();
+			emf.close();
+			
+			return q.getResultList();
+		} catch(NoResultException e){
+			em.close();
+			emf.close();
+			List<Post> empty = new ArrayList<Post>();
+			return empty;
+		}
+	}
+	
+	public List getUserPublicPosts(Object userId,
+			Object authId, Object authPass)
+	{
+		if (Auth.authenticate(authId, authPass))
+			return null;
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PhaseBook");
+		EntityManager em = emf.createEntityManager();
+		PhasebookUser user = em.find(PhasebookUser.class, Integer.parseInt(userId.toString()));
+		
+		try{
+			Query q = em.createQuery("SELECT u FROM Post u " +
+					"WHERE u.toUser LIKE :user AND " +
+					"u.private_ = :private_ AND u.deletedAt is NULL");
 			q.setParameter("user",user);
 			q.setParameter("private_",false);
 			
@@ -128,7 +158,11 @@ public class PhasebookUserBean implements PhasebookUserRemote {
 		}
 	}
 	
-	public PhasebookUser getUserById(Object id){
+	public PhasebookUser getUserById(Object id,
+			Object authId, Object authPass)
+	{
+		if (Auth.authenticate(authId, authPass))
+			return null;
 		int userId = Integer.parseInt(id.toString());
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PhaseBook");
 		EntityManager em = emf.createEntityManager();
@@ -137,8 +171,8 @@ public class PhasebookUserBean implements PhasebookUserRemote {
 			PhasebookUser user = em.find(PhasebookUser.class, userId);
 			em.persist(user);
 			em.refresh(user);
-			//em.close();
-			//emf.close();
+			em.close();
+			emf.close();
 			return user;
 		} catch(NoResultException ex){
 			em.close();
@@ -151,14 +185,18 @@ public class PhasebookUserBean implements PhasebookUserRemote {
 		}
 	}
 	
-	public List getUsersFromSearch(Object search) {
+	public List getUsersFromSearch(Object search,
+			Object authId, Object authPass)
+	{
+		if (Auth.authenticate(authId, authPass))
+			return null;
 		List users = new ArrayList();
 		List results = new ArrayList();
-		String s = search.toString();
-		
+		String s = search.toString().toLowerCase();
+
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PhaseBook");
 		EntityManager em = emf.createEntityManager();
-		
+
 		try {
 			Query q = em.createQuery("SELECT u FROM PhasebookUser u ");
 			users = q.getResultList();
@@ -169,10 +207,10 @@ public class PhasebookUserBean implements PhasebookUserRemote {
 				{
 					PhasebookUser user = (PhasebookUser)users.get(i);
 					boolean found = false;
-					Matcher matcher = pattern.matcher(user.getName());
+					Matcher matcher = pattern.matcher(user.getName().toLowerCase());
 					if (matcher.find())
 						found = true;
-					matcher = pattern.matcher(user.getEmail());
+					matcher = pattern.matcher(user.getEmail().toLowerCase());
 					if (matcher.find())
 						found = true;
 					if (found)
@@ -182,14 +220,18 @@ public class PhasebookUserBean implements PhasebookUserRemote {
 			em.close();
 			emf.close();
 			return results;
-		} catch(NoResultException ex){
+		} catch (Exception e) {
 			em.close();
 			emf.close();
 			return users;
-		} 
+		}
 	}
 	
-	public void addPost(PhasebookUser from, PhasebookUser to, String text, String privacy){
+	public void addPost(PhasebookUser from, PhasebookUser to, String text, String privacy,
+			Object authId, Object authPass)
+	{
+		if (Auth.authenticate(authId, authPass))
+			return;
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PhaseBook");
 		EntityManager em = emf.createEntityManager();
 		EntityTransaction tx = em.getTransaction();
@@ -202,10 +244,14 @@ public class PhasebookUserBean implements PhasebookUserRemote {
 		em.close();
 		emf.close();
 		if(!from.equals(to))
-			EmailUtils.postSent(to, from, text, null, getNUnreadUserPosts(to));
+			EmailUtils.postSent(to, from, text, null, getNUnreadUserPosts(to, authId, authPass));
 	}
 	
-	public void addPost(PhasebookUser from, PhasebookUser to, String text, String photoLink, String privacy){
+	public void addPost(PhasebookUser from, PhasebookUser to, String text, String photoLink, String privacy,
+			Object authId, Object authPass)
+	{
+		if (Auth.authenticate(authId, authPass))
+			return;
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PhaseBook");
 		EntityManager em = emf.createEntityManager();
 		EntityTransaction tx = em.getTransaction();
@@ -221,12 +267,16 @@ public class PhasebookUserBean implements PhasebookUserRemote {
 		
 		tx.commit();
 		if(!from.equals(to))
-			EmailUtils.postSent(to, from, text, photo, getNUnreadUserPosts(to));
+			EmailUtils.postSent(to, from, text, photo, getNUnreadUserPosts(to, authId, authPass));
 		em.close();
 		emf.close();
 	}
 	
-	public Photo addPhoto(String photoLink){
+	public Photo addPhoto(String photoLink,
+			Object authId, Object authPass)
+	{
+		if (Auth.authenticate(authId, authPass))
+			return null;
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PhaseBook");
 		EntityManager em = emf.createEntityManager();
 		EntityTransaction tx = em.getTransaction();
@@ -242,8 +292,11 @@ public class PhasebookUserBean implements PhasebookUserRemote {
 		return photo;
 	}
 	
-	public void invite(PhasebookUser hostUser, PhasebookUser invitedUser)
+	public void invite(PhasebookUser hostUser, PhasebookUser invitedUser,
+			Object authId, Object authPass)
 	{
+		if (Auth.authenticate(authId, authPass))
+			return;
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PhaseBook");
 		EntityManager em = emf.createEntityManager();
 		EntityTransaction tx = em.getTransaction();
@@ -258,8 +311,11 @@ public class PhasebookUserBean implements PhasebookUserRemote {
 		emf.close();
 	}
 	
-	public void setProfilePicture(PhasebookUser user, Photo photo)
+	public void setProfilePicture(PhasebookUser user, Photo photo,
+			Object authId, Object authPass)
 	{
+		if (Auth.authenticate(authId, authPass))
+			return;
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PhaseBook");
 		EntityManager em = emf.createEntityManager();
 		EntityTransaction tx = em.getTransaction();
@@ -274,13 +330,17 @@ public class PhasebookUserBean implements PhasebookUserRemote {
 		
 	}
 
-	public void deposit(Object id, Float money) {
+	public void deposit(Object id, Float money,
+			Object authId, Object authPass)
+	{
+		if (Auth.authenticate(authId, authPass))
+			return;
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PhaseBook");
 		EntityManager em = emf.createEntityManager();
 		EntityTransaction tx = em.getTransaction();
 		
 		tx.begin();
-		PhasebookUser user = getUserById(id);
+		PhasebookUser user = getUserById(id, authId, authPass);
 		user.setMoney(user.getMoney() + money);
 		em.merge(user);
 		tx.commit();
@@ -288,7 +348,11 @@ public class PhasebookUserBean implements PhasebookUserRemote {
 		emf.close();
 	}
 	
-	public List<PhasebookUser> getUserFriendships(String id) {
+	public List<PhasebookUser> getUserFriendships(String id,
+			Object authId, Object authPass)
+	{
+		if (Auth.authenticate(authId, authPass))
+			return null;
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PhaseBook");
 		EntityManager em = emf.createEntityManager();
 		PhasebookUser user = em.find(PhasebookUser.class, Integer.parseInt(id.toString()));
@@ -309,53 +373,38 @@ public class PhasebookUserBean implements PhasebookUserRemote {
 			if (friendship.isAccepted_())
 				friends.add(friendship.getInvitedUser());
 		}
+		em.close();
+		emf.close();
 		return friends;
 	}
 	
-	public void editAccount(Object id, String name, String photo, String password) {
+	public void editAccount(Object id, String name, String photo, String password,
+			Object authId, Object authPass)
+	{
+		if (Auth.authenticate(authId, authPass))
+			return;
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PhaseBook");
 		EntityManager em = emf.createEntityManager();
 		EntityTransaction tx = em.getTransaction();
 		
 		tx.begin();
-		PhasebookUser user = getUserById(id);
+		PhasebookUser user = getUserById(id, authId, authPass);
 		user.setName(name);
 		PhotoBean photoEJB = new PhotoBean();
-		user.setPhoto(photoEJB.getPhotoById(photo));
+		user.setPhoto(photoEJB.getPhotoById(photo, authId, authPass));
 		if (password != null && password.length() > 0)
-			user.setPassword(byteArrayToHexString(computeHash(password + "salt" + user.getEmail())));
+			user.setPassword(password);
 		em.merge(user);
 		tx.commit();
 		em.close();
 		emf.close();
 	}
 	
-	private String byteArrayToHexString(byte[] b) {
-		StringBuffer sb = new StringBuffer(b.length * 2);
-		for (int i = 0; i < b.length; i++) {
-			int v = b[i] & 0xff;
-			if (v < 16)
-				sb.append('0');
-			sb.append(Integer.toHexString(v));
-		}
-		return sb.toString().toUpperCase();
-	}
-
-	private byte[] computeHash(String x) {
-		java.security.MessageDigest d = null;
-		try {
-			d = java.security.MessageDigest.getInstance("SHA-1");
-		} catch (NoSuchAlgorithmException e) {
-			e.printStackTrace();
-			d = null;
-		}
-		d.reset();
-		d.update(x.getBytes());
-		return d.digest();
-	}
-	
-	public int getNUnreadUserPosts(PhasebookUser user)
+	public int getNUnreadUserPosts(PhasebookUser user,
+			Object authId, Object authPass)
 	{
+		if (Auth.authenticate(authId, authPass))
+			return -1;
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PhaseBook");
 		EntityManager em = emf.createEntityManager();
 		
@@ -365,8 +414,25 @@ public class PhasebookUserBean implements PhasebookUserRemote {
 		q.setParameter("user",user);
 		q.setParameter("status",false);
 		
-		return q.getResultList().size();
+		int result = q.getResultList().size();
+		em.close();
+		emf.close();
+		return result;
 	}
-
 	
+	public Photo getUserPhoto(PhasebookUser user,
+			Object authId, Object authPass)
+	{
+		if (Auth.authenticate(authId, authPass))
+			return null;
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PhaseBook");
+		EntityManager em = emf.createEntityManager();
+		
+		em.merge(user);
+		
+		em.close();
+		emf.close();
+		
+		return user.getPhoto();
+	}
 }

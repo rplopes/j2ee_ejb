@@ -3,6 +3,7 @@ package phasebook.lottery;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -29,7 +30,7 @@ public class Lottery implements Serializable {
 	private int lotteryNumber;
 	
 	@Column(name="LOTTERY_DATE")
-	private Timestamp lotteryDate;
+	private Timestamp lotteryDate = new Timestamp(new Date().getTime());
 	
 	@ElementCollection  
 	private List<LotteryBet> lotteryBets = new ArrayList<LotteryBet>();

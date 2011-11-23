@@ -10,22 +10,28 @@
 	PhasebookUser user;
 	Object userId;
 	Friendship fs;
-	PhasebookUser me = userBean.getUserById(session.getAttribute("id"));
+	PhasebookUser me = userBean.getUserById(session.getAttribute("id"),
+			session.getAttribute("id"), session.getAttribute("password"));
 	
 	int relationshipType = -1;
 	if(request.getParameter("id") == null){
 		userId =  session.getAttribute("id");
-		user = userBean.getUserById(userId);
+		user = userBean.getUserById(userId,
+				session.getAttribute("id"), session.getAttribute("password"));
 	}
 	else{
 		userId =  request.getParameter("id");
 		try {
-			Utils.getUserBean().getUserById(request.getParameter("id")).getName();
-			user = userBean.getUserById(userId);
-			relationshipType = Utils.getFriendshipBean().friendshipStatus(me,user);
+			Utils.getUserBean().getUserById(request.getParameter("id"),
+					session.getAttribute("id"), session.getAttribute("password")).getName();
+			user = userBean.getUserById(userId,
+					session.getAttribute("id"), session.getAttribute("password"));
+			relationshipType = Utils.getFriendshipBean().friendshipStatus(me,user,
+					session.getAttribute("id"), session.getAttribute("password"));
 		} catch (Exception e) {
 			userId =  session.getAttribute("id");
-			user = userBean.getUserById(session.getAttribute("id"));
+			user = userBean.getUserById(session.getAttribute("id"),
+					session.getAttribute("id"), session.getAttribute("password"));
 		}
 	}
 	
@@ -50,8 +56,10 @@
 <table width="100%">
 	<tr>
 		<td width="120">
-			<% if (user.getPhoto()!=null){ 
-				String photoURL = Utils.MAIN_PATH + userId.toString() + "/"+user.getPhoto().getName();
+			<% if (userBean.getUserPhoto(user,
+					session.getAttribute("id"), session.getAttribute("password"))!=null){ 
+				String photoURL = Utils.MAIN_PATH + userId.toString() + "/"+userBean.getUserPhoto(user,
+						session.getAttribute("id"), session.getAttribute("password")).getName();
 			%>
 				<%= Utils.a("user&id="+userId.toString(), Utils.img(photoURL)) %>
 			<% } %>
@@ -95,7 +103,8 @@
 			<td style="text-align: right">
 				<select name="privacy">
 					<option value="0" <% if (privacy.compareTo("0")==0) { %>selected<% } %>>Public</option>
-					<% if (Utils.getFriendshipBean().friendshipStatus(me, user) == 3 || me.equals(user) ){ %>
+					<% if (Utils.getFriendshipBean().friendshipStatus(me, user,
+							session.getAttribute("id"), session.getAttribute("password")) == 3 || me.equals(user) ){ %>
 						<option value="1" <% if (privacy.compareTo("1")==0) { %>selected<% } %>>Private</option>
 					<% } %>
 				</select>
@@ -111,9 +120,9 @@
 	<li id="tab3" onclick="selectFriends()">Friends</li>
 </ul>
 
-<div id="tabposts"><% pageContext.include("/WEB-INF/profile/posts.jsp"); %></div>
-<div id="tabphotos"><% pageContext.include("/WEB-INF/profile/photos.jsp"); %></div>
-<div id="tabfriends"><% pageContext.include("/WEB-INF/profile/friends.jsp"); %></div>
+<div id="tabposts" style="display: none"><% pageContext.include("/WEB-INF/profile/posts.jsp"); %></div>
+<div id="tabphotos" style="display: none"><% pageContext.include("/WEB-INF/profile/photos.jsp"); %></div>
+<div id="tabfriends" style="display: none"><% pageContext.include("/WEB-INF/profile/friends.jsp"); %></div>
 <script>
 	selectPosts();
 </script>

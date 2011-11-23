@@ -5,7 +5,8 @@
 
 <% 
 	PhasebookUserRemote userBean = Utils.getUserBean();
-	List users = userBean.getUsersFromSearch(request.getParameter("search"));
+	List users = userBean.getUsersFromSearch(request.getParameter("search"),
+			session.getAttribute("id"), session.getAttribute("password"));
 %>
 
 <h1>Search users for "<%= Utils.text(request.getParameter("search")) %>"</h1>

@@ -1,8 +1,9 @@
 package phasebook.user;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.*;
@@ -25,10 +26,10 @@ private static final long serialVersionUID = 1L;
 	private float money;
 	
 	@Column(name="CREATED_AT")
-	private Date createdAt;
+	private Timestamp createdAt = new Timestamp(new Date().getTime());
 	
 	@Column(name="DELETED_AT")
-	private Date deletedAt;
+	private Timestamp deletedAt;
 	
 	@OneToOne
 	@JoinColumn(name="PHOTO_ID", referencedColumnName = "PHOTO_ID")
@@ -106,11 +107,11 @@ private static final long serialVersionUID = 1L;
 		this.email = email;
 	}
 
-	public String getPassword() {
+	protected String getPassword() {
 		return password;
 	}
 
-	public void setPassword(String password) {
+	protected void setPassword(String password) {
 		this.password = password;
 	}
 
@@ -122,19 +123,19 @@ private static final long serialVersionUID = 1L;
 		this.money = money;
 	}
 
-	public Date getCreatedAt() {
+	public Timestamp getCreatedAt() {
 		return createdAt;
 	}
 
-	public void setCreatedAt(Date createdAt) {
+	public void setCreatedAt(Timestamp createdAt) {
 		this.createdAt = createdAt;
 	}
 
-	public Date getDeletedAt() {
+	public Timestamp getDeletedAt() {
 		return deletedAt;
 	}
 
-	public void setDeletedAt(Date deletedAt) {
+	public void setDeletedAt(Timestamp deletedAt) {
 		this.deletedAt = deletedAt;
 	}
 

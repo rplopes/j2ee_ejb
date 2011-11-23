@@ -11,6 +11,7 @@ import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
+import phasebook.auth.Auth;
 import phasebook.lottery.*;
 import phasebook.post.Post;
 import phasebook.user.*;
@@ -18,9 +19,13 @@ import phasebook.user.*;
 @Stateless
 public class LotteryBetBean implements LotteryBetRemote {
 	
-	public boolean createBet(Object id, int number) {
+	public boolean createBet(Object id, int number,
+			Object authId, Object authPass)
+	{
+		if (Auth.authenticate(authId, authPass))
+			return false;
 		PhasebookUserBean userEJB = new PhasebookUserBean();
-		PhasebookUser user = userEJB.getUserById(id);
+		PhasebookUser user = userEJB.getUserById(id, authId, authPass);
 		LotteryBean lotteryEJB = new LotteryBean();
 		Lottery lottery = lotteryEJB.getCurrentDraw();
 		
@@ -38,9 +43,7 @@ public class LotteryBetBean implements LotteryBetRemote {
 			bet.setLottery(lottery);
 			em.persist(bet);
 			em.refresh(bet);
-			tx.commit();em.persist(bet);em.persist(bet);
-			em.refresh(bet);
-			em.refresh(bet);
+			tx.commit();
 			em.close();
 			emf.close();
 		} catch(Exception e) {
@@ -49,17 +52,29 @@ public class LotteryBetBean implements LotteryBetRemote {
 		return true;
 	}
 	
-	public List<LotteryBet> userCurrentBets(Object id) {
-		return userBets(id, false);
+	public List<LotteryBet> userCurrentBets(Object id,
+			Object authId, Object authPass)
+	{
+		if (Auth.authenticate(authId, authPass))
+			return null;
+		return userBets(id, false, authId, authPass);
 	}
 	
-	public List<LotteryBet> userOldBets(Object id) {
-		return userBets(id, true);
+	public List<LotteryBet> userOldBets(Object id,
+			Object authId, Object authPass)
+	{
+		if (Auth.authenticate(authId, authPass))
+			return null;
+		return userBets(id, true, authId, authPass);
 	}
 	
-	private List<LotteryBet> userBets(Object id, boolean old) {
+	private List<LotteryBet> userBets(Object id, boolean old,
+			Object authId, Object authPass)
+	{
+		if (Auth.authenticate(authId, authPass))
+			return null;
 		PhasebookUserBean userEJB = new PhasebookUserBean();
-		PhasebookUser user = userEJB.getUserById(id);
+		PhasebookUser user = userEJB.getUserById(id, authId, authPass);
 		List<LotteryBet> allBets = user.getLotteryBets();
 		List<LotteryBet> theseBets = new ArrayList<LotteryBet>();
 		for (int i=0; i<allBets.size(); i++) {
@@ -82,6 +97,17 @@ public class LotteryBetBean implements LotteryBetRemote {
 		return bets;
 	}
 	
+	public List getAllCurrentBets() {
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PhaseBook");
+		EntityManager em = emf.createEntityManager();
+		
+		Query q = em.createQuery("SELECT u FROM LotteryBet u WHERE u.valueWon = -1");
+		List bets = q.getResultList();
+		em.close();
+		emf.close();
+		return bets;
+	}
+	
 	public void updateBet(LotteryBet bet, float won) {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PhaseBook");
 		EntityManager em = emf.createEntityManager();
@@ -95,8 +121,11 @@ public class LotteryBetBean implements LotteryBetRemote {
 		emf.close();
 	}
 	
-	public Object checkUnreadBetResults(PhasebookUser entry)
+	public Object checkUnreadBetResults(PhasebookUser entry,
+			Object authId, Object authPass)
 	{
+		if (Auth.authenticate(authId, authPass))
+			return null;
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PhaseBook");
 		EntityManager em = emf.createEntityManager();
 		
@@ -109,8 +138,11 @@ public class LotteryBetBean implements LotteryBetRemote {
 		return bets;
 	}
 	
-	public void readUnreadBets(PhasebookUser entry)
+	public void readUnreadBets(PhasebookUser entry,
+			Object authId, Object authPass)
 	{
+		if (Auth.authenticate(authId, authPass))
+			return;
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PhaseBook");
 		EntityManager em = emf.createEntityManager();
 		
@@ -125,13 +157,13 @@ public class LotteryBetBean implements LotteryBetRemote {
 			result=q.getResultList();
 			EntityTransaction tx = em.getTransaction();
 			tx.begin();
-			Post post;
+			LotteryBet bet;
 			for(Object object : result)
 			{
-				post = (Post)object;
-				em.merge(post);
-				post.setRead_(true);
-				em.merge(post);
+				bet = (LotteryBet)object;
+				em.merge(bet);
+				bet.setRead_(true);
+				em.merge(bet);
 			}
 			tx.commit();
 			em.close();

@@ -1,6 +1,7 @@
 package phasebook.post;
 
-import java.sql.Date;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -8,16 +9,21 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
+import javax.persistence.NonUniqueResultException;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
+import phasebook.auth.Auth;
 import phasebook.user.PhasebookUser;
 
 @Stateless
 public class PostBean implements PostRemote {
 	
-	public void readUnreadPosts(PhasebookUser entry)
+	public void readUnreadPosts(PhasebookUser entry,
+			Object authId, Object authPass)
 	{
+		if (Auth.authenticate(authId, authPass))
+			return;
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PhaseBook");
 		EntityManager em = emf.createEntityManager();
 		
@@ -52,8 +58,11 @@ public class PostBean implements PostRemote {
 		}
 	}
 	
-	public void removePost(String myPostId)
+	public void removePost(String myPostId,
+			Object authId, Object authPass)
 	{
+		if (Auth.authenticate(authId, authPass))
+			return;
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PhaseBook");
 		EntityManager em = emf.createEntityManager();
 		
@@ -69,8 +78,7 @@ public class PostBean implements PostRemote {
 			tx.begin();
 
 			em.merge(result);
-			java.util.Date today = new java.util.Date();
-			result.setDeletedAt(new Date(today.getTime()));
+			result.setDeletedAt(new Timestamp(new Date().getTime()));
 			em.merge(result);
 				
 			tx.commit();
@@ -85,20 +93,54 @@ public class PostBean implements PostRemote {
 		}		
 	}
 	
-	public Object getUnreadPosts(PhasebookUser entry)
+	public Object getUnreadPosts(PhasebookUser entry,
+			Object authId, Object authPass)
 	{
+		if (Auth.authenticate(authId, authPass))
+			return null;
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PhaseBook");
 		EntityManager em = emf.createEntityManager();
 		
 		List<Object> result = null;
 		
-		Query q = em.createQuery("SELECT u FROM Post u WHERE u.toUser = :user AND u.read_ = :readStatus");
+		Query q = em.createQuery("SELECT u FROM Post u WHERE u.fromUser != :me AND u.toUser = :user AND u.read_ = :readStatus");
+		q.setParameter("me",entry);
 		q.setParameter("user",entry);
 		q.setParameter("readStatus", false);
 		
 		result=(List<Object>) q.getResultList();
+
+		em.close();
+		emf.close();
 		
 		return result;
+	}
+	
+	public Post getPostById(Object id,
+			Object authId, Object authPass)
+	{
+		if (Auth.authenticate(authId, authPass))
+			return null;
+		int postId = Integer.parseInt(id.toString());
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PhaseBook");
+		EntityManager em = emf.createEntityManager();
+		
+		try {
+			Post post = em.find(Post.class, postId);
+			em.persist(post);
+			em.refresh(post);
+			em.close();
+			emf.close();
+			return post;
+		} catch(NoResultException ex){
+			em.close();
+			emf.close();
+			return null;
+		} catch(NonUniqueResultException ex){
+			em.close();
+			emf.close();
+			return null;
+		}
 	}
 	
 }
