@@ -50,11 +50,14 @@ public class CreateFriendshipForm extends HttpServlet {
 				PhasebookUserRemote userBean;
 				userBean = (PhasebookUserRemote) ctx.lookup("PhasebookUserBean/remote");
 				
-				PhasebookUser fromUser = userBean.getUserById(session.getAttribute("id"));
-				PhasebookUser toUser = userBean.getUserById(request.getParameter("toUser"));
+				PhasebookUser fromUser = userBean.getUserById(session.getAttribute("id"),
+						session.getAttribute("id"), session.getAttribute("password"));
+				PhasebookUser toUser = userBean.getUserById(request.getParameter("toUser"),
+						session.getAttribute("id"), session.getAttribute("password"));
 	
 	
-				userBean.invite(fromUser, toUser);
+				userBean.invite(fromUser, toUser,
+						session.getAttribute("id"), session.getAttribute("password"));
 				response.sendRedirect("?p=user&id="+request.getParameter("toUser").toString());
 				
 			}
@@ -73,10 +76,13 @@ public class CreateFriendshipForm extends HttpServlet {
 				userBean = (PhasebookUserRemote) ctx.lookup("PhasebookUserBean/remote");
 				friendshipBean = (FriendshipRemote) ctx.lookup("FriendshipBean/remote");
 				
-				PhasebookUser fromUser = userBean.getUserById(session.getAttribute("id"));
-				PhasebookUser toUser = userBean.getUserById(request.getParameter("toUser"));
+				PhasebookUser fromUser = userBean.getUserById(session.getAttribute("id"),
+						session.getAttribute("id"), session.getAttribute("password"));
+				PhasebookUser toUser = userBean.getUserById(request.getParameter("toUser"),
+						session.getAttribute("id"), session.getAttribute("password"));
 	
-				friendshipBean.acceptFriendship(toUser,fromUser);
+				friendshipBean.acceptFriendship(toUser,fromUser,
+						session.getAttribute("id"), session.getAttribute("password"));
 				response.sendRedirect("?p=user&id="+request.getParameter("toUser").toString());
 				
 			}

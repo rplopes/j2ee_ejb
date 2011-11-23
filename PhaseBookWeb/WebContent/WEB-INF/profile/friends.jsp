@@ -5,12 +5,14 @@
 <%
 	String id;
 	try {
-		id = "" + Utils.getUserBean().getUserById(request.getParameter("id")).getId();
+		id = "" + Utils.getUserBean().getUserById(request.getParameter("id"),
+				session.getAttribute("id"), session.getAttribute("password")).getId();
 	} catch (Exception e) {
 		id = session.getAttribute("id").toString();
 	}
 	PhasebookUserRemote user = Utils.getUserBean();
-	List<PhasebookUser> friends = user.getUserFriendships(id);
+	List<PhasebookUser> friends = user.getUserFriendships(id,
+			session.getAttribute("id"), session.getAttribute("password"));
 	if (friends.size() == 0) {
 %>
 		<p>This user has no friends.</p>

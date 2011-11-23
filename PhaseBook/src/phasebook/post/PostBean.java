@@ -8,16 +8,21 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
+import javax.persistence.NonUniqueResultException;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
+import phasebook.auth.Auth;
 import phasebook.user.PhasebookUser;
 
 @Stateless
 public class PostBean implements PostRemote {
 	
-	public void readUnreadPosts(PhasebookUser entry)
+	public void readUnreadPosts(PhasebookUser entry,
+			Object authId, Object authPass)
 	{
+		if (Auth.authenticate(authId, authPass))
+			return;
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PhaseBook");
 		EntityManager em = emf.createEntityManager();
 		
@@ -52,8 +57,11 @@ public class PostBean implements PostRemote {
 		}
 	}
 	
-	public void removePost(String myPostId)
+	public void removePost(String myPostId,
+			Object authId, Object authPass)
 	{
+		if (Auth.authenticate(authId, authPass))
+			return;
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PhaseBook");
 		EntityManager em = emf.createEntityManager();
 		
@@ -85,8 +93,11 @@ public class PostBean implements PostRemote {
 		}		
 	}
 	
-	public Object getUnreadPosts(PhasebookUser entry)
+	public Object getUnreadPosts(PhasebookUser entry,
+			Object authId, Object authPass)
 	{
+		if (Auth.authenticate(authId, authPass))
+			return null;
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PhaseBook");
 		EntityManager em = emf.createEntityManager();
 		
@@ -98,8 +109,38 @@ public class PostBean implements PostRemote {
 		q.setParameter("readStatus", false);
 		
 		result=(List<Object>) q.getResultList();
+
+		em.close();
+		emf.close();
 		
 		return result;
+	}
+	
+	public Post getPostById(Object id,
+			Object authId, Object authPass)
+	{
+		if (Auth.authenticate(authId, authPass))
+			return null;
+		int postId = Integer.parseInt(id.toString());
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PhaseBook");
+		EntityManager em = emf.createEntityManager();
+		
+		try {
+			Post post = em.find(Post.class, postId);
+			em.persist(post);
+			em.refresh(post);
+			em.close();
+			emf.close();
+			return post;
+		} catch(NoResultException ex){
+			em.close();
+			emf.close();
+			return null;
+		} catch(NonUniqueResultException ex){
+			em.close();
+			emf.close();
+			return null;
+		}
 	}
 	
 }

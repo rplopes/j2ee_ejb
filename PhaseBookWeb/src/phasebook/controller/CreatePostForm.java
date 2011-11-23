@@ -73,7 +73,8 @@ public class CreatePostForm extends HttpServlet {
 			PhasebookUserRemote userBean;
 			userBean = (PhasebookUserRemote) ctx.lookup("PhasebookUserBean/remote");
 			
-			PhasebookUser fromUser = userBean.getUserById(session.getAttribute("id"));
+			PhasebookUser fromUser = userBean.getUserById(session.getAttribute("id"),
+					session.getAttribute("id"), session.getAttribute("password"));
 			PhasebookUser toUser = null;
 
 			String text = "";
@@ -114,7 +115,8 @@ public class CreatePostForm extends HttpServlet {
 							privacy = item.getString();
 						}
 						else if (item.getFieldName().compareTo("toUser")==0){
-							toUser = userBean.getUserById(item.getString());
+							toUser = userBean.getUserById(item.getString(),
+									session.getAttribute("id"), session.getAttribute("password"));
 						}
 					} else {
 						/*
@@ -149,9 +151,11 @@ public class CreatePostForm extends HttpServlet {
 					}
 				}
 				if(hasFile)
-					userBean.addPost(fromUser, toUser, text, time+ext, privacy);
+					userBean.addPost(fromUser, toUser, text, time+ext, privacy,
+							session.getAttribute("id"), session.getAttribute("password"));
 				else
-					userBean.addPost(fromUser, toUser, text, privacy);
+					userBean.addPost(fromUser, toUser, text, privacy,
+							session.getAttribute("id"), session.getAttribute("password"));
 				response.sendRedirect(Utils.url("user&id="+toUser.getId()));
 			}catch(FileUploadException ex) {
 				log("Error encountered while parsing the request",ex);

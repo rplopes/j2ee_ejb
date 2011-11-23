@@ -9,20 +9,20 @@ import phasebook.post.Post;
 @Remote
 public interface PhasebookUserRemote {
 	
-	//public String showName(String name, String email, String password);
 	public int create(String name, String email, String password);
 	public int login(String email, String password);
-	public PhasebookUser getUserById(Object id);
-	public List getUsersFromSearch(Object search);
-	public List<Post> getUserReceivedPosts(Object userId);
-	public void addPost(PhasebookUser from, PhasebookUser to, String text, String privacy);
-	public void invite(PhasebookUser hostUser, PhasebookUser invitedUser);
-	public void addPost(PhasebookUser from, PhasebookUser to, String text, String photoLink, String privacy);
-	public List getUserPublicPosts(Object userId);
-	public Photo addPhoto(String photoLink);
-	public void setProfilePicture(PhasebookUser user, Photo photo);
-	public void deposit(Object id, Float money);
-	public List<PhasebookUser> getUserFriendships(String id);
-	public void editAccount(Object id, String name, String photo, String password);
-	public int getNUnreadUserPosts(PhasebookUser user);
+	public PhasebookUser getUserById(Object id, Object authId, Object authPass);
+	public List getUsersFromSearch(Object search, Object authId, Object authPass);
+	public List<Post> getUserReceivedPosts(Object userId, Object authId, Object authPass);
+	public void addPost(PhasebookUser from, PhasebookUser to, String text, String privacy, Object authId, Object authPass);
+	public void invite(PhasebookUser hostUser, PhasebookUser invitedUser, Object authId, Object authPass);
+	public void addPost(PhasebookUser from, PhasebookUser to, String text, String photoLink, String privacy, Object authId, Object authPass);
+	public List getUserPublicPosts(Object userId, Object authId, Object authPass);
+	public Photo addPhoto(String photoLink, Object authId, Object authPass);
+	public void setProfilePicture(PhasebookUser user, Photo photo, Object authId, Object authPass);
+	public void deposit(Object id, Float money, Object authId, Object authPass);
+	public List<PhasebookUser> getUserFriendships(String id, Object authId, Object authPass);
+	public void editAccount(Object id, String name, String photo, String password, Object authId, Object authPass);
+	public int getNUnreadUserPosts(PhasebookUser user, Object authId, Object authPass);
+	public Photo getUserPhoto(PhasebookUser user, Object authId, Object authPass);
 }

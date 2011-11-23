@@ -106,11 +106,11 @@ private static final long serialVersionUID = 1L;
 		this.email = email;
 	}
 
-	public String getPassword() {
+	protected String getPassword() {
 		return password;
 	}
 
-	public void setPassword(String password) {
+	protected void setPassword(String password) {
 		this.password = password;
 	}
 

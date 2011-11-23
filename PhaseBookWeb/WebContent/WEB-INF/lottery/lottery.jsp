@@ -19,11 +19,11 @@
 <h2>
 	Next Draw:
 	<%
-		if (Utils.getLotteryBean().nextDrawDate()==null) {
+		if (Utils.getLotteryBean().nextDrawDate(session.getAttribute("id"), session.getAttribute("password"))==null) {
 	%>
 			No draws at the moment, come back later
 	<% } else { %>
-		<%= Utils.getLotteryBean().nextDrawDate() %>
+		<%= Utils.getLotteryBean().nextDrawDate(session.getAttribute("id"), session.getAttribute("password")) %>
 	<% } %>
 </h2>
 
@@ -31,7 +31,7 @@
 	<p style="color:red"><%= session.getAttribute("errorBet") %></p>
 <% session.removeAttribute("errorBet");} %>
 
-<% if (Utils.getLotteryBean().nextDrawDate()!=null) { %>
+<% if (Utils.getLotteryBean().nextDrawDate(session.getAttribute("id"), session.getAttribute("password"))!=null) { %>
 <form method="POST" action="BetForm">
 
 	<select name="number">
@@ -39,9 +39,11 @@
 			<option value="<%= i %>"><%= i %></option>
 		<% } %>
 	</select>
-	<input type="submit" value="Place bet" <% if(Utils.getUserBean().getUserById(session.getAttribute("id")).getMoney() < 1){ %>disabled="disabled"<% } %>>
+	<input type="submit" value="Place bet" <% if(Utils.getUserBean().getUserById(session.getAttribute("id"),
+			session.getAttribute("id"), session.getAttribute("password")).getMoney() < 1){ %>disabled="disabled"<% } %>>
 	<p class="tip">
-		(costs 1 L&euro;, you have <%= Utils.getUserBean().getUserById(session.getAttribute("id")).getMoney() %> L&euro;)
+		(costs 1 L&euro;, you have <%= Utils.getUserBean().getUserById(session.getAttribute("id"),
+				session.getAttribute("id"), session.getAttribute("password")).getMoney() %> L&euro;)
 	</p>
 	
 </form>
@@ -64,7 +66,8 @@
 <p>
 	<%
 		LotteryBetRemote lotteryBet = Utils.getLotteryBetBean();
-		List<LotteryBet> bets = lotteryBet.userCurrentBets(session.getAttribute("id"));
+		List<LotteryBet> bets = lotteryBet.userCurrentBets(session.getAttribute("id"),
+				session.getAttribute("id"), session.getAttribute("password"));
 		if (bets == null || bets.size() == 0) {
 	%>
 			You have no bets for the next draw.
@@ -85,7 +88,8 @@
 
 <p>
 	<%
-		bets = lotteryBet.userOldBets(session.getAttribute("id"));
+		bets = lotteryBet.userOldBets(session.getAttribute("id"),
+				session.getAttribute("id"), session.getAttribute("password"));
 		if (bets == null || bets.size() == 0) {
 	%>
 			You have never placed any bet.

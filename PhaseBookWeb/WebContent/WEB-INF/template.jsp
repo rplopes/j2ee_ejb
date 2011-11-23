@@ -46,10 +46,15 @@
 				<td id="menupopupheader" width="150" style="text-align:right; color:white" onmouseover="showPopup()" onmouseout="hidePopup()">
 					<%
 						String notifications = "";
-						if (Utils.getNumberNotifications(Utils.getUserBean().getUserById(session.getAttribute("id")))>0)
-							notifications = " (" + Utils.getNumberNotifications(Utils.getUserBean().getUserById(session.getAttribute("id"))) + ")";
+						if (Utils.getNumberNotifications(Utils.getUserBean().getUserById(session.getAttribute("id"),
+								session.getAttribute("id"), session.getAttribute("password")),
+								session.getAttribute("id"), session.getAttribute("password"))>0)
+							notifications = " (" + Utils.getNumberNotifications(Utils.getUserBean().getUserById(session.getAttribute("id"),
+									session.getAttribute("id"), session.getAttribute("password")),
+									session.getAttribute("id"), session.getAttribute("password")) + ")";
 					%>
-					<%= Utils.text(Utils.getUserBean().getUserById(session.getAttribute("id")).getName() + notifications) %>
+					<%= Utils.text(Utils.getUserBean().getUserById(session.getAttribute("id"),
+							session.getAttribute("id"), session.getAttribute("password")).getName() + notifications) %>
 					<div id="menupopup">
 						<ul>
 							<li>
@@ -62,7 +67,8 @@
 								<%= Utils.a("notifications", "Notifications" + notifications) %>
 							</li>
 							<li>
-								<%= Utils.a("lottery", "Lottery ("+Utils.getUserBean().getUserById(session.getAttribute("id")).getMoney()+" L&euro;)") %>
+								<%= Utils.a("lottery", "Lottery ("+Utils.getUserBean().getUserById(session.getAttribute("id"),
+										session.getAttribute("id"), session.getAttribute("password")).getMoney()+" L&euro;)") %>
 							</li>
 							<li>
 								<%= Utils.a("logout", "Logout") %>

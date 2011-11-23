@@ -1,10 +1,12 @@
 package phasebook.controller;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
+import phasebook.auth.Auth;
 import phasebook.friendship.FriendshipRemote;
 import phasebook.post.PostRemote;
 import phasebook.lottery.LotteryRemote;
@@ -137,14 +139,44 @@ public class Utils {
 	}
 	
 	// Get the number of notifications
-	public static int getNumberNotifications(PhasebookUser user)
+	public static int getNumberNotifications(PhasebookUser user,
+			Object authId, Object authPass)
 	{
+		if (Auth.authenticate(authId, authPass))
+			return -1;
 		int count = 0;
-		count += ((List<Object>)getPostBean().getUnreadPosts(user)).size();
-		count += ((List<Object>)getLotteryBetBean().checkUnreadBetResults(user)).size();
-		count += ((List<Object>)getFriendshipBean().getNewFriendshipInvites(user)).size();
-		count += ((List<Object>)getFriendshipBean().getNewFriendshipAcceptances(user)).size();
+		count += ((List<Object>)getPostBean().getUnreadPosts(user,
+				authId, authPass)).size();
+		count += ((List<Object>)getLotteryBetBean().checkUnreadBetResults(user,
+				authId, authPass)).size();
+		count += ((List<Object>)getFriendshipBean().getNewFriendshipInvites(user,
+				authId, authPass)).size();
+		count += ((List<Object>)getFriendshipBean().getNewFriendshipAcceptances(user,
+				authId, authPass)).size();
 		return count;
 	}
 
+	public static String byteArrayToHexString(byte[] b) {
+		StringBuffer sb = new StringBuffer(b.length * 2);
+		for (int i = 0; i < b.length; i++) {
+			int v = b[i] & 0xff;
+			if (v < 16)
+				sb.append('0');
+			sb.append(Integer.toHexString(v));
+		}
+		return sb.toString().toUpperCase();
+	}
+
+	public static byte[] computeHash(String x) {
+		java.security.MessageDigest d = null;
+		try {
+			d = java.security.MessageDigest.getInstance("SHA-1");
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+			d = null;
+		}
+		d.reset();
+		d.update(x.getBytes());
+		return d.digest();
+	}
 }

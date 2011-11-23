@@ -51,7 +51,8 @@ public class GetMoneyForm extends HttpServlet {
 			if (error != null)
 				session.setAttribute("error", error);
 			else
-				user.deposit(session.getAttribute("id"), Float.parseFloat(money));
+				user.deposit(session.getAttribute("id"), Float.parseFloat(money),
+						session.getAttribute("id"), session.getAttribute("password"));
 			response.sendRedirect(Utils.url("lottery"));
 		} catch (NamingException e) {
 			e.printStackTrace();

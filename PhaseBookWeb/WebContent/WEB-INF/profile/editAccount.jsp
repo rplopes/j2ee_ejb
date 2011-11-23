@@ -7,20 +7,23 @@
 	PhasebookUserRemote userBean = Utils.getUserBean();
 	PhasebookUser user;
 	Object userId;
-	PhasebookUser me = userBean.getUserById(session.getAttribute("id"));
 	
 	if(request.getParameter("id") == null){
 		userId =  session.getAttribute("id");
-		user = userBean.getUserById(userId);
+		user = userBean.getUserById(userId,
+				session.getAttribute("id"), session.getAttribute("password"));
 	}
 	else{
 		userId =  request.getParameter("id");
 		try {
-			Utils.getUserBean().getUserById(request.getParameter("id")).getName();
-			user = userBean.getUserById(userId);
+			Utils.getUserBean().getUserById(request.getParameter("id"),
+					session.getAttribute("id"), session.getAttribute("password")).getName();
+			user = userBean.getUserById(userId,
+					session.getAttribute("id"), session.getAttribute("password"));
 		} catch (Exception e) {
 			userId =  session.getAttribute("id");
-			user = userBean.getUserById(session.getAttribute("id"));
+			user = userBean.getUserById(session.getAttribute("id"),
+					session.getAttribute("id"), session.getAttribute("password"));
 		}
 	}
 %>
@@ -57,7 +60,8 @@
 				<div style="width: 200px; height: 250px; overflow: auto; border: 1px solid black; padding: 6px">
 					<p><input type="radio" name="avatar" id="0" value="0" <% if (user.getPhoto()==null) { %>checked<% } %>> <label for="0">No photo</label></p>
 					<%
-						List<Post> posts = userBean.getUserReceivedPosts(userId);
+						List<Post> posts = userBean.getUserReceivedPosts(userId,
+								session.getAttribute("id"), session.getAttribute("password"));
 						for (int i=posts.size()-1; i>=0; i--) {
 							if (posts.get(i).getPhoto()!=null && posts.get(i).getDeletedAt()==null) {
 								String photoURL = Utils.MAIN_PATH+userId.toString()+"/"+posts.get(i).getPhoto().getName();

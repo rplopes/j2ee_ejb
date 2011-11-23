@@ -5,6 +5,8 @@ import javax.naming.InitialContext;
 
 public class LotteryMain {
 	
+	private static String pass = "thispassword";
+	
 	/*
 	 * Should only be run to start the internal lottery service if it's not already running
 	 */
@@ -17,8 +19,8 @@ public class LotteryMain {
 		InitialContext ctx = new InitialContext(ht);
 		
 		LotteryRemote timer = (LotteryRemote) ctx.lookup("LotteryBean/remote");
-		timer.reset();
-		timer.scheduleTimer(1);
+		timer.reset(pass);
+		timer.scheduleTimer(1, pass);
 	}
 
 }

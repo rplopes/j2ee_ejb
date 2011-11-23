@@ -45,9 +45,10 @@
 	else if (p.compareTo("user") == 0 && session.getAttribute("id") != null && request.getParameter("id") != null)
 	{
 		try {
-			title = Utils.getUserBean().getUserById(request.getParameter("id")).getName();
+			title = Utils.getUserBean().getUserById(request.getParameter("id"),session.getAttribute("id"), session.getAttribute("password")).getName();
 		} catch (Exception e) {
-			title = Utils.getUserBean().getUserById(session.getAttribute("id")).getName();
+			title = Utils.getUserBean().getUserById(session.getAttribute("id"),
+					session.getAttribute("id"), session.getAttribute("password")).getName();
 		}
 		url   = "profile/profile.jsp";
 	}
@@ -73,8 +74,9 @@
 	// Default
 	else
 	{
-		if(session.getAttribute("id") != null){
-			title = Utils.getUserBean().getUserById(session.getAttribute("id")).getName();
+		if(session.getAttribute("id") != null && session.getAttribute("password")!=null){
+			title = Utils.getUserBean().getUserById(session.getAttribute("id"),
+					session.getAttribute("id"), session.getAttribute("password")).getName();
 			url   = "profile/profile.jsp";
 		}
 		else

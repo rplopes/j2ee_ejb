@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import phasebook.post.PostRemote;
+import phasebook.user.PhasebookUser;
 import phasebook.user.PhasebookUserRemote;
 
 /**
@@ -51,8 +52,21 @@ public class RemovePostForm extends HttpServlet {
 			String post = request.getParameter("postId");
 			String userId = request.getParameter("userId");
 			
-			myPost.removePost(post);
-			response.sendRedirect(Utils.url("user&id="+myUser.getUserById(userId).getId()));
+			myPost.removePost(post,
+					session.getAttribute("id"), session.getAttribute("password"));
+			PhasebookUser user = myUser.getUserById(userId,
+					session.getAttribute("id"), session.getAttribute("password"));
+			
+			if (myPost.getPostById(post,
+					session.getAttribute("id"), session.getAttribute("password")).getPhoto() != null && user.getPhoto() != null)
+			{
+				if(user.getPhoto().getId() == myPost.getPostById(post,
+						session.getAttribute("id"), session.getAttribute("password")).getPhoto().getId())
+					myUser.setProfilePicture(user, null,
+							session.getAttribute("id"), session.getAttribute("password"));
+			}
+			response.sendRedirect(Utils.url("user&id="+myUser.getUserById(userId,
+					session.getAttribute("id"), session.getAttribute("password")).getId()));
 
 		} catch (NamingException e) {
 			e.printStackTrace();

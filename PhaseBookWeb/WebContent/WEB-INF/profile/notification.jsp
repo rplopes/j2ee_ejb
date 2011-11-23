@@ -10,14 +10,17 @@
 
 <%
 	PhasebookUserRemote userBean = Utils.getUserBean();
-	PhasebookUser me = userBean.getUserById(session.getAttribute("id"));
-	if (Utils.getNumberNotifications(me) == 0) {
+	PhasebookUser me = userBean.getUserById(session.getAttribute("id"),
+			session.getAttribute("id"), session.getAttribute("password"));
+	if (Utils.getNumberNotifications(me,
+			session.getAttribute("id"), session.getAttribute("password")) == 0) {
 %>
 		There are no new notifications.
 <%
 	}
 	else {
-	List<Post> posts = (List<Post>)Utils.getPostBean().getUnreadPosts(me);
+	List<Post> posts = (List<Post>)Utils.getPostBean().getUnreadPosts(me,
+			session.getAttribute("id"), session.getAttribute("password"));
 	if (posts.size() > 0) {
 %>
 <h2>New posts</h2>
@@ -38,7 +41,7 @@
 				<b class="user"><%= Utils.a("user&id="+user.getId(), Utils.text(user.getName())) %></b>
 				<% if (posts.get(i).isPrivate_()) { %><i>(private)</i><% } %><br />
 				<% if (posts.get(i).getPhoto()!=null){ 
-					String photoURL = Utils.MAIN_PATH+user.getId()+"/"+posts.get(i).getPhoto().getName();
+					String photoURL = Utils.MAIN_PATH+me.getId()+"/"+posts.get(i).getPhoto().getName();
 				%>
 					<br /> <%= Utils.aAbsolute(photoURL, Utils.img(photoURL)) %>
 				<%} %>
@@ -49,7 +52,8 @@
 <% }} %>
 
 <%
-	List<LotteryBet> bets = (List<LotteryBet>)Utils.getLotteryBetBean().checkUnreadBetResults(me);
+	List<LotteryBet> bets = (List<LotteryBet>)Utils.getLotteryBetBean().checkUnreadBetResults(me,
+			session.getAttribute("id"), session.getAttribute("password"));
 	if (bets.size() > 0) {
 %>
 <h2>New bet results</h2>
@@ -71,7 +75,8 @@
 <% }} %>
 
 <%
-	List<Friendship> requests = (List<Friendship>)Utils.getFriendshipBean().getNewFriendshipInvites(me);
+	List<Friendship> requests = (List<Friendship>)Utils.getFriendshipBean().getNewFriendshipInvites(me,
+			session.getAttribute("id"), session.getAttribute("password"));
 	if (requests.size() > 0) {
 %>
 <h2>New friendship requests</h2>
@@ -97,7 +102,8 @@
 <% }} %>
 
 <%
-	List<Friendship> confirmations = (List<Friendship>)Utils.getFriendshipBean().getNewFriendshipAcceptances(me);
+	List<Friendship> confirmations = (List<Friendship>)Utils.getFriendshipBean().getNewFriendshipAcceptances(me,
+			session.getAttribute("id"), session.getAttribute("password"));
 	if (confirmations.size() > 0) {
 %>
 <h2>New friendship confirmations</h2>
@@ -123,8 +129,11 @@
 <% }} %>
 
 <%
-	Utils.getPostBean().readUnreadPosts(me);
-	Utils.getLotteryBetBean().readUnreadBets(me);
-	Utils.getFriendshipBean().readUnreadFriendshipAcceptances(me);
+	Utils.getPostBean().readUnreadPosts(me,
+			session.getAttribute("id"), session.getAttribute("password"));
+	Utils.getLotteryBetBean().readUnreadBets(me,
+			session.getAttribute("id"), session.getAttribute("password"));
+	Utils.getFriendshipBean().readUnreadFriendshipAcceptances(me,
+			session.getAttribute("id"), session.getAttribute("password"));
 	}
 %>

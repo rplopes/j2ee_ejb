@@ -8,12 +8,12 @@ import phasebook.user.PhasebookUser;
 public interface FriendshipRemote {
 
 	
-	public int friendshipStatus(PhasebookUser user_a, PhasebookUser user_b);
-	public Friendship searchFriendship(PhasebookUser user_a, PhasebookUser user_b);
-	public void acceptFriendship(PhasebookUser toUser, PhasebookUser fromUser);
-	public Object getNewFriendshipAcceptances(PhasebookUser entry);
-	public Object getNewFriendshipInvites(PhasebookUser entry);
-	public void readUnreadFriendshipAcceptances(PhasebookUser entry);
-	public void readUnreadFriendshipInvites(PhasebookUser entry);
+	public int friendshipStatus(PhasebookUser user_a, PhasebookUser user_b, Object authId, Object authPass);
+	public Friendship searchFriendship(PhasebookUser user_a, PhasebookUser user_b, Object authId, Object authPass);
+	public void acceptFriendship(PhasebookUser toUser, PhasebookUser fromUser, Object authId, Object authPass);
+	public Object getNewFriendshipAcceptances(PhasebookUser entry, Object authId, Object authPass);
+	public Object getNewFriendshipInvites(PhasebookUser entry, Object authId, Object authPass);
+	public void readUnreadFriendshipAcceptances(PhasebookUser entry, Object authId, Object authPass);
+	public void readUnreadFriendshipInvites(PhasebookUser entry, Object authId, Object authPass);
 	
 }

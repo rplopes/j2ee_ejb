@@ -55,11 +55,12 @@ public class LoginUserForm extends HttpServlet {
 			}
 			else
 			{
-				password = byteArrayToHexString(computeHash(password + "salt" + email));
+				password = Utils.byteArrayToHexString(Utils.computeHash(password + "salt" + email));
 				
 				int id = user.login(email, password);
 				if(id!=-1){
 					session.setAttribute("id", id);
+					session.setAttribute("password", password);
 					response.sendRedirect(Utils.url(""));
 				}
 				else
@@ -99,33 +100,6 @@ public class LoginUserForm extends HttpServlet {
 		}
 		
 		return null;
-	}
-	
-	private String byteArrayToHexString(byte[] b)
-	{
-		StringBuffer sb = new StringBuffer(b.length * 2);
-		for (int i=0; i<b.length; i++)
-		{
-			int v = b[i] & 0xff;
-			if (v < 16)
-				sb.append('0');
-			sb.append(Integer.toHexString(v));
-		}
-		return sb.toString().toUpperCase();
-	}
-	
-	private byte[] computeHash(String x)
-	{
-		java.security.MessageDigest d = null;
-		try {
-			d = java.security.MessageDigest.getInstance("SHA-1");
-		} catch (NoSuchAlgorithmException e) {
-			e.printStackTrace();
-			d = null;
-		}
-		d.reset();
-		d.update(x.getBytes());
-		return d.digest();
 	}
 
 }

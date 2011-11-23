@@ -10,21 +10,27 @@
 	PhasebookUser user;
 	Object userId;
 	Friendship fs;
-	PhasebookUser me = userBean.getUserById(session.getAttribute("id"));
+	PhasebookUser me = userBean.getUserById(session.getAttribute("id"),
+			session.getAttribute("id"), session.getAttribute("password"));
 	int relationshipType = -1;
 	if(request.getParameter("id") == null){
 		userId =  session.getAttribute("id");
-		user = userBean.getUserById(userId);
+		user = userBean.getUserById(userId,
+				session.getAttribute("id"), session.getAttribute("password"));
 	}
 	else{
 		userId =  request.getParameter("id");
 		try {
-			Utils.getUserBean().getUserById(request.getParameter("id")).getName();
-			user = userBean.getUserById(userId);
-			relationshipType = Utils.getFriendshipBean().friendshipStatus(me,user);
+			Utils.getUserBean().getUserById(request.getParameter("id"),
+					session.getAttribute("id"), session.getAttribute("password")).getName();
+			user = userBean.getUserById(userId,
+					session.getAttribute("id"), session.getAttribute("password"));
+			relationshipType = Utils.getFriendshipBean().friendshipStatus(me,user,
+					session.getAttribute("id"), session.getAttribute("password"));
 		} catch (Exception e) {
 			userId =  session.getAttribute("id");
-			user = userBean.getUserById(session.getAttribute("id"));
+			user = userBean.getUserById(session.getAttribute("id"),
+					session.getAttribute("id"), session.getAttribute("password"));
 		}
 	}
 	
@@ -38,10 +44,13 @@
 	} catch (Exception e) {}
 	
 	List<Post> posts = null;
-	if (Utils.getFriendshipBean().searchFriendship(me, user) != null || me.equals(user) )
-		 posts = userBean.getUserReceivedPosts(userId);
+	if (Utils.getFriendshipBean().friendshipStatus(me, user,
+			session.getAttribute("id"), session.getAttribute("password")) == 3 || me.equals(user) )
+		posts = userBean.getUserReceivedPosts(userId,
+				session.getAttribute("id"), session.getAttribute("password"));
 	else
-		posts = userBean.getUserPublicPosts(userId);
+		posts = userBean.getUserPublicPosts(userId,
+				session.getAttribute("id"), session.getAttribute("password"));
 %>
 <p>
 <%

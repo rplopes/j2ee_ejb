@@ -50,11 +50,13 @@ public class BetForm extends HttpServlet {
 			if (error != null)
 				session.setAttribute("errorBet", error);
 			else
-				if (!bet.createBet(session.getAttribute("id"), Integer.parseInt(number)))
+				if (!bet.createBet(session.getAttribute("id"), Integer.parseInt(number),
+						session.getAttribute("id"), session.getAttribute("password")))
 					session.setAttribute("errorBet", "The draw is already closed, try betting in a new one");
 				else {
 					PhasebookUserRemote user = (PhasebookUserRemote) ctx.lookup("PhasebookUserBean/remote");
-					user.deposit(session.getAttribute("id"), (float)-1);
+					user.deposit(session.getAttribute("id"), (float)-1,
+							session.getAttribute("id"), session.getAttribute("password"));
 				}
 			response.sendRedirect(Utils.url("lottery"));
 		} catch (NamingException e) {

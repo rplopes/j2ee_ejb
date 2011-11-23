@@ -77,7 +77,8 @@ public class AddPhotoForm extends HttpServlet {
 			PhasebookUserRemote userBean;
 			userBean = (PhasebookUserRemote) ctx.lookup("PhasebookUserBean/remote");
 			
-			PhasebookUser user = userBean.getUserById(session.getAttribute("id"));
+			PhasebookUser user = userBean.getUserById(session.getAttribute("id"),
+					session.getAttribute("id"), session.getAttribute("password"));
 			
 			//PrintWriter out = response.getWriter();
 	 
@@ -120,8 +121,10 @@ public class AddPhotoForm extends HttpServlet {
 						long time = System.currentTimeMillis();
 						File file = new File(destinationDir, time+ext );
 						item.write(file);
-						Photo photo = userBean.addPhoto(time+ext);
-						userBean.setProfilePicture(user, photo);
+						Photo photo = userBean.addPhoto(time+ext,
+								session.getAttribute("id"), session.getAttribute("password"));
+						userBean.setProfilePicture(user, photo,
+								session.getAttribute("id"), session.getAttribute("password"));
 						response.sendRedirect(Utils.url(""));
 					}
 				}

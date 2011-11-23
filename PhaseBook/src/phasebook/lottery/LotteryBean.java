@@ -13,15 +13,20 @@ import javax.naming.NamingException;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
+import javax.persistence.NoResultException;
+import javax.persistence.NonUniqueResultException;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
+import phasebook.auth.Auth;
 import phasebook.external.lottery.ExternalLotteryRemote;
 import phasebook.lotterybet.*;
 import phasebook.user.*;
 
 @Stateless
 public class LotteryBean implements LotteryRemote {
+	
+	private static String password = "thispassword";
 	
 	private static float MONEYWIN = 50;
 	
@@ -30,15 +35,22 @@ public class LotteryBean implements LotteryRemote {
 	public static int timerInterval = 1000 * 60;
 	private @Resource SessionContext ctx;
 	  
-	public void scheduleTimer(long milliseconds) {
+	public void scheduleTimer(long milliseconds, String pass) {
+		if (pass.compareTo(password) != 0)
+			return;
 		ctx.getTimerService().createTimer(new Date(new Date().getTime() + milliseconds), "Hello World");  
 	}
 	
-	public void reset() {
+	public void reset(String pass) {
+		if (pass.compareTo(password) != 0)
+			return;
 		ctx.getTimerService().getTimers().clear();
 	}
 	
-	public String nextDrawDate() {
+	public String nextDrawDate(Object authId, Object authPass)
+	{
+		if (Auth.authenticate(authId, authPass))
+			return null;
 		if (nextDraw == null)
 			return null;
 		DateFormat dateFormat = new SimpleDateFormat("HH:mm - dd/MM/yyyy");
@@ -60,7 +72,7 @@ public class LotteryBean implements LotteryRemote {
 			e.printStackTrace();
 		}
 		System.out.println("Phasebook - " + number + ". Next at " + nextDraw);
-		this.scheduleTimer(timerInterval);
+		this.scheduleTimer(timerInterval, password);
 	}
 	
 	@SuppressWarnings("finally")
@@ -115,8 +127,19 @@ public class LotteryBean implements LotteryRemote {
 	}
 	
 	private void giveMoney(int id) {
-		PhasebookUserBean userEJB = new PhasebookUserBean();
-		userEJB.deposit((Object)id, MONEYWIN);
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PhaseBook");
+		EntityManager em = emf.createEntityManager();
+		
+		try {
+			PhasebookUser user = em.find(PhasebookUser.class, id);
+			user.setMoney(user.getMoney() + MONEYWIN);
+			em.merge(user);
+		} catch(NoResultException ex){
+		} catch(NonUniqueResultException ex){
+		} finally {
+			em.close();
+			emf.close();
+		}
 		System.out.println("User " + id + "won " + MONEYWIN);
 	}
 	
@@ -128,7 +151,6 @@ public class LotteryBean implements LotteryRemote {
 		tx.begin();
     	Lottery lottery = new Lottery();
     	lottery.setLotteryNumber(-1);
-    	//lottery.setLotteryDate(new java.sql.Date(date.getTimeInMillis()));
 		em.persist(lottery);
 		tx.commit();
 		

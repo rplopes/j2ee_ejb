@@ -54,7 +54,12 @@ public class EditAccountForm extends HttpServlet {
 				response.sendRedirect(Utils.url("edit"));
 			}
 			else {
-				user.editAccount(session.getAttribute("id"), name, photo, password1);
+				password1 = Utils.byteArrayToHexString(Utils.computeHash(password1 + "salt" + 
+						user.getUserById(session.getAttribute("id"),
+								session.getAttribute("id"), session.getAttribute("password")).getEmail()));
+				user.editAccount(session.getAttribute("id"), name, photo, password1,
+						session.getAttribute("id"), session.getAttribute("password"));
+				session.setAttribute("password", password1);
 				response.sendRedirect(Utils.url(""));
 			}
 			
